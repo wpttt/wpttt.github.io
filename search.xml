@@ -217,7 +217,7 @@ EOF</code></pre><p>绘图效果如下图：</p>
 </ol>
 <p><strong><font color=deepskyblue>注意：此时生成的dataframe中index为时间段，不可直接用于时间坐标（时间坐标用时间点）</font></strong><br>3. 设置x轴时间格式，<code>ax.xaxis.set_major_formatter(mdate.DateFormatter(&#39;%Y-%m-%d&#39;))</code><br>4. 对index时间段取start_time作为时间点，利用始末时间点生成时间序列，作为x轴坐标；<code>pd.date_range</code><br>5. 绘图</p>
 <blockquote>
-<p><strong>:warning:<font color=deepskyblue>Notice:</font></strong><br>可选参数<em>color</em>， <em>edgecolor</em>， <em>linewidth</em>，<em>xerr</em>和<em>yerr</em>可以是标量或长度等于bar数目的序列。这是绘制条形图作为堆叠条形图或烛台图的基础。<br>详细信息:<em>xerr</em>和<em>yerr</em>被直接传递到:meth:’errorbar’，所以他们也可以有形状2xN,独立规定上下误差。</p>
+<p><strong><font color=deepskyblue>Notice:</font></strong><br>可选参数<em>color</em>， <em>edgecolor</em>， <em>linewidth</em>，<em>xerr</em>和<em>yerr</em>可以是标量或长度等于bar数目的序列。这是绘制条形图作为堆叠条形图或烛台图的基础。:wstar:<br>详细信息：<em>xerr</em>和<em>yerr</em>被直接传递到:meth:’errorbar’，所以他们也可以有形状2xN,独立规定上下误差。</p>
 </blockquote>
 ]]></content>
       <categories>
