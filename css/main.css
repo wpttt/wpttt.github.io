@@ -1221,7 +1221,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #1c1447;
+  background: #327ac8;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2617,4 +2617,14 @@ code {
   padding: 1px 4px;
   word-break: break-all;
   border-radius: 4px;
+}
+.emoji {
+  height: 1.2em;
+}
+img.emoji {
+  margin: 0 0.05em 0 0.1em;
+  vertical-align: -0.1em;
+  padding: 0px !important;
+  border: none !important;
+  display: inline !important;
 }

@@ -22,15 +22,15 @@
     var CONFIG = {"hostname":"wpttt.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null,"activeClass":"disqus"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="以下配置以windows系统为例 python2、python3安装及环境变量配置安装略">
+  <meta name="description" content="虽然如今python2已经停止更新，但作为重要的python发行版，考虑到更新的成本，众多常用软件仍然再继续使用python2，比如ArcGIS以及一些专用软件等。因此有时候不得不遇到python2和python3装在同一台计算机上的情况，那么作为python重要的包管理软件pip2和pip3的共存问题也随之而来。   其实这个问题并非每次都会遇到，但是也不能保证每次都遇不到。本文就是在遇到这">
 <meta property="og:type" content="article">
 <meta property="og:title" content="pip2&amp;pip3共存">
 <meta property="og:url" content="http://wpttt.github.io/2020/04/15/pip2-pip3%E5%85%B1%E5%AD%98/index.html">
 <meta property="og:site_name" content="GSEASRX">
-<meta property="og:description" content="以下配置以windows系统为例 python2、python3安装及环境变量配置安装略">
+<meta property="og:description" content="虽然如今python2已经停止更新，但作为重要的python发行版，考虑到更新的成本，众多常用软件仍然再继续使用python2，比如ArcGIS以及一些专用软件等。因此有时候不得不遇到python2和python3装在同一台计算机上的情况，那么作为python重要的包管理软件pip2和pip3的共存问题也随之而来。   其实这个问题并非每次都会遇到，但是也不能保证每次都遇不到。本文就是在遇到这">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-04-15T00:47:21.000Z">
-<meta property="article:modified_time" content="2020-04-16T01:28:53.904Z">
+<meta property="article:modified_time" content="2020-04-16T07:13:59.522Z">
 <meta property="article:author" content="Wang PT">
 <meta property="article:tag" content="Python">
 <meta property="article:tag" content="pip">
@@ -228,7 +228,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-16 09:28:53" itemprop="dateModified" datetime="2020-04-16T09:28:53+08:00">2020-04-16</time>
+                <time title="修改时间：2020-04-16 15:13:59" itemprop="dateModified" datetime="2020-04-16T15:13:59+08:00">2020-04-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -265,14 +265,21 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>以下配置以windows系统为例</p>
-<h1 id="python2、python3安装及环境变量配置"><a href="#python2、python3安装及环境变量配置" class="headerlink" title="python2、python3安装及环境变量配置"></a>python2、python3安装及环境变量配置</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>略</p>
+        <p>  虽然如今python2已经停止更新，但作为重要的python发行版，考虑到更新的成本，众多常用软件仍然再继续使用python2，比如ArcGIS以及一些专用软件等。因此有时候不得不遇到python2和python3装在同一台计算机上的情况，那么作为python重要的包管理软件pip2和pip3的共存问题也随之而来。<br>
+  其实这个问题并非每次都会遇到，但是也不能保证每次都遇不到。本文就是在遇到这个问题的时候搜集自网络的，简要介绍了解决pip2、pip3共存的方案。</p>
 <a id="more"></a>
-<h2 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h2><p>安装python2、python3后添加如下路径至系统变量path(以python2.7和python3.6为例)：</p>
+<p>  以下配置以windows系统为例</p>
+<h1>python2、python3安装及环境变量配置</h1>
+<p>此处，假定python2、python3均已安装</p>
+<h2 id="配置环境变量"><a class="header-anchor" href="#配置环境变量">¶</a>配置环境变量</h2>
+<p>安装python2、python3后添加如下路径至系统变量path(以python2.7和python3.6为例)：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">C:\Program Files\Python36</span><br><span class="line">C:\Program Files\Python36\Scripts</span><br><span class="line">C:\Program Files\Python27</span><br><span class="line">C:\Program Files\Python27\Scripts</span><br></pre></td></tr></table></figure>
-<h2 id="修改python可执行文件名"><a href="#修改python可执行文件名" class="headerlink" title="修改python可执行文件名"></a>修改python可执行文件名</h2><p>找到python2和python3的安装目录，修改python2.7.9和python3.6.8中python.exe和pythonw.exe的名称为python2.exe、pythonw2.exe和python3.exe、pythonw3.exe</p>
-<h2 id="测试运行"><a href="#测试运行" class="headerlink" title="测试运行"></a>测试运行</h2><p>然后再cmd命令行输入<code>python2</code>、<code>python3</code>测试运行情况，确保python2和python3可正常启动</p>
-<h1 id="pip2和pip3设置"><a href="#pip2和pip3设置" class="headerlink" title="pip2和pip3设置"></a>pip2和pip3设置</h1><p>Python 安装包需要用到包管理工具pip，但是当同时安装python2和python3的时候，pip只是其中一个版本，以下将提供一个修改方式，即重新安装两个版本的pip，使得两个python版本的pip能够共存。</p>
+<h2 id="修改python可执行文件名"><a class="header-anchor" href="#修改python可执行文件名">¶</a>修改python可执行文件名</h2>
+<p>找到python2和python3的安装目录，修改python2.7.9和python3.6.8中python.exe和pythonw.exe的名称为python2.exe、pythonw2.exe和python3.exe、pythonw3.exe</p>
+<h2 id="测试运行"><a class="header-anchor" href="#测试运行">¶</a>测试运行</h2>
+<p>然后再cmd命令行输入<code>python2</code>、<code>python3</code>测试运行情况，确保python2和python3可正常启动</p>
+<h1>pip2和pip3设置</h1>
+<p>Python 安装包需要用到包管理工具pip，但是当同时安装python2和python3的时候，pip只是其中一个版本，以下将提供一个修改方式，即重新安装两个版本的pip，使得两个python版本的pip能够共存。</p>
 <p>在DOS命令框输入命令</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -m pip install --upgrade pip --force-reinstall</span><br></pre></td></tr></table></figure>
 <p>显示重新安装成功。</p>
@@ -281,7 +288,8 @@
 <p>显示重新安装成功。</p>
 <p>现在可以通过<code>pip2 -V</code> 和 <code>pip3 -V</code> 查看两个版本的pip信息，以后只需运行<code>pip2 install XXX</code>和<code>pip3 install XXX</code>即可安装各自的python包</p>
 <p>至此，pip2和pip3 修改成功。</p>
-<h1 id="pip故障无法运行时"><a href="#pip故障无法运行时" class="headerlink" title="pip故障无法运行时"></a>pip故障无法运行时</h1><p>今天遇到pip运行报错的问题</p>
+<h1>pip故障无法运行时</h1>
+<p>今天遇到pip运行报错的问题</p>
 <p>Python报错:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AttributeError: module &#39;importlib._bootstrap&#39; has no attribute &#39;SourceFileLoader</span><br></pre></td></tr></table></figure>
 <p>解决方案：</p>
@@ -405,7 +413,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#python2、python3安装及环境变量配置"><span class="nav-number">1.</span> <span class="nav-text">python2、python3安装及环境变量配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">1.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置环境变量"><span class="nav-number">1.2.</span> <span class="nav-text">配置环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改python可执行文件名"><span class="nav-number">1.3.</span> <span class="nav-text">修改python可执行文件名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试运行"><span class="nav-number">1.4.</span> <span class="nav-text">测试运行</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pip2和pip3设置"><span class="nav-number">2.</span> <span class="nav-text">pip2和pip3设置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pip故障无法运行时"><span class="nav-number">3.</span> <span class="nav-text">pip故障无法运行时</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">1.</span> <span class="nav-text">python2、python3安装及环境变量配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置环境变量"><span class="nav-number">1.1.</span> <span class="nav-text">配置环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改python可执行文件名"><span class="nav-number">1.2.</span> <span class="nav-text">修改python可执行文件名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试运行"><span class="nav-number">1.3.</span> <span class="nav-text">测试运行</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">2.</span> <span class="nav-text">pip2和pip3设置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">3.</span> <span class="nav-text">pip故障无法运行时</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -463,7 +471,7 @@
 
   <div class="links-of-blogroll motion-element">
     <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
-      Links
+      Related Links
     </div>
     <ul class="links-of-blogroll-list">
         <li class="links-of-blogroll-item">
