@@ -216,8 +216,7 @@ errors.</li>
   <entry>
     <title>Hexo中添加emoji表情</title>
     <url>/2020/04/16/Hexo%E4%B8%AD%E6%B7%BB%E5%8A%A0emoji%E8%A1%A8%E6%83%85/</url>
-    <content><![CDATA[<h1>前言</h1>
-<p>本文介绍如何让Hexo支持emoji表情。</p>
+    <content><![CDATA[<p>本文介绍如何让Hexo支持emoji表情。</p>
 <a id="more"></a>
 <p>首先，要知道markdown 变成html的转换器叫做markdown渲染器。在Hexo中默认的markdown渲染器使用的是<a href="https://github.com/hexojs/hexo-renderer-marked" target="_blank" rel="noopener">hexo-renderer-marked</a>，此渲染器不支持插件扩展；要让hexo支持emoji，则需要将渲染器更换为支持插件扩展的渲染器。网络博主们推荐<a href="https://github.com/celsomiranda/hexo-renderer-markdown-it" target="_blank" rel="noopener">hexo-renderer-markdown-it</a>，该渲染器可通过使用<a href="https://github.com/markdown-it/markdown-it-emoji" target="_blank" rel="noopener">markdown-it-emoji</a>插件来支持emoji渲染。</p>
 <h1>安装</h1>
