@@ -1,6 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>windows下awk指定文本输出格式</title>
+    <url>/2020/04/17/windows%E4%B8%8Bawk%E6%8C%87%E5%AE%9A%E6%96%87%E6%9C%AC%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F/</url>
+    <content><![CDATA[<h3 id="1️⃣-printf用法"><a class="header-anchor" href="#1️⃣-printf用法">¶</a><img class="emoji" draggable="false" alt="1️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/31-20e3.png"/> printf用法</h3>
+<a id="more"></a>
+<p>补齐只能补<code>0</code>或空格字符</p>
+<p>cmd中写法为：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">echo <span class="number">1.22</span> | gawk <span class="string">"&#123;printf "</span><span class="string">""</span>%<span class="number">7.3</span>f<span class="string">""</span><span class="string">" <span class="variable">$1</span>&#125;"</span></span><br></pre></td></tr></table></figure>
+<p>bat批处理脚本中写法为：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">echo <span class="number">1.22</span> | gawk <span class="string">"&#123;printf "</span><span class="string">""</span>%%<span class="number">7.3</span>f<span class="string">""</span><span class="string">", <span class="variable">$1</span>&#125;"</span></span><br></pre></td></tr></table></figure>
+<p>输出结果为</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="number">1.220</span>  <span class="comment"># 最前面有两个空字符</span></span><br></pre></td></tr></table></figure>
+<h3 id="2️⃣-常用数据类型"><a class="header-anchor" href="#2️⃣-常用数据类型">¶</a><img class="emoji" draggable="false" alt="2️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/32-20e3.png"/> 常用数据类型</h3>
+<table>
+<thead>
+<tr>
+<th>字符</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>c</td>
+<td>字符</td>
+</tr>
+<tr>
+<td>s</td>
+<td>字符串</td>
+</tr>
+<tr>
+<td>d</td>
+<td>整数</td>
+</tr>
+<tr>
+<td>f</td>
+<td>浮点数</td>
+</tr>
+<tr>
+<td>ld</td>
+<td>长整数</td>
+</tr>
+</tbody>
+</table>
+<p><img class="emoji" draggable="false" alt="😂" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png"/><img class="emoji" draggable="false" alt="😂" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png"/><img class="emoji" draggable="false" alt="😂" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png"/>其他的百度 <img class="emoji" draggable="false" alt="😂" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png"/><img class="emoji" draggable="false" alt="😂" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png"/><img class="emoji" draggable="false" alt="😂" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png"/></p>
+<p><code>%07s</code>表示保留7位字符，并右对齐，用0补齐</p>
+<p><code>%-7s</code>表示保留7位字符，并左对齐，用空字符补齐</p>
+<p><code>%07d</code>表示保留7位整数，用0补齐</p>
+<p><code>%7.3f</code>表示总长度7位字符，并保留三位小数，不足7为用空格补齐，并右对齐，</p>
+<p><code>%-7.3f</code>表示总长度7位字符，并保留三位小数，不足7为用空格补齐，并左对齐，</p>
+<p><code>%07.3f</code>时不足7为用0补齐，并右对齐</p>
+]]></content>
+      <categories>
+        <category>数据处理</category>
+      </categories>
+      <tags>
+        <tag>awk</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hexo中添加emoji表情</title>
     <url>/2020/04/16/Hexo%E4%B8%AD%E6%B7%BB%E5%8A%A0emoji%E8%A1%A8%E6%83%85/</url>
     <content><![CDATA[<center>
@@ -97,6 +155,79 @@
         <tag>Hexo</tag>
         <tag>Markdown</tag>
         <tag>emoji</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>mac包管理工具Homebrew</title>
+    <url>/2020/04/17/mac%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7Homebrew/</url>
+    <content><![CDATA[<center>
+<p><img src="https://wpttt.github.io/images/brew.png" alt=""></p>
+<p>本文介绍macOS下的软件包管理工具Homebrew，适合mac新手。</center></p>
+<a id="more"></a>
+<h1>简介</h1>
+<p><a href="https://brew.sh/index_zh-cn" target="_blank" rel="noopener">Homebrew</a> 是macOS下的一个软件包管理器，用于安装各种命令行工，是macOS开发环境搭建必不可少的工具。起作用类似centOS下的yum和Debian、Ubuntu下的apt，可以用命令行实现软件的安装、卸载、更新等。</p>
+<h1>要求</h1>
+<ul>
+<li>
+<p>Intel CPU</p>
+</li>
+<li>
+<p>OS X 10.9 及以上</p>
+</li>
+<li>
+<p>Command Line Tools for Xcode</p>
+<p>Command Line Tools for Xcode中包含了常用的命令行开发工具，比如gcc/g++编译器、 make、git等，是安装很多其他软件的基础。在 Terminal 中执行如下命令以安装 Command Line Tools for Xcode:</p>
+  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">xcode-select --install</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>在弹出的窗口点击“Install”即可。</p>
+<p>此处安装的Command Line Tools可能不是最新版，可以到“App Store”的“更新”中查看是 否有相关更新。如果有，则升级到最新版。 今后 App Store 来的系统大版本号升级的时候，可能需要更新 Command line tools， 小版本升级无需更新。</p>
+<h1>安装</h1>
+<p>homebrew的安装方法现已更新，从ruby转到了bash，网上的很多方法都是基于ruby的，可能无法完成安装，最新的安装操作引导请参考<a href="https://brew.sh/index_zh-cn" target="_blank" rel="noopener">homebrew主页</a>。</p>
+<p>在终端中执行如下命令以安装Homebrew:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/bin/bash -c <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)</span>"</span></span><br></pre></td></tr></table></figure>
+<p>也可以根据网上的说法，首先打开<a href="https://raw.githubusercontent.com/Homebrew/install/master/install.sh" target="_blank" rel="noopener">https://raw.githubusercontent.com/Homebrew/install/master/install.sh</a>，将页面代码全选复制进新建的install.sh文件，然后在bash下运行该脚本。</p>
+<p>当然，这种做法主要是为了解决国内访问brew官方镜像速度低尔导致安装速度慢的问题，因此如果总是因为安装速度慢导致安装失败，则可以尝试该方法，但在运行install.sh前需要将其内brew-repo所指向的镜像仓库链接改为国内镜像，如清华、科大等镜像仓库。此处以清华镜像为例，找到下面这行代码：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">BREW_REPO=<span class="string">"https://github.com/Homebrew/brew"</span></span><br></pre></td></tr></table></figure>
+<p>将其改为：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">BREW_REPO=<span class="string">"https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"</span></span><br></pre></td></tr></table></figure>
+<p>然后在终端执行该脚本，进行安装。</p>
+<h1>Homebrew的常见用法</h1>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">brew search xxx     # 模糊搜索某个软件</span><br><span class="line">brew install xxx    # 安装某个软件</span><br><span class="line">brew upgrade xxx    # 升级某个软件</span><br><span class="line">brew uninstall xxx  # 卸载某个软件</span><br><span class="line">brew list xxx       # 列出某个软件的所有相关文件</span><br></pre></td></tr></table></figure>
+<p>运行<code>brew help</code>查看详细用法。</p>
+<h1>几个相关概念：</h1>
+<ul>
+<li>Formulae：Formulae指定了如何安装某个软件，因而每个软件对应一个Formulae</li>
+<li>Bottle：从软件源码编译安装软件会比较慢，Bootle是已经编译好的二进制版本，以加快软件安装速度</li>
+<li>Tap：软件仓库，包含了一系列软件的Fromulae</li>
+</ul>
+<h1>常用的软件仓库Taps</h1>
+<h2 id="1-homebrew-core-内置核心仓库"><a class="header-anchor" href="#1-homebrew-core-内置核心仓库">¶</a>1. <a href="https://github.com/Homebrew/homebrew-core" target="_blank" rel="noopener">homebrew-core</a> 内置核心仓库</h2>
+<p>详细介绍见官方主页。</p>
+<h2 id="2-Homebrew-Cask"><a class="header-anchor" href="#2-Homebrew-Cask">¶</a>2. Homebrew-Cask</h2>
+<p>Homebrew只能用于安装命令行软件，不能用于安装带图形界面的软件。Homebrew-Cask是Homebrew的 一个扩展，可以用于安装带图形界面软件。</p>
+<p>在终端执行如下命令以安装Homebrew-Cask:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">brew tap homebrew/cask    <span class="comment"># caskroom主仓库</span></span><br><span class="line">brew tap homebrew/cask-fonts   <span class="comment"># caskroom字体仓库</span></span><br></pre></td></tr></table></figure>
+<p>常见用法:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">brew cask search xxx     <span class="comment"># 模糊搜索某个软件</span></span><br><span class="line">brew cask install xxx    <span class="comment"># 安装某个软件</span></span><br><span class="line">brew cask uninstall xxx  <span class="comment"># 卸载某个软件</span></span><br><span class="line">brew cask reinstall      <span class="comment"># 重新安装某个软件</span></span><br><span class="line">brew cask cleanup        <span class="comment"># 清理缓存</span></span><br></pre></td></tr></table></figure>
+<p>安装字体:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">brew cask install font-source-code-pro</span><br></pre></td></tr></table></figure>
+<h1>更新源</h1>
+<p>由于homebrew官方源都是存放在<a href="https://github.com/" target="_blank" rel="noopener">Github</a>上的，因此中国大陆用户的访问速度被极大限制，所以下一步需要做的就是更换为国内源。</p>
+<p>国内源可选的也比较多，此处推荐使用<a href="https://mirrors.tuna.tsinghua.edu.cn/" target="_blank" rel="noopener">清华源</a>或者<a href="https://mirrors.ustc.edu.cn/" target="_blank" rel="noopener">科大源</a>。</p>
+<p>可以通过下面的命令更新源（此处以科大源为例）</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 替换brew程序本身:</span></span><br><span class="line"><span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo)</span>"</span> </span><br><span class="line"><span class="comment"># 替换为科大源</span></span><br><span class="line">git remote <span class="built_in">set</span>-url origin https://mirrors.ustc.edu.cn/brew.git</span><br><span class="line"><span class="comment"># 替换为清华源</span></span><br><span class="line">$ git remote <span class="built_in">set</span>-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git</span><br><span class="line"></span><br><span class="line"><span class="comment"># 替换homebrew-core.git:</span></span><br><span class="line"><span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo)</span>/Library/Taps/homebrew/homebrew-core"</span></span><br><span class="line"><span class="comment"># 科大源</span></span><br><span class="line">git remote <span class="built_in">set</span>-url origin https://mirrors.ustc.edu.cn/homebrew-core.git</span><br><span class="line"><span class="comment"># 清华源</span></span><br><span class="line">git remote <span class="built_in">set</span>-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git</span><br><span class="line"></span><br><span class="line"><span class="comment"># 替换homebrew-cask.git:</span></span><br><span class="line"><span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo)</span>"</span>/Library/Taps/caskroom/homebrew-cask</span><br><span class="line"><span class="comment"># 科大</span></span><br><span class="line">git remote <span class="built_in">set</span>-url origin https://mirrors.ustc.edu.cn/homebrew-cask.git</span><br><span class="line"><span class="comment"># 清华</span></span><br><span class="line">git remote <span class="built_in">set</span>-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-cask.git</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 替换homebrew-bottles:</span></span><br><span class="line"><span class="comment"># 科大</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles'</span> &gt;&gt; ~/.bash_profile</span><br><span class="line"><span class="comment"># 清华</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles'</span> &gt;&gt; ~/.bash_profile</span><br><span class="line"><span class="comment"># 使环境变量生效</span></span><br><span class="line"><span class="built_in">source</span> ~/.bash_profile</span><br><span class="line"></span><br><span class="line"><span class="comment"># 更新源、应用生效</span></span><br><span class="line">brew update</span><br></pre></td></tr></table></figure>
+<p>如果你之前折腾过不少导致你的Homebrew有点问题，那么可以尝试使用如下方案：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 诊断Homebrew的问题:</span></span><br><span class="line">$ brew doctor</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重置brew.git设置:</span></span><br><span class="line">$ <span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo)</span>"</span></span><br><span class="line">$ git fetch</span><br><span class="line">$ git reset --hard origin/master</span><br><span class="line"></span><br><span class="line"><span class="comment"># homebrew-core.git同理:</span></span><br><span class="line">$ <span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo)</span>/Library/Taps/homebrew/homebrew-core"</span></span><br><span class="line">$ git fetch</span><br><span class="line">$ git reset --hard origin/master</span><br><span class="line"></span><br><span class="line"><span class="comment"># 应用生效:</span></span><br><span class="line">$ brew update</span><br></pre></td></tr></table></figure>
+<p>重置更新源 某些时候也有换回官方源的需求</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 重置brew.git:</span></span><br><span class="line">$ <span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo)</span>"</span></span><br><span class="line">$ git remote <span class="built_in">set</span>-url origin https://github.com/Homebrew/brew.git</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重置homebrew-core.git:</span></span><br><span class="line">$ <span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo)</span>/Library/Taps/homebrew/homebrew-core"</span></span><br><span class="line">$ git remote <span class="built_in">set</span>-url origin https://github.com/Homebrew/homebrew-core.git</span><br></pre></td></tr></table></figure>
+<p>以上如果有任何的不成功就用 brew doctor 查找原因。</p>
+]]></content>
+      <categories>
+        <category>后端</category>
+      </categories>
+      <tags>
+        <tag>mac</tag>
       </tags>
   </entry>
   <entry>
@@ -209,79 +340,6 @@
       </categories>
       <tags>
         <tag>GMT</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>mac包管理工具Homebrew</title>
-    <url>/2020/04/17/mac%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7Homebrew/</url>
-    <content><![CDATA[<center>
-<p><img src="https://wpttt.github.io/images/brew.png" alt=""></p>
-<p>本文介绍macOS下的软件包管理工具Homebrew，适合mac新手。</center></p>
-<a id="more"></a>
-<h1>简介</h1>
-<p><a href="https://brew.sh/index_zh-cn" target="_blank" rel="noopener">Homebrew</a> 是macOS下的一个软件包管理器，用于安装各种命令行工，是macOS开发环境搭建必不可少的工具。起作用类似centOS下的yum和Debian、Ubuntu下的apt，可以用命令行实现软件的安装、卸载、更新等。</p>
-<h1>要求</h1>
-<ul>
-<li>
-<p>Intel CPU</p>
-</li>
-<li>
-<p>OS X 10.9 及以上</p>
-</li>
-<li>
-<p>Command Line Tools for Xcode</p>
-<p>Command Line Tools for Xcode中包含了常用的命令行开发工具，比如gcc/g++编译器、 make、git等，是安装很多其他软件的基础。在 Terminal 中执行如下命令以安装 Command Line Tools for Xcode:</p>
-  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">xcode-select --install</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>在弹出的窗口点击“Install”即可。</p>
-<p>此处安装的Command Line Tools可能不是最新版，可以到“App Store”的“更新”中查看是 否有相关更新。如果有，则升级到最新版。 今后 App Store 来的系统大版本号升级的时候，可能需要更新 Command line tools， 小版本升级无需更新。</p>
-<h1>安装</h1>
-<p>homebrew的安装方法现已更新，从ruby转到了bash，网上的很多方法都是基于ruby的，可能无法完成安装，最新的安装操作引导请参考<a href="https://brew.sh/index_zh-cn" target="_blank" rel="noopener">homebrew主页</a>。</p>
-<p>在终端中执行如下命令以安装Homebrew:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/bin/bash -c <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)</span>"</span></span><br></pre></td></tr></table></figure>
-<p>也可以根据网上的说法，首先打开<a href="https://raw.githubusercontent.com/Homebrew/install/master/install.sh" target="_blank" rel="noopener">https://raw.githubusercontent.com/Homebrew/install/master/install.sh</a>，将页面代码全选复制进新建的install.sh文件，然后在bash下运行该脚本。</p>
-<p>当然，这种做法主要是为了解决国内访问brew官方镜像速度低尔导致安装速度慢的问题，因此如果总是因为安装速度慢导致安装失败，则可以尝试该方法，但在运行install.sh前需要将其内brew-repo所指向的镜像仓库链接改为国内镜像，如清华、科大等镜像仓库。此处以清华镜像为例，找到下面这行代码：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">BREW_REPO=<span class="string">"https://github.com/Homebrew/brew"</span></span><br></pre></td></tr></table></figure>
-<p>将其改为：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">BREW_REPO=<span class="string">"https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"</span></span><br></pre></td></tr></table></figure>
-<p>然后在终端执行该脚本，进行安装。</p>
-<h1>Homebrew的常见用法</h1>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">brew search xxx     # 模糊搜索某个软件</span><br><span class="line">brew install xxx    # 安装某个软件</span><br><span class="line">brew upgrade xxx    # 升级某个软件</span><br><span class="line">brew uninstall xxx  # 卸载某个软件</span><br><span class="line">brew list xxx       # 列出某个软件的所有相关文件</span><br></pre></td></tr></table></figure>
-<p>运行<code>brew help</code>查看详细用法。</p>
-<h1>几个相关概念：</h1>
-<ul>
-<li>Formulae：Formulae指定了如何安装某个软件，因而每个软件对应一个Formulae</li>
-<li>Bottle：从软件源码编译安装软件会比较慢，Bootle是已经编译好的二进制版本，以加快软件安装速度</li>
-<li>Tap：软件仓库，包含了一系列软件的Fromulae</li>
-</ul>
-<h1>常用的软件仓库Taps</h1>
-<h2 id="1-homebrew-core-内置核心仓库"><a class="header-anchor" href="#1-homebrew-core-内置核心仓库">¶</a>1. <a href="https://github.com/Homebrew/homebrew-core" target="_blank" rel="noopener">homebrew-core</a> 内置核心仓库</h2>
-<p>详细介绍见官方主页。</p>
-<h2 id="2-Homebrew-Cask"><a class="header-anchor" href="#2-Homebrew-Cask">¶</a>2. Homebrew-Cask</h2>
-<p>Homebrew只能用于安装命令行软件，不能用于安装带图形界面的软件。Homebrew-Cask是Homebrew的 一个扩展，可以用于安装带图形界面软件。</p>
-<p>在终端执行如下命令以安装Homebrew-Cask:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">brew tap homebrew/cask    <span class="comment"># caskroom主仓库</span></span><br><span class="line">brew tap homebrew/cask-fonts   <span class="comment"># caskroom字体仓库</span></span><br></pre></td></tr></table></figure>
-<p>常见用法:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">brew cask search xxx     <span class="comment"># 模糊搜索某个软件</span></span><br><span class="line">brew cask install xxx    <span class="comment"># 安装某个软件</span></span><br><span class="line">brew cask uninstall xxx  <span class="comment"># 卸载某个软件</span></span><br><span class="line">brew cask reinstall      <span class="comment"># 重新安装某个软件</span></span><br><span class="line">brew cask cleanup        <span class="comment"># 清理缓存</span></span><br></pre></td></tr></table></figure>
-<p>安装字体:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">brew cask install font-source-code-pro</span><br></pre></td></tr></table></figure>
-<h1>更新源</h1>
-<p>由于homebrew官方源都是存放在<a href="https://github.com/" target="_blank" rel="noopener">Github</a>上的，因此中国大陆用户的访问速度被极大限制，所以下一步需要做的就是更换为国内源。</p>
-<p>国内源可选的也比较多，此处推荐使用<a href="https://mirrors.tuna.tsinghua.edu.cn/" target="_blank" rel="noopener">清华源</a>或者<a href="https://mirrors.ustc.edu.cn/" target="_blank" rel="noopener">科大源</a>。</p>
-<p>可以通过下面的命令更新源（此处以科大源为例）</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 替换brew程序本身:</span></span><br><span class="line"><span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo)</span>"</span> </span><br><span class="line"><span class="comment"># 替换为科大源</span></span><br><span class="line">git remote <span class="built_in">set</span>-url origin https://mirrors.ustc.edu.cn/brew.git</span><br><span class="line"><span class="comment"># 替换为清华源</span></span><br><span class="line">$ git remote <span class="built_in">set</span>-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git</span><br><span class="line"></span><br><span class="line"><span class="comment"># 替换homebrew-core.git:</span></span><br><span class="line"><span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo)</span>/Library/Taps/homebrew/homebrew-core"</span></span><br><span class="line"><span class="comment"># 科大源</span></span><br><span class="line">git remote <span class="built_in">set</span>-url origin https://mirrors.ustc.edu.cn/homebrew-core.git</span><br><span class="line"><span class="comment"># 清华源</span></span><br><span class="line">git remote <span class="built_in">set</span>-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git</span><br><span class="line"></span><br><span class="line"><span class="comment"># 替换homebrew-cask.git:</span></span><br><span class="line"><span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo)</span>"</span>/Library/Taps/caskroom/homebrew-cask</span><br><span class="line"><span class="comment"># 科大</span></span><br><span class="line">git remote <span class="built_in">set</span>-url origin https://mirrors.ustc.edu.cn/homebrew-cask.git</span><br><span class="line"><span class="comment"># 清华</span></span><br><span class="line">git remote <span class="built_in">set</span>-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-cask.git</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 替换homebrew-bottles:</span></span><br><span class="line"><span class="comment"># 科大</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles'</span> &gt;&gt; ~/.bash_profile</span><br><span class="line"><span class="comment"># 清华</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles'</span> &gt;&gt; ~/.bash_profile</span><br><span class="line"><span class="comment"># 使环境变量生效</span></span><br><span class="line"><span class="built_in">source</span> ~/.bash_profile</span><br><span class="line"></span><br><span class="line"><span class="comment"># 更新源、应用生效</span></span><br><span class="line">brew update</span><br></pre></td></tr></table></figure>
-<p>如果你之前折腾过不少导致你的Homebrew有点问题，那么可以尝试使用如下方案：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 诊断Homebrew的问题:</span></span><br><span class="line">$ brew doctor</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重置brew.git设置:</span></span><br><span class="line">$ <span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo)</span>"</span></span><br><span class="line">$ git fetch</span><br><span class="line">$ git reset --hard origin/master</span><br><span class="line"></span><br><span class="line"><span class="comment"># homebrew-core.git同理:</span></span><br><span class="line">$ <span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo)</span>/Library/Taps/homebrew/homebrew-core"</span></span><br><span class="line">$ git fetch</span><br><span class="line">$ git reset --hard origin/master</span><br><span class="line"></span><br><span class="line"><span class="comment"># 应用生效:</span></span><br><span class="line">$ brew update</span><br></pre></td></tr></table></figure>
-<p>重置更新源 某些时候也有换回官方源的需求</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 重置brew.git:</span></span><br><span class="line">$ <span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo)</span>"</span></span><br><span class="line">$ git remote <span class="built_in">set</span>-url origin https://github.com/Homebrew/brew.git</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重置homebrew-core.git:</span></span><br><span class="line">$ <span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo)</span>/Library/Taps/homebrew/homebrew-core"</span></span><br><span class="line">$ git remote <span class="built_in">set</span>-url origin https://github.com/Homebrew/homebrew-core.git</span><br></pre></td></tr></table></figure>
-<p>以上如果有任何的不成功就用 brew doctor 查找原因。</p>
-]]></content>
-      <categories>
-        <category>后端</category>
-      </categories>
-      <tags>
-        <tag>mac</tag>
       </tags>
   </entry>
   <entry>
