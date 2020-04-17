@@ -1,76 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>mac包管理工具Homebrew</title>
-    <url>/2020/04/17/mac%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7Homebrew/</url>
-    <content><![CDATA[<center>
-<p><img src="github.com/wpttt/hexoblog/source/image/homebrew.png" alt=""></p>
-<p>本文介绍macOS下的软件包管理工具Homebrew，适合mac新手。</center></p>
+    <title>Hexo中添加emoji表情</title>
+    <url>/2020/04/16/Hexo%E4%B8%AD%E6%B7%BB%E5%8A%A0emoji%E8%A1%A8%E6%83%85/</url>
+    <content><![CDATA[<p>本文介绍如何让Hexo支持emoji表情。</p>
 <a id="more"></a>
-<h1>简介</h1>
-<p><a href="https://brew.sh/index_zh-cn" target="_blank" rel="noopener">Homebrew</a> 是macOS下的一个软件包管理器，用于安装各种命令行工，是macOS开发环境搭建必不可少的工具。起作用类似centOS下的yum和Debian、Ubuntu下的apt，可以用命令行实现软件的安装、卸载、更新等。</p>
-<h1>要求</h1>
-<ul>
-<li>
-<p>Intel CPU</p>
-</li>
-<li>
-<p>OS X 10.9 及以上</p>
-</li>
-<li>
-<p>Command Line Tools for Xcode</p>
-<p>Command Line Tools for Xcode中包含了常用的命令行开发工具，比如gcc/g++编译器、 make、git等，是安装很多其他软件的基础。在 Terminal 中执行如下命令以安装 Command Line Tools for Xcode:</p>
-  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">xcode-select --install</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>在弹出的窗口点击“Install”即可。</p>
-<p>此处安装的Command Line Tools可能不是最新版，可以到“App Store”的“更新”中查看是 否有相关更新。如果有，则升级到最新版。 今后 App Store 来的系统大版本号升级的时候，可能需要更新 Command line tools， 小版本升级无需更新。</p>
+<p>首先，要知道markdown 变成html的转换器叫做markdown渲染器。在Hexo中默认的markdown渲染器使用的是<a href="https://github.com/hexojs/hexo-renderer-marked" target="_blank" rel="noopener">hexo-renderer-marked</a>，此渲染器不支持插件扩展；要让hexo支持emoji，则需要将渲染器更换为支持插件扩展的渲染器。网络博主们推荐<a href="https://github.com/celsomiranda/hexo-renderer-markdown-it" target="_blank" rel="noopener">hexo-renderer-markdown-it</a>，该渲染器可通过使用<a href="https://github.com/markdown-it/markdown-it-emoji" target="_blank" rel="noopener">markdown-it-emoji</a>插件来支持emoji渲染。</p>
 <h1>安装</h1>
-<p>homebrew的安装方法现已更新，从ruby转到了bash，网上的很多方法都是基于ruby的，可能无法完成安装，最新的安装操作引导请参考<a href="https://brew.sh/index_zh-cn" target="_blank" rel="noopener">homebrew主页</a>。</p>
-<p>在终端中执行如下命令以安装Homebrew:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/bin/bash -c <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)</span>"</span></span><br></pre></td></tr></table></figure>
-<p>也可以根据网上的说法，首先打开<a href="https://raw.githubusercontent.com/Homebrew/install/master/install.sh" target="_blank" rel="noopener">https://raw.githubusercontent.com/Homebrew/install/master/install.sh</a>，将页面代码全选复制进新建的install.sh文件，然后在bash下运行该脚本。</p>
-<p>当然，这种做法主要是为了解决国内访问brew官方镜像速度低尔导致安装速度慢的问题，因此如果总是因为安装速度慢导致安装失败，则可以尝试该方法，但在运行install.sh前需要将其内brew-repo所指向的镜像仓库链接改为国内镜像，如清华、科大等镜像仓库。此处以清华镜像为例，找到下面这行代码：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">BREW_REPO=<span class="string">"https://github.com/Homebrew/brew"</span></span><br></pre></td></tr></table></figure>
-<p>将其改为：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">BREW_REPO=<span class="string">"https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"</span></span><br></pre></td></tr></table></figure>
-<p>然后在终端执行该脚本，进行安装。</p>
-<h1>Homebrew的常见用法</h1>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">brew search xxx     # 模糊搜索某个软件</span><br><span class="line">brew install xxx    # 安装某个软件</span><br><span class="line">brew upgrade xxx    # 升级某个软件</span><br><span class="line">brew uninstall xxx  # 卸载某个软件</span><br><span class="line">brew list xxx       # 列出某个软件的所有相关文件</span><br></pre></td></tr></table></figure>
-<p>运行<code>brew help</code>查看详细用法。</p>
-<h1>Homebrew中的几个概念：</h1>
+<p>三步：卸载旧渲染器，安装新渲染器，安装插件</p>
+<h2 id="卸载hexo-renderer-marked"><a class="header-anchor" href="#卸载hexo-renderer-marked">¶</a>卸载<a href="https://github.com/hexojs/hexo-renderer-marked" target="_blank" rel="noopener">hexo-renderer-marked</a></h2>
+<p>切换到本地blog目录</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm un hexo-renderer-marked --save</span><br></pre></td></tr></table></figure>
+<h2 id="安装和配置hexo-renderer-markdown-it渲染器"><a class="header-anchor" href="#安装和配置hexo-renderer-markdown-it渲染器">¶</a>安装和配置<a href="https://github.com/celsomiranda/hexo-renderer-markdown-it" target="_blank" rel="noopener">hexo-renderer-markdown-it</a>渲染器</h2>
+<p><strong>安装渲染器</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm i hexo-renderer-markdown-it --save</span><br></pre></td></tr></table></figure>
+<p><strong>渲染器配置：</strong></p>
+<ol>
+<li>
+<p>在站点配置文件<code>_config.yml</code>中添加如下代码：</p>
+ <figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Markdown-it config</span></span><br><span class="line"><span class="comment">## Docs: https://github.com/celsomiranda/hexo-renderer-markdown-it/wiki</span></span><br><span class="line"><span class="attr">markdown:</span></span><br><span class="line">  <span class="attr">render:</span></span><br><span class="line">    <span class="attr">html:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">xhtmlOut:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">breaks:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">linkify:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">typographer:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">quotes:</span> <span class="string">'“”‘’'</span></span><br><span class="line">  <span class="attr">plugins:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">markdown-it-abbr</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">markdown-it-footnote</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">markdown-it-ins</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">markdown-it-sub</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">markdown-it-sup</span></span><br><span class="line">  <span class="attr">anchors:</span></span><br><span class="line">    <span class="attr">level:</span> <span class="number">2</span></span><br><span class="line">    <span class="attr">collisionSuffix:</span> <span class="string">'v'</span></span><br><span class="line">    <span class="attr">permalink:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">permalinkClass:</span> <span class="string">header-anchor</span></span><br><span class="line">    <span class="attr">permalinkSide:</span> <span class="string">'left'</span></span><br><span class="line">    <span class="attr">permalinkSymbol:</span> <span class="string">¶</span></span><br></pre></td></tr></table></figure>
+<p>以上配置详细说明如下，或见<a href="https://github.com/celsomiranda/hexo-renderer-markdown-it/wiki/Advanced-Configuration" target="_blank" rel="noopener">Advanced Configuration</a></p>
 <ul>
-<li>Formulae：Formulae指定了如何安装某个软件，因而每个软件对应一个Formulae</li>
-<li>Bottle：从软件源码编译安装软件会比较慢，Bootle是已经编译好的二进制版本，以加快软件安装速度</li>
-<li>Tap：软件仓库，包含了一系列软件的Fromulae</li>
+<li><strong>markdown：</strong></li>
+<li><strong>render</strong></li>
+<li><strong>plugin</strong></li>
+<li><strong>anchors</strong></li>
 </ul>
-<h1>常用的软件仓库Taps</h1>
-<h2 id="1-homebrew-core-内置核心仓库"><a class="header-anchor" href="#1-homebrew-core-内置核心仓库">¶</a>1. <a href="https://github.com/Homebrew/homebrew-core" target="_blank" rel="noopener">homebrew-core</a> 内置核心仓库</h2>
-<p>详细介绍见官方主页。</p>
-<h2 id="2-Homebrew-Cask"><a class="header-anchor" href="#2-Homebrew-Cask">¶</a>2. Homebrew-Cask</h2>
-<p>Homebrew只能用于安装命令行软件，不能用于安装带图形界面的软件。Homebrew-Cask是Homebrew的 一个扩展，可以用于安装带图形界面软件。</p>
-<p>在终端执行如下命令以安装Homebrew-Cask:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">brew tap homebrew/cask    <span class="comment"># caskroom主仓库</span></span><br><span class="line">brew tap homebrew/cask-fonts   <span class="comment"># caskroom字体仓库</span></span><br></pre></td></tr></table></figure>
-<p>常见用法:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">brew cask search xxx     <span class="comment"># 模糊搜索某个软件</span></span><br><span class="line">brew cask install xxx    <span class="comment"># 安装某个软件</span></span><br><span class="line">brew cask uninstall xxx  <span class="comment"># 卸载某个软件</span></span><br><span class="line">brew cask reinstall      <span class="comment"># 重新安装某个软件</span></span><br><span class="line">brew cask cleanup        <span class="comment"># 清理缓存</span></span><br></pre></td></tr></table></figure>
-<p>安装字体:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">brew cask install font-source-code-pro</span><br></pre></td></tr></table></figure>
-<h1>更新源</h1>
-<p>由于homebrew官方源都是存放在<a href="https://github.com/" target="_blank" rel="noopener">Github</a>上的，因此中国大陆用户的访问速度被极大限制，所以下一步需要做的就是更换为国内源。</p>
-<p>国内源可选的也比较多，此处推荐使用<a href="https://mirrors.tuna.tsinghua.edu.cn/" target="_blank" rel="noopener">清华源</a>或者<a href="https://mirrors.ustc.edu.cn/" target="_blank" rel="noopener">科大源</a>。</p>
-<p>可以通过下面的命令更新源（此处以科大源为例）</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 替换brew程序本身:</span></span><br><span class="line"><span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo)</span>"</span> </span><br><span class="line"><span class="comment"># 替换为科大源</span></span><br><span class="line">git remote <span class="built_in">set</span>-url origin https://mirrors.ustc.edu.cn/brew.git</span><br><span class="line"><span class="comment"># 替换为清华源</span></span><br><span class="line">$ git remote <span class="built_in">set</span>-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git</span><br><span class="line"></span><br><span class="line"><span class="comment"># 替换homebrew-core.git:</span></span><br><span class="line"><span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo)</span>/Library/Taps/homebrew/homebrew-core"</span></span><br><span class="line"><span class="comment"># 科大源</span></span><br><span class="line">git remote <span class="built_in">set</span>-url origin https://mirrors.ustc.edu.cn/homebrew-core.git</span><br><span class="line"><span class="comment"># 清华源</span></span><br><span class="line">git remote <span class="built_in">set</span>-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git</span><br><span class="line"></span><br><span class="line"><span class="comment"># 替换homebrew-cask.git:</span></span><br><span class="line"><span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo)</span>"</span>/Library/Taps/caskroom/homebrew-cask</span><br><span class="line"><span class="comment"># 科大</span></span><br><span class="line">git remote <span class="built_in">set</span>-url origin https://mirrors.ustc.edu.cn/homebrew-cask.git</span><br><span class="line"><span class="comment"># 清华</span></span><br><span class="line">git remote <span class="built_in">set</span>-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-cask.git</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 替换homebrew-bottles:</span></span><br><span class="line"><span class="comment"># 科大</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles'</span> &gt;&gt; ~/.bash_profile</span><br><span class="line"><span class="comment"># 清华</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles'</span> &gt;&gt; ~/.bash_profile</span><br><span class="line"><span class="comment"># 使环境变量生效</span></span><br><span class="line"><span class="built_in">source</span> ~/.bash_profile</span><br><span class="line"></span><br><span class="line"><span class="comment"># 更新源、应用生效</span></span><br><span class="line">brew update</span><br></pre></td></tr></table></figure>
-<p>如果你之前折腾过不少导致你的Homebrew有点问题，那么可以尝试使用如下方案：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 诊断Homebrew的问题:</span></span><br><span class="line">$ brew doctor</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重置brew.git设置:</span></span><br><span class="line">$ <span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo)</span>"</span></span><br><span class="line">$ git fetch</span><br><span class="line">$ git reset --hard origin/master</span><br><span class="line"></span><br><span class="line"><span class="comment"># homebrew-core.git同理:</span></span><br><span class="line">$ <span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo)</span>/Library/Taps/homebrew/homebrew-core"</span></span><br><span class="line">$ git fetch</span><br><span class="line">$ git reset --hard origin/master</span><br><span class="line"></span><br><span class="line"><span class="comment"># 应用生效:</span></span><br><span class="line">$ brew update</span><br></pre></td></tr></table></figure>
-<p>重置更新源 某些时候也有换回官方源的需求</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 重置brew.git:</span></span><br><span class="line">$ <span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo)</span>"</span></span><br><span class="line">$ git remote <span class="built_in">set</span>-url origin https://github.com/Homebrew/brew.git</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重置homebrew-core.git:</span></span><br><span class="line">$ <span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo)</span>/Library/Taps/homebrew/homebrew-core"</span></span><br><span class="line">$ git remote <span class="built_in">set</span>-url origin https://github.com/Homebrew/homebrew-core.git</span><br></pre></td></tr></table></figure>
-<p>以上如果有任何的不成功就用 brew doctor 查找原因。</p>
+</li>
+<li>
+<p>安装markdown-it-checkbox插件</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install markdown-it-checkbox --save</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>在站点配置文件_config.yml文件中的markdown.plugins添加- markdown-it-checkbox,即:</p>
+ <figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">plugins:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-abbr</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-footnote</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-ins</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-sub</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-sup</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-checkbox</span> <span class="comment"># 本行启用了checkbox插件</span></span><br></pre></td></tr></table></figure>
+<p>示例:</p>
+<p><input type="checkbox" id="checkbox1"><label for="checkbox1"> 这是未勾选的checkbox</label><br>
+<input type="checkbox" id="checkbox0" checked="true"><label for="checkbox0"> 这是已勾选的checkbox</label></p>
+<p>语法:</p>
+ <figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">[ ] 这是未勾选的checkbox</span><br><span class="line">[x] 这是已勾选的checkbox</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="安装和配置markdown-it-emoji插件"><a class="header-anchor" href="#安装和配置markdown-it-emoji插件">¶</a>安装和配置markdown-it-emoji插件</h2>
+<p><strong>安装插件</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 安装markdown-it-emoji插件</span></span><br><span class="line">npm install markdown-it-emoji --save</span><br></pre></td></tr></table></figure>
+<p>在站点配置文件<code>_config.yml</code>文件中的<code>markdown.plugins</code>添加<code>- markdown-it-emoji</code>，即:</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">plugins:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-abbr</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-footnote</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-ins</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-sub</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-sup</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-checkbox</span> <span class="comment"># 本行启用了checkbox插件</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-emoji</span> <span class="comment"># 本行启用了emoji插件</span></span><br></pre></td></tr></table></figure>
+<p><strong>配置插件 &amp; 优化Emoji样式</strong></p>
+<ol>
+<li>
+<p>安装twemoji</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install twemoji</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>配置</p>
+<p>在<code>node_modules\markdown-it-emoji\index.js</code>目录下添加代码:</p>
+ <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> twemoji           = <span class="built_in">require</span>(<span class="string">'twemoji'</span>)  <span class="comment">//添加twemoji</span></span><br><span class="line"><span class="comment">//使用twemoji渲染</span></span><br><span class="line">  md.renderer.rules.emoji = <span class="function"><span class="keyword">function</span>(<span class="params">token, idx</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> twemoji.parse(token[idx].content);</span><br><span class="line">  &#125;;</span><br></pre></td></tr></table></figure>
+<p>完整代码为:</p>
+ <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="meta">'use strict'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> emojies_defs      = <span class="built_in">require</span>(<span class="string">'./lib/data/full.json'</span>);</span><br><span class="line"><span class="keyword">var</span> emojies_shortcuts = <span class="built_in">require</span>(<span class="string">'./lib/data/shortcuts'</span>);</span><br><span class="line"><span class="keyword">var</span> emoji_html        = <span class="built_in">require</span>(<span class="string">'./lib/render'</span>);</span><br><span class="line"><span class="keyword">var</span> emoji_replace     = <span class="built_in">require</span>(<span class="string">'./lib/replace'</span>);</span><br><span class="line"><span class="keyword">var</span> normalize_opts    = <span class="built_in">require</span>(<span class="string">'./lib/normalize_opts'</span>);</span><br><span class="line"><span class="keyword">var</span> twemoji           = <span class="built_in">require</span>(<span class="string">'twemoji'</span>)  <span class="comment">//添加twemoji</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> <span class="title">emoji_plugin</span>(<span class="params">md, options</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> defaults = &#123;</span><br><span class="line">    defs: emojies_defs,</span><br><span class="line">    shortcuts: emojies_shortcuts,</span><br><span class="line">    enabled: []</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> opts = normalize_opts(md.utils.assign(&#123;&#125;, defaults, options || &#123;&#125;));</span><br><span class="line"></span><br><span class="line">  md.renderer.rules.emoji = emoji_html;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//使用twemoji渲染</span></span><br><span class="line">  md.renderer.rules.emoji = <span class="function"><span class="keyword">function</span>(<span class="params">token, idx</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> twemoji.parse(token[idx].content);</span><br><span class="line">  &#125;;</span><br><span class="line">  </span><br><span class="line">  md.core.ruler.push(<span class="string">'emoji'</span>, emoji_replace(md, opts.defs, opts.shortcuts, opts.scanRE, opts.replaceRE));</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>在themes/next/source/css/main.styl文件中添加Emoji样式：</p>
+ <figure class="highlight styl"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*emoji样式*/</span></span><br><span class="line"><span class="selector-class">.emoji</span> &#123;  <span class="attribute">height</span>: <span class="number">1.2em</span>;&#125;</span><br><span class="line"><span class="selector-tag">img</span>.emoji&#123;</span><br><span class="line">    margin: 0 .05em 0 .1em !important;</span><br><span class="line">    <span class="attribute">vertical-align</span>: -<span class="number">0.1em</span>;</span><br><span class="line">    <span class="comment">//override theme default style</span></span><br><span class="line">    <span class="attribute">padding</span>:<span class="number">0px</span> !important;</span><br><span class="line">    <span class="attribute">border</span>:none !important;</span><br><span class="line">    <span class="attribute">display</span>:inline !important;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>示例：</p>
+<p><img class="emoji" draggable="false" alt="💯" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f4af.png"/><img class="emoji" draggable="false" alt="🔢" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f522.png"/><img class="emoji" draggable="false" alt="😋" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f60b.png"/><img class="emoji" draggable="false" alt="🚵" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f6b5.png"/><img class="emoji" draggable="false" alt="🔜" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f51c.png"/><img class="emoji" draggable="false" alt="🛥" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f6e5.png"/><img class="emoji" draggable="false" alt="🏞" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f3de.png"/><img class="emoji" draggable="false" alt="🌃" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f303.png"/><img class="emoji" draggable="false" alt="🎆" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f386.png"/><img class="emoji" draggable="false" alt="📘" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f4d8.png"/><img class="emoji" draggable="false" alt="❎" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/274e.png"/><img class="emoji" draggable="false" alt="🇨🇳" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f1e8-1f1f3.png"/><img class="emoji" draggable="false" alt="🐱" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f431.png"/>:full _moon:<img class="emoji" draggable="false" alt="🌖" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f316.png"/><img class="emoji" draggable="false" alt="🌗" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f317.png"/><img class="emoji" draggable="false" alt="🌘" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f318.png"/><img class="emoji" draggable="false" alt="🌑" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f311.png"/><img class="emoji" draggable="false" alt="🌒" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f312.png"/><img class="emoji" draggable="false" alt="🌓" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f313.png"/><img class="emoji" draggable="false" alt="🌔" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f314.png"/><img class="emoji" draggable="false" alt="0️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/30-20e3.png"/><img class="emoji" draggable="false" alt="1️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/31-20e3.png"/>:  two:<img class="emoji" draggable="false" alt="3️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/33-20e3.png"/><img class="emoji" draggable="false" alt="4️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/34-20e3.png"/><img class="emoji" draggable="false" alt="5️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/35-20e3.png"/><img class="emoji" draggable="false" alt="6️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/36-20e3.png"/><img class="emoji" draggable="false" alt="7️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/37-20e3.png"/><img class="emoji" draggable="false" alt="8️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/38-20e3.png"/><img class="emoji" draggable="false" alt="9️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/39-20e3.png"/><img class="emoji" draggable="false" alt="🔟" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f51f.png"/><img class="emoji" draggable="false" alt="🕐" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f550.png"/><img class="emoji" draggable="false" alt="🕑" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f551.png"/><img class="emoji" draggable="false" alt="🕒" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f552.png"/><img class="emoji" draggable="false" alt="🕓" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f553.png"/><img class="emoji" draggable="false" alt="🕔" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f554.png"/><img class="emoji" draggable="false" alt="🕕" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f555.png"/><img class="emoji" draggable="false" alt="🕖" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f556.png"/><img class="emoji" draggable="false" alt="🕗" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f557.png"/><img class="emoji" draggable="false" alt="🕘" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f558.png"/><img class="emoji" draggable="false" alt="🕙" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f559.png"/><img class="emoji" draggable="false" alt="🕚" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f55a.png"/>:cl ock12:<img class="emoji" draggable="false" alt="🕜" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f55c.png"/><img class="emoji" draggable="false" alt="🕝" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f55d.png"/><img class="emoji" draggable="false" alt="🕞" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f55e.png"/><img class="emoji" draggable="false" alt="🕟" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f55f.png"/><img class="emoji" draggable="false" alt="🕠" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f560.png"/><img class="emoji" draggable="false" alt="🕡" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f561.png"/><img class="emoji" draggable="false" alt="🕢" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f562.png"/><img class="emoji" draggable="false" alt="🕣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f563.png"/><img class="emoji" draggable="false" alt="🕤" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f564.png"/><img class="emoji" draggable="false" alt="🕥" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f565.png"/><img class="emoji" draggable="false" alt="🕦" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f566.png"/><img class="emoji" draggable="false" alt="🕧" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f567.png"/><img class="emoji" draggable="false" alt="🇸🇨" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f1f8-1f1e8.png"/>:latin_cross  :<img class="emoji" draggable="false" alt="☪️" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/262a.png"/><img class="emoji" draggable="false" alt="☮️" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/262e.png"/><img class="emoji" draggable="false" alt="🕉" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f549.png"/><img class="emoji" draggable="false" alt="☸️" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/2638.png"/><img class="emoji" draggable="false" alt="✡️" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/2721.png"/><img class="emoji" draggable="false" alt="🔯" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f52f.png"/><img class="emoji" draggable="false" alt="🕎" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f54e.png"/><img class="emoji" draggable="false" alt="☯️" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/262f.png"/><img class="emoji" draggable="false" alt="✡️" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/2721.png"/><img class="emoji" draggable="false" alt="☦️" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/2626.png"/><img class="emoji" draggable="false" alt="⚾️" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/26be.png"/></p>
+<p>源代码:</p>
+ <figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">:100::1234::yum::mountain<span class="emphasis">_biking_</span>man::soon::motor<span class="emphasis">_boat::national_</span>park::night<span class="emphasis">_with_</span>stars::fireworks::blue_book:</span><br><span class="line">:negative<span class="emphasis">_squared_</span>cross<span class="emphasis">_mark::cn::cat::full_</span>moon::waning<span class="emphasis">_gibbous_</span>moon::last<span class="emphasis">_quarter_</span>moon::waning<span class="emphasis">_crescent_</span>moon:</span><br><span class="line">:new<span class="emphasis">_moon::waxing_</span>crescent<span class="emphasis">_moon::first_</span>quarter<span class="emphasis">_moon::waxing_</span>gibbous_moon::zero::one::two::three::four::five::six:</span><br><span class="line">:seven::eight::nine::keycap_ten::clock1::clock2::clock3::clock4::clock5::clock6::clock7::clock8::clock9::clock10:</span><br><span class="line">:clock11::clock12::clock130::clock230::clock330::clock430::clock530::clock630::clock730::clock830::clock930:</span><br><span class="line">:clock1030::clock1130::clock1230::seychelles::latin<span class="emphasis">_cross::star_</span>and<span class="emphasis">_crescent::peace_</span>symbol::om::wheel<span class="emphasis">_of_</span>dharma:</span><br><span class="line">:star<span class="emphasis">_of_</span>david::six<span class="emphasis">_pointed_</span>star::menorah::yin<span class="emphasis">_yang::star_</span>of<span class="emphasis">_david::orthodox_</span>cross::baseball:</span><br></pre></td></tr></table></figure>
+<p>插件地址：</p>
+<ul>
+<li><a href="https://github.com/hexojs/hexo-renderer-markdown-it" target="_blank" rel="noopener">hexo-renderer-markdown-it</a></li>
+<li><a href="https://www.npmjs.com/package/markdown-it-checkbox" target="_blank" rel="noopener">markdown-it-checkbox</a></li>
+<li><a href="https://github.com/markdown-it/markdown-it-emoji" target="_blank" rel="noopener">markdown-it-emoji</a></li>
+<li><a href="https://github.com/twitter/twemoji" target="_blank" rel="noopener">twemoji</a></li>
+</ul>
+<p>Emoji表情检索：</p>
+<ul>
+<li><a href="https://emoji.muan.co/#" target="_blank" rel="noopener">Emoji</a></li>
+<li><a href="https://emoji.svend.cc/" target="_blank" rel="noopener">Emoji(快)</a></li>
+</ul>
+</li>
+</ol>
+<h1>Emoji and code</h1>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">😊 :blush:	😃 :smiley:	☺️ :relaxed:</span><br><span class="line">😏 :smirk:	😍 :heart_eyes:	😘 :kissing_heart:</span><br><span class="line">😚 :kissing_closed_eyes:	😳 :flushed:	😌 :relieved:</span><br><span class="line">😆 :satisfied:	😁 :grin:	😉 :wink:</span><br><span class="line">😜 :stuck_out_tongue_winking_eye:	😝 :stuck_out_tongue_closed_eyes:	😀 :grinning:</span><br><span class="line">😗 :kissing:	😙 :kissing_smiling_eyes:	😛 :stuck_out_tongue:</span><br><span class="line">😴 :sleeping:	😟 :worried:	😦 :frowning:</span><br><span class="line">😧 :anguished:	😮 :open_mouth:	😬 :grimacing:</span><br><span class="line">😕 :confused:	😯 :hushed:	😑 :expressionless:</span><br><span class="line">😒 :unamused:	😅 :sweat_smile:	😓 :sweat:</span><br><span class="line">😥 :disappointed_relieved:	😩 :weary:	😔 :pensive:</span><br><span class="line">😞 :disappointed:	😖 :confounded:	😨 :fearful:</span><br><span class="line">😰 :cold_sweat:	😣 :persevere:	😢 :cry:</span><br><span class="line">😭 :sob:	😂 :joy:	😲 :astonished:</span><br><span class="line">😱 :scream:	:neckbeard: :neckbeard:	😫 :tired_face:</span><br><span class="line">😠 :angry:	😡 :rage:	😤 :triumph:</span><br><span class="line">😪 :sleepy:	😋 :yum:	😷 :mask:</span><br><span class="line">😎 :sunglasses:	😵 :dizzy_face:	👿 :imp:</span><br><span class="line">😈 :smiling_imp:	😐 :neutral_face:	😶 :no_mouth:</span><br><span class="line">😇 :innocent:	👽 :alien:	💛 :yellow_heart:</span><br><span class="line">💙 :blue_heart:	💜 :purple_heart:	❤️ :heart:</span><br><span class="line">💚 :green_heart:	💔 :broken_heart:	💓 :heartbeat:</span><br><span class="line">💗 :heartpulse:	💕 :two_hearts:	💞 :revolving_hearts:</span><br><span class="line">💘 :cupid:	💖 :sparkling_heart:	✨ :sparkles:</span><br><span class="line">⭐️ :star:	🌟 :star2:	💫 :dizzy:</span><br><span class="line">💥 :boom:	💥 :collision:	💢 :anger:</span><br><span class="line">❗️ :exclamation:	❓ :question:	❕ :grey_exclamation:</span><br><span class="line">❔ :grey_question:	💤 :zzz:	💨 :dash:</span><br><span class="line">💦 :sweat_drops:	🎶 :notes:	🎵 :musical_note:</span><br><span class="line">🔥 :fire:	💩 :hankey:	💩 :poop:</span><br><span class="line">💩 :shit:	👍 :+1:	👍 :thumbsup:</span><br><span class="line">👎 :-1:	👎 :thumbsdown:	👌 :ok_hand:</span><br><span class="line">👊 :punch:	👊 :facepunch:	✊ :fist:</span><br><span class="line">✌️ :v:	👋 :wave:	✋ :hand:</span><br><span class="line">✋ :raised_hand:	👐 :open_hands:	☝️ :point_up:</span><br><span class="line">👇 :point_down:	👈 :point_left:	👉 :point_right:</span><br><span class="line">🙌 :raised_hands:	🙏 :pray:	👆 :point_up_2:</span><br><span class="line">👏 :clap:	💪 :muscle:	🤘 :metal:</span><br><span class="line">🖕 :fu:	🚶 :walking:	🏃 :runner:</span><br><span class="line">🏃 :running:	👫 :couple:	👪 :family:</span><br><span class="line">👬 :two_men_holding_hands:	👭 :two_women_holding_hands:	💃 :dancer:</span><br><span class="line">👯 :dancers:	🙆 :ok_woman:	🙅 :no_good:</span><br><span class="line">💁 :information_desk_person:	🙋 :raising_hand:	👰 :bride_with_veil:</span><br><span class="line">🙎 :person_with_pouting_face:	🙍 :person_frowning:	🙇 :bow:</span><br><span class="line">:couplekiss: :couplekiss:	💑 :couple_with_heart:	💆 :massage:</span><br><span class="line">💇 :haircut:	💅 :nail_care:	👦 :boy:</span><br><span class="line">👧 :girl:	👩 :woman:	👨 :man:</span><br><span class="line">👶 :baby:	👵 :older_woman:	👴 :older_man:</span><br><span class="line">👱 :person_with_blond_hair:	👲 :man_with_gua_pi_mao:	👳 :man_with_turban:</span><br><span class="line">👷 :construction_worker:	👮 :cop:	👼 :angel:</span><br><span class="line">👸 :princess:	😺 :smiley_cat:	😸 :smile_cat:</span><br><span class="line">😻 :heart_eyes_cat:	😽 :kissing_cat:	😼 :smirk_cat:</span><br><span class="line">🙀 :scream_cat:	😿 :crying_cat_face:	😹 :joy_cat:</span><br><span class="line">😾 :pouting_cat:	👹 :japanese_ogre:	👺 :japanese_goblin:</span><br><span class="line">🙈 :see_no_evil:	🙉 :hear_no_evil:	🙊 :speak_no_evil:</span><br><span class="line">💂 :guardsman:	💀 :skull:	🐾 :feet:</span><br><span class="line">👄 :lips:	💋 :kiss:	💧 :droplet:</span><br><span class="line">👂 :ear:	👀 :eyes:	👃 :nose:</span><br><span class="line">👅 :tongue:	💌 :love_letter:	👤 :bust_in_silhouette:</span><br><span class="line">👥 :busts_in_silhouette:	💬 :speech_balloon:	💭 :thought_balloon:</span><br></pre></td></tr></table></figure>
+<h1>参考资料</h1>
+<p><a href="https://www.jianshu.com/p/f9e57ecca150" target="_blank" rel="noopener">https://www.jianshu.com/p/f9e57ecca150</a></p>
+<p><a href="https://vxiaozhe1998.gitee.io/2020/03/25/HEXO%E4%B8%8B%E7%9A%84%E9%94%9A%E7%82%B9%E6%A0%87%E9%A2%98%E4%B8%8EEmoji%E8%A1%A8%E6%83%85/#more" target="_blank" rel="noopener">https://vxiaozhe1998.gitee.io/2020/03/25/HEXO下的锚点标题与Emoji表情/#more</a></p>
+<p><a href="https://blog.csdn.net/weixin_30745641/article/details/95686757" target="_blank" rel="noopener">https://blog.csdn.net/weixin_30745641/article/details/95686757</a></p>
 ]]></content>
       <categories>
-        <category>后端</category>
+        <category>前端</category>
       </categories>
       <tags>
-        <tag>mac</tag>
+        <tag>Hexo</tag>
+        <tag>Markdown</tag>
+        <tag>emoji</tag>
       </tags>
   </entry>
   <entry>
@@ -119,6 +142,171 @@
       <tags>
         <tag>Python</tag>
         <tag>pip</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>在psxy中使用cpt填色</title>
+    <url>/2020/04/15/%E5%9C%A8psxy%E4%B8%AD%E4%BD%BF%E7%94%A8cpt%E5%A1%AB%E8%89%B2/</url>
+    <content><![CDATA[<p>  绘制震中分布图时经常需要绘制多年地震，并需要将不同年份地震进行区分，而区分的方式通常是给其填充不同的颜色。常规的绘图方法中将每一年的地震目录用awk提出后再绘制，此方对于每年的地震都需要单独一条命令进行绘制，并给其一个单独的颜色。如此一来同样的绘图语句就要重复写好几遍，个人觉得还是有点不方便。<br>
+  好在gmt的<code>—C&lt;cpt&gt;</code>模块为我们提供了使用cpt文件给图中元素进行填色的功能，这样的话，只需要做好数据表便可一条命令绘制所有地震，并且使用cpt进行渲染，做到按照发生年份进行区分，同时方便ColorBar形式的时间图例的绘制。</p>
+<a id="more"></a>
+<h1>psxy模块下-C选项简介</h1>
+<p>在<code>psxy</code>模块中<code>—C&lt;cpt&gt;</code>选项用于指定CPT文件或颜色列表。该选项后跟一个CPT 文件名，也可以使用<code>-C&lt;color1&gt;,&lt;color2&gt;,... </code>语法在<br>
+命令行上临时构建一个颜色列表，其中<color1> 对应Z 值为0 的颜色，<color2><br>
+对应Z 值为1 的颜色，依次类推。</p>
+<ol>
+<li>若绘制符号（即使用<code>-S</code>选项），则符号的填充色由数据的第三列 Z 值决定，其<br>
+他数据列依次后移一列</li>
+<li>若绘制线段或多边形（即未使用<code>-S</code>选项），则需要在多段数据的头段中指定<br>
+<code>-Z&lt;val&gt;</code>，然后从cpt文件中查找<code>&lt;val&gt;</code>所对应的颜色，以控制线段或多边<br>
+形的线条颜色</li>
+</ol>
+<p>下面的例子展示了<code>-C&lt;color1&gt;,&lt;color2&gt;..</code>用法:<br>
+绘制两条不同颜色的线段</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">gmt psxy -JX10c/10c -R0/10/0/10 -B1 -Cblue,red -W2p &gt; test.ps &lt;&lt; EOF</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> -Z0</span></span><br><span class="line">1 1</span><br><span class="line">2 2</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> -Z1</span></span><br><span class="line">3 3</span><br><span class="line">4 4</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<p><img src="https://wpttt.github.io/images/psxy1.png" alt="图1"></p>
+<h1>举个栗子</h1>
+<p>上例为GMT6-documentation中的例子</p>
+<p>下面以绘制2008年以来全球7级以上地震震中分布图为例</p>
+<p>bash下绘图代码如下</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># GMT v6.0.0</span></span><br><span class="line"><span class="comment"># 提取每一列数据</span></span><br><span class="line">awk <span class="string">'&#123;if (substr($0,2,4)&gt;=2008) print substr($0,1,15),substr($0,16,6),substr($0,22,7),substr($0,29,4),substr($0,33,3),substr($0,36,3)&#125;'</span> Ms7.EQT &gt; 2018ms7</span><br><span class="line"><span class="comment"># 将数据逐年提取为：“经度 纬度 年度 震级”格式</span></span><br><span class="line"><span class="comment"># 下面为for循环下的实现</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i = ((i=2008;i&lt;=2019;i++));</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">awk <span class="string">'&#123;if (substr($1,1,4)=="'</span><span class="variable">$i</span><span class="string">'") print $3,$2,"'</span><span class="variable">$i</span><span class="string">'",$4&#125;'</span> 2018ms7 &gt;&gt; eqdis	</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">gmt <span class="built_in">set</span> FONT 11p,4</span><br><span class="line">gmt <span class="built_in">set</span> MAP_FRAME_TYPE plain</span><br><span class="line">gmt <span class="built_in">set</span> MAP_FRAME_PEN 1p,black</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建cpt文件</span></span><br><span class="line">gmt makecpt -Crainbow -T2008/2019/1 &gt; cpt.cpt</span><br><span class="line"><span class="comment"># 绘图</span></span><br><span class="line">gmt pscoast -JN6i -R-30/330/-90/90 -Bx60f30 -By30 -Dc -A10000 -Gwhite -Sskyblue -K &gt; eq7dist.ps</span><br><span class="line">awk <span class="string">'&#123;print $1,$2,$3,$4*0.04&#125;'</span> eqdis |gmt psxy -J -R -Sc -W.1p,white -Ccpt.cpt -K -O &gt;&gt; eq7dist.ps</span><br><span class="line"><span class="comment"># 绘制colorbar</span></span><br><span class="line">gmt psscale -Ccpt.cpt -Dx0/0+w5.6i/.2c+jBL+h+o.3c/-1c -Bx1 -By+l<span class="string">"Years"</span> -K -O &gt;&gt; eq7dist.ps</span><br><span class="line">gmt psxy -J -R -T -O &gt;&gt; eq7dist.ps</span><br><span class="line"><span class="comment"># 转换至位图</span></span><br><span class="line">gmt psconvert eq7dist.ps -A -Tj -E300 -P</span><br><span class="line"></span><br><span class="line">rm *.cpt gmt.* eqdis</span><br></pre></td></tr></table></figure>
+<p>结果:</p>
+<p><img src="https://wpttt.github.io/images/psxy2.png" alt="图2"></p>
+<p>地震目录格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">20181211102630-58.32 -26.387.00150000 南桑威奇群岛地区</span><br><span class="line">20181201012927 61.33-150.057.30 40000 美国阿拉斯加</span><br><span class="line">20181205121806-21.85 169.407.50 10000 洛亚蒂群岛</span><br><span class="line">20181211102630-58.32 -26.387.00150000 南桑威奇群岛地区</span><br><span class="line">20190222181720 -2.17 -76.877.50140000 厄瓜多尔</span><br><span class="line">20190301165041-14.55 -70.107.00260000 秘鲁</span><br><span class="line">20190507051936 -6.95 146.507.10130000 巴布亚新几内亚</span><br><span class="line">20190514205828 -4.17 152.487.60 30000 新不列颠岛地区</span><br></pre></td></tr></table></figure>
+<p>因此在绘图之前需要对文本格式进行一定的处理，以满足gmt绘图需要。</p>
+<ol>
+<li>
+<p>本例子利用for循环加awk实现文本内容的提取和格式的设定，即</p>
+<pre><code> 经度 纬度 Z值(年份) 震级(大小)
+</code></pre>
+</li>
+<li>
+<p><code>makecpt</code>模块将文件<code>rainbow.cpt</code>的Z值设置为2008～2019，并且划分间隔为1，生成新的cpt文件；</p>
+</li>
+<li>
+<p>因此绘图时使用<code>-C</code>选项，会直接读取第三列为填充颜色；并可以绘制colorbar作为图例，省去了繁琐的图例绘制。</p>
+</li>
+</ol>
+<h2 id="绘制颜色变化的曲线"><a class="header-anchor" href="#绘制颜色变化的曲线">¶</a>绘制颜色变化的曲线</h2>
+<p>想要绘制一条颜色变化的线段，下面是演示代码：</p>
+<p>此例引自<a href="https://blog.seisman.info/plot-lines-with-gradient-colors/" target="_blank" rel="noopener">Seisman播客</a></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># GMT v5.2.1</span></span><br><span class="line">gmt makecpt -Crainbow -T-2/2/1 &gt; lines.cpt</span><br><span class="line">gmt psxy -JX15c/4c -R0/6/0/4 -B1 -Clines.cpt -W2p &gt; test.ps &lt;&lt; EOF</span><br><span class="line">&gt; -Z-1.5</span><br><span class="line">1 2</span><br><span class="line">2 2</span><br><span class="line">&gt; -Z-0.5</span><br><span class="line">2 2</span><br><span class="line">3 2</span><br><span class="line">&gt; -Z0.5</span><br><span class="line">3 2</span><br><span class="line">4 2</span><br><span class="line">&gt; -Z1.5</span><br><span class="line">4 2</span><br><span class="line">5 2</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<p><img src="https://wpttt.github.io/images/psxy3.png" alt="图3"></p>
+<p><img class="emoji" draggable="false" alt="👉" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f449.png"/>简单解释一下：</p>
+<ol>
+<li><code>makecpt</code> 命令制作了一个 - 2 到 2 间隔为 1 的 CPT 文件</li>
+<li><code>psxy</code> 命令中使用了 <code>-C</code> 选项，此时需要输入数据是多段表数据，且每段数据的段头记录中，需要有 <code>-Z&lt;val&gt;</code> 以指定每段数据的 Z 值</li>
+<li>实际绘图时，对于每段数据，命令会读取该数据数据的段头记录中的 <code>-Z&lt;val&gt;</code> 中的 Z(<code>val</code>)值，然后到 CPT 文件中查找 Z 值所对应的颜色，作为该段线段的颜色。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>GMT</category>
+      </categories>
+      <tags>
+        <tag>GMT</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>绘制事件的时间分布图</title>
+    <url>/2020/04/15/%E7%BB%98%E5%88%B6%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%97%B6%E9%97%B4%E5%88%86%E5%B8%83%E5%9B%BE/</url>
+    <content><![CDATA[<p>  本文介绍利用python在时间坐标下对地震事件进行统计和可视化。包括地震频度的统计、频度图的绘制以及<em>M</em>-t图的绘制。<br>
+  重点需要掌握，时间轴上统计和绘图时需要完成的时间段和时间点的转换，以及时间轴样式的设置。</p>
+<a id="more"></a>
+<h1>绘制<em>M</em>-t图</h1>
+<h2 id="简介"><a class="header-anchor" href="#简介">¶</a>简介</h2>
+<p>在python中，利用matplotlib.pyplot.stem可以画茎叶图，stem的参数可以改变垂直线的类型，顶点的颜色大小等。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">stem(x,y, linefmt=<span class="literal">None</span>, markerfmt=<span class="literal">None</span>, basefmt=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="说明"><a class="header-anchor" href="#说明">¶</a>说明</h2>
+<ul>
+<li><code>x</code>, <code>y</code>分别是横纵坐标；</li>
+<li><code>linefmt</code>:垂直线的颜色和类型；<code>linefmt=‘r-’</code>，代表红色的实线;</li>
+<li><code>basefmt</code>指<code>y=0</code>那条直线；</li>
+<li><code>markerfmt</code>设置顶点的类型和颜色，比如<code>C3.</code>，<code>C</code>(大写字母C)是默认的，后面数字应该是<code>0-9</code>，改变颜色，最后的<code>.</code>或者<code>o</code>（小写字母o）分别可以设置顶点为小实点或者大实点，空格表示没有顶点。</li>
+</ul>
+<p><strong>以下为线型对应的字符</strong></p>
+<center>
+<table>
+<thead>
+<tr>
+<th>字符</th>
+<th>线型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>‘-’</td>
+<td>solid line</td>
+</tr>
+<tr>
+<td>‘–’</td>
+<td>dashed line</td>
+</tr>
+<tr>
+<td>‘-.’</td>
+<td>dash-dot line</td>
+</tr>
+<tr>
+<td>‘:’</td>
+<td>dotted line</td>
+</tr>
+</tbody>
+</table>
+</center>
+<h1>绘制N-t图</h1>
+<h2 id="简介-v2"><a class="header-anchor" href="#简介-v2">¶</a>简介</h2>
+<p>python中可以利用<code>matplotlib.pyplot.bar</code>，通过绘制bar实现地震频度图的绘制。<br>
+工具：</p>
+<ul>
+<li><code>matplotlib.pyplot</code></li>
+<li><code>matplotlib.dates</code></li>
+<li><code>pandas</code></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">plt.bar(x,height,width=<span class="number">0.8</span>,bottom=<span class="literal">None</span>,align=<span class="string">'center'</span>,data=Nonecolor=<span class="string">'b'</span>,alpha=<span class="number">1.</span>..)</span><br></pre></td></tr></table></figure>
+<h3 id="参数说明"><a class="header-anchor" href="#参数说明">¶</a><strong>参数说明</strong></h3>
+<p><strong>xerr, yerr</strong>:<br>
+scalar or array-like of shape(N,) or shape(2, N), optional；If not <em>None</em>, add horizontal / vertical errorbars to the bar tips. The values are +/- sizes relative to the data:</p>
+<ul>
+<li>scalar: symmetric +/- values for all bars</li>
+<li>shape(N,): symmetric +/- values for each bar</li>
+<li>shape(2, N): Separate - and + values for each bar. First row contains the lower errors, the second row contains the upper<br>
+errors.</li>
+<li><em>None</em>: No errorbar. (Default)</li>
+</ul>
+<h1>实例</h1>
+<blockquote>
+<p><strong>Notice!</strong><br>
+本节最关键的问题在于地震数目的统计，和时间坐标的控制</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/bin/python</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> matplotlib.dates <span class="keyword">as</span> mdate</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment"># macos下解决中文乱码</span></span><br><span class="line">plt.rcParams[<span class="string">'font.sans-serif'</span>] = [<span class="string">'Arial Unicode MS'</span>]</span><br><span class="line">plt.rcParams[<span class="string">'axes.unicode_minus'</span>] = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">mc = <span class="number">3</span>  <span class="comment"># 设置最小震级</span></span><br><span class="line"><span class="comment"># 读入目录为DataFrame</span></span><br><span class="line">eq = pd.read_csv(<span class="string">'gsty.txt'</span>,sep=<span class="string">' '</span>,</span><br><span class="line">                 encoding=<span class="string">'gbk'</span>,skipinitialspace=<span class="literal">True</span>,</span><br><span class="line">                 names=[<span class="string">'date'</span>,<span class="string">'time'</span>,<span class="string">'lat'</span>,<span class="string">'lon'</span>,<span class="string">'dep'</span>,<span class="string">'mag'</span>,<span class="string">'diming'</span>])</span><br><span class="line">eq[<span class="string">'datetime'</span>] = eq.apply(<span class="keyword">lambda</span> x: x.date+<span class="string">' '</span>+x.time, axis=<span class="number">1</span>)</span><br><span class="line">eq[<span class="string">'datetime_f'</span>] = pd.to_datetime(eq[<span class="string">'datetime'</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置图片布局</span></span><br><span class="line">fig = plt.figure(figsize=(<span class="number">10</span>,<span class="number">5</span>),dpi=<span class="number">100</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 利用stem绘制M-t图</span></span><br><span class="line">ax1 = fig.add_subplot(<span class="number">211</span>)</span><br><span class="line">x = eq[eq.mag&gt;=mc].datetime_f</span><br><span class="line">y = eq[eq.mag&gt;=mc].mag</span><br><span class="line">ax1.stem(x,y,linefmt=<span class="string">'k-'</span>, basefmt=<span class="string">'r-'</span>, markerfmt=<span class="string">'C2 '</span>,label=<span class="string">'地震'</span>)</span><br><span class="line">plt.ylim(mc<span class="number">-1</span>,eq.mag.max()+<span class="number">1</span>)</span><br><span class="line">plt.ylabel(<span class="string">'震级(Ml)'</span>)</span><br><span class="line">plt.gcf().autofmt_xdate()</span><br><span class="line">plt.xlabel(<span class="string">"时间"</span>)</span><br><span class="line">plt.legend()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 绘制频度图前的准备</span></span><br><span class="line"><span class="comment"># 将时间设置为index，便于按时间段进行数量统计</span></span><br><span class="line">eq.set_index(<span class="string">'datetime_f'</span>,inplace=<span class="literal">True</span>,drop=<span class="literal">True</span>)</span><br><span class="line"><span class="comment"># eq_p = eq.to_period('M') # 按月显示</span></span><br><span class="line"><span class="comment"># print(eq_p.index.asfreq('M'))</span></span><br><span class="line">afreq = eq.mag.resample(<span class="string">'A'</span>).count()  <span class="comment"># 按年统计</span></span><br><span class="line">mfreq = eq.mag.resample(<span class="string">'M'</span>).count()  <span class="comment"># 按月统计</span></span><br><span class="line">dfreq = eq.resample(<span class="string">'d'</span>).count().to_period(<span class="string">'d'</span>)  <span class="comment"># 按天统计</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 利用bar绘制频度图</span></span><br><span class="line">ax2 = fig.add_subplot(<span class="number">212</span>)</span><br><span class="line">x = dfreq.index.start_time</span><br><span class="line">y = dfreq.mag</span><br><span class="line"><span class="comment">#设置x轴为时间格式，这句非常重要，否则x轴显示的将是类似于‘736268’这样的转码后的数格式</span></span><br><span class="line">ax2.xaxis.set_major_formatter(mdate.DateFormatter(<span class="string">'%Y-%m-%d'</span>))</span><br><span class="line">plt.xticks(pd.date_range(dfreq.index[<span class="number">0</span>].start_time,dfreq.index[<span class="number">-1</span>]end_time,freq=<span class="string">'10d'</span>), rotation=<span class="number">45</span>)</span><br><span class="line">ax2.bar(x,y,color=<span class="string">'c'</span>,align=<span class="string">'edge'</span>,alpha=<span class="number">0.8</span>)</span><br><span class="line">plt.ylabel(<span class="string">'频数'</span>)</span><br><span class="line">plt.xlabel(<span class="string">"时间"</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>运行以上代码生成如下图片</p>
+<p><img src="https://wpttt.github.io/images/plot-time1.png" alt="fig1"></p>
+<h2 id="说明-v2"><a class="header-anchor" href="#说明-v2">¶</a>说明</h2>
+<p>以下为在时间坐标下绘制数据时的关键顺序</p>
+<ol>
+<li>读取数据后，利用pd.set_index设置时间列为index</li>
+<li>利用时间index对表数据进行统计<code>eq.resample('d').count().toperiod('d')</code>，此处d表示按天采样，获取每日地震数量。<br>
+<strong><font color=deepskyblue>注意：此时生成的dataframe中index为时间段，不可直接用于时间坐标（时间坐标用时间点）</font></strong></li>
+<li>设置x轴时间格式，<code>ax.xaxis.set_major_formatter(mdate.DateFormatter('%Y-%m-%d'))</code></li>
+<li>对index时间段取start_time作为时间点，利用始末时间点生成时间序列，作为x轴坐标；<code>pd.date_range</code></li>
+<li>绘图</li>
+</ol>
+<blockquote>
+<p><img class="emoji" draggable="false" alt="👉" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f449.png"/> <strong><font color=deepskyblue>Notice:</font></strong><br>
+可选参数<em>color</em>， <em>edgecolor</em>， <em>linewidth</em>，<em>xerr</em>和<em>yerr</em>可以是标量或长度等于bar数目的序列。这是绘制条形图作为堆叠条形图或烛台图的基础。:wstar:<br>
+详细信息：<em>xerr</em>和<em>yerr</em>被直接传递到:meth:‘errorbar’，所以他们也可以有形状2xN,独立规定上下误差。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Matplotlib</tag>
+        <tag>M-t图</tag>
+        <tag>N-t图</tag>
+        <tag>时间坐标</tag>
       </tags>
   </entry>
   <entry>
@@ -738,264 +926,76 @@
       </tags>
   </entry>
   <entry>
-    <title>在psxy中使用cpt填色</title>
-    <url>/2020/04/15/%E5%9C%A8psxy%E4%B8%AD%E4%BD%BF%E7%94%A8cpt%E5%A1%AB%E8%89%B2/</url>
-    <content><![CDATA[<p>  绘制震中分布图时经常需要绘制多年地震，并需要将不同年份地震进行区分，而区分的方式通常是给其填充不同的颜色。常规的绘图方法中将每一年的地震目录用awk提出后再绘制，此方对于每年的地震都需要单独一条命令进行绘制，并给其一个单独的颜色。如此一来同样的绘图语句就要重复写好几遍，个人觉得还是有点不方便。<br>
-  好在gmt的<code>—C&lt;cpt&gt;</code>模块为我们提供了使用cpt文件给图中元素进行填色的功能，这样的话，只需要做好数据表便可一条命令绘制所有地震，并且使用cpt进行渲染，做到按照发生年份进行区分，同时方便ColorBar形式的时间图例的绘制。</p>
+    <title>mac包管理工具Homebrew</title>
+    <url>/2020/04/17/mac%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7Homebrew/</url>
+    <content><![CDATA[<center>
+<p><img src="https://wpttt.github.io/images/homebrew.png" alt=""></p>
+<p>本文介绍macOS下的软件包管理工具Homebrew，适合mac新手。</center></p>
 <a id="more"></a>
-<h1>psxy模块下-C选项简介</h1>
-<p>在<code>psxy</code>模块中<code>—C&lt;cpt&gt;</code>选项用于指定CPT文件或颜色列表。该选项后跟一个CPT 文件名，也可以使用<code>-C&lt;color1&gt;,&lt;color2&gt;,... </code>语法在<br>
-命令行上临时构建一个颜色列表，其中<color1> 对应Z 值为0 的颜色，<color2><br>
-对应Z 值为1 的颜色，依次类推。</p>
-<ol>
-<li>若绘制符号（即使用<code>-S</code>选项），则符号的填充色由数据的第三列 Z 值决定，其<br>
-他数据列依次后移一列</li>
-<li>若绘制线段或多边形（即未使用<code>-S</code>选项），则需要在多段数据的头段中指定<br>
-<code>-Z&lt;val&gt;</code>，然后从cpt文件中查找<code>&lt;val&gt;</code>所对应的颜色，以控制线段或多边<br>
-形的线条颜色</li>
-</ol>
-<p>下面的例子展示了<code>-C&lt;color1&gt;,&lt;color2&gt;..</code>用法:<br>
-绘制两条不同颜色的线段</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">gmt psxy -JX10c/10c -R0/10/0/10 -B1 -Cblue,red -W2p &gt; test.ps &lt;&lt; EOF</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> -Z0</span></span><br><span class="line">1 1</span><br><span class="line">2 2</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> -Z1</span></span><br><span class="line">3 3</span><br><span class="line">4 4</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
-<p><img src="https://wpttt.github.io/images/psxy1.png" alt="图1"></p>
-<h1>举个栗子</h1>
-<p>上例为GMT6-documentation中的例子</p>
-<p>下面以绘制2008年以来全球7级以上地震震中分布图为例</p>
-<p>bash下绘图代码如下</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># GMT v6.0.0</span></span><br><span class="line"><span class="comment"># 提取每一列数据</span></span><br><span class="line">awk <span class="string">'&#123;if (substr($0,2,4)&gt;=2008) print substr($0,1,15),substr($0,16,6),substr($0,22,7),substr($0,29,4),substr($0,33,3),substr($0,36,3)&#125;'</span> Ms7.EQT &gt; 2018ms7</span><br><span class="line"><span class="comment"># 将数据逐年提取为：“经度 纬度 年度 震级”格式</span></span><br><span class="line"><span class="comment"># 下面为for循环下的实现</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i = ((i=2008;i&lt;=2019;i++));</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">awk <span class="string">'&#123;if (substr($1,1,4)=="'</span><span class="variable">$i</span><span class="string">'") print $3,$2,"'</span><span class="variable">$i</span><span class="string">'",$4&#125;'</span> 2018ms7 &gt;&gt; eqdis	</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">gmt <span class="built_in">set</span> FONT 11p,4</span><br><span class="line">gmt <span class="built_in">set</span> MAP_FRAME_TYPE plain</span><br><span class="line">gmt <span class="built_in">set</span> MAP_FRAME_PEN 1p,black</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建cpt文件</span></span><br><span class="line">gmt makecpt -Crainbow -T2008/2019/1 &gt; cpt.cpt</span><br><span class="line"><span class="comment"># 绘图</span></span><br><span class="line">gmt pscoast -JN6i -R-30/330/-90/90 -Bx60f30 -By30 -Dc -A10000 -Gwhite -Sskyblue -K &gt; eq7dist.ps</span><br><span class="line">awk <span class="string">'&#123;print $1,$2,$3,$4*0.04&#125;'</span> eqdis |gmt psxy -J -R -Sc -W.1p,white -Ccpt.cpt -K -O &gt;&gt; eq7dist.ps</span><br><span class="line"><span class="comment"># 绘制colorbar</span></span><br><span class="line">gmt psscale -Ccpt.cpt -Dx0/0+w5.6i/.2c+jBL+h+o.3c/-1c -Bx1 -By+l<span class="string">"Years"</span> -K -O &gt;&gt; eq7dist.ps</span><br><span class="line">gmt psxy -J -R -T -O &gt;&gt; eq7dist.ps</span><br><span class="line"><span class="comment"># 转换至位图</span></span><br><span class="line">gmt psconvert eq7dist.ps -A -Tj -E300 -P</span><br><span class="line"></span><br><span class="line">rm *.cpt gmt.* eqdis</span><br></pre></td></tr></table></figure>
-<p>结果:</p>
-<p><img src="https://wpttt.github.io/images/psxy2.png" alt="图2"></p>
-<p>地震目录格式如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">20181211102630-58.32 -26.387.00150000 南桑威奇群岛地区</span><br><span class="line">20181201012927 61.33-150.057.30 40000 美国阿拉斯加</span><br><span class="line">20181205121806-21.85 169.407.50 10000 洛亚蒂群岛</span><br><span class="line">20181211102630-58.32 -26.387.00150000 南桑威奇群岛地区</span><br><span class="line">20190222181720 -2.17 -76.877.50140000 厄瓜多尔</span><br><span class="line">20190301165041-14.55 -70.107.00260000 秘鲁</span><br><span class="line">20190507051936 -6.95 146.507.10130000 巴布亚新几内亚</span><br><span class="line">20190514205828 -4.17 152.487.60 30000 新不列颠岛地区</span><br></pre></td></tr></table></figure>
-<p>因此在绘图之前需要对文本格式进行一定的处理，以满足gmt绘图需要。</p>
-<ol>
+<h1>简介</h1>
+<p><a href="https://brew.sh/index_zh-cn" target="_blank" rel="noopener">Homebrew</a> 是macOS下的一个软件包管理器，用于安装各种命令行工，是macOS开发环境搭建必不可少的工具。起作用类似centOS下的yum和Debian、Ubuntu下的apt，可以用命令行实现软件的安装、卸载、更新等。</p>
+<h1>要求</h1>
+<ul>
 <li>
-<p>本例子利用for循环加awk实现文本内容的提取和格式的设定，即</p>
-<pre><code> 经度 纬度 Z值(年份) 震级(大小)
-</code></pre>
+<p>Intel CPU</p>
 </li>
 <li>
-<p><code>makecpt</code>模块将文件<code>rainbow.cpt</code>的Z值设置为2008～2019，并且划分间隔为1，生成新的cpt文件；</p>
+<p>OS X 10.9 及以上</p>
 </li>
 <li>
-<p>因此绘图时使用<code>-C</code>选项，会直接读取第三列为填充颜色；并可以绘制colorbar作为图例，省去了繁琐的图例绘制。</p>
+<p>Command Line Tools for Xcode</p>
+<p>Command Line Tools for Xcode中包含了常用的命令行开发工具，比如gcc/g++编译器、 make、git等，是安装很多其他软件的基础。在 Terminal 中执行如下命令以安装 Command Line Tools for Xcode:</p>
+  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">xcode-select --install</span><br></pre></td></tr></table></figure>
 </li>
-</ol>
-<h2 id="绘制颜色变化的曲线"><a class="header-anchor" href="#绘制颜色变化的曲线">¶</a>绘制颜色变化的曲线</h2>
-<p>想要绘制一条颜色变化的线段，下面是演示代码：</p>
-<p>此例引自<a href="https://blog.seisman.info/plot-lines-with-gradient-colors/" target="_blank" rel="noopener">Seisman播客</a></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># GMT v5.2.1</span></span><br><span class="line">gmt makecpt -Crainbow -T-2/2/1 &gt; lines.cpt</span><br><span class="line">gmt psxy -JX15c/4c -R0/6/0/4 -B1 -Clines.cpt -W2p &gt; test.ps &lt;&lt; EOF</span><br><span class="line">&gt; -Z-1.5</span><br><span class="line">1 2</span><br><span class="line">2 2</span><br><span class="line">&gt; -Z-0.5</span><br><span class="line">2 2</span><br><span class="line">3 2</span><br><span class="line">&gt; -Z0.5</span><br><span class="line">3 2</span><br><span class="line">4 2</span><br><span class="line">&gt; -Z1.5</span><br><span class="line">4 2</span><br><span class="line">5 2</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
-<p>结果：</p>
-<p><img src="https://wpttt.github.io/images/psxy3.png" alt="图3"></p>
-<p><img class="emoji" draggable="false" alt="👉" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f449.png"/>简单解释一下：</p>
-<ol>
-<li><code>makecpt</code> 命令制作了一个 - 2 到 2 间隔为 1 的 CPT 文件</li>
-<li><code>psxy</code> 命令中使用了 <code>-C</code> 选项，此时需要输入数据是多段表数据，且每段数据的段头记录中，需要有 <code>-Z&lt;val&gt;</code> 以指定每段数据的 Z 值</li>
-<li>实际绘图时，对于每段数据，命令会读取该数据数据的段头记录中的 <code>-Z&lt;val&gt;</code> 中的 Z(<code>val</code>)值，然后到 CPT 文件中查找 Z 值所对应的颜色，作为该段线段的颜色。</li>
-</ol>
-]]></content>
-      <categories>
-        <category>GMT</category>
-      </categories>
-      <tags>
-        <tag>GMT</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>绘制事件的时间分布图</title>
-    <url>/2020/04/15/%E7%BB%98%E5%88%B6%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%97%B6%E9%97%B4%E5%88%86%E5%B8%83%E5%9B%BE/</url>
-    <content><![CDATA[<p>  本文介绍利用python在时间坐标下对地震事件进行统计和可视化。包括地震频度的统计、频度图的绘制以及<em>M</em>-t图的绘制。<br>
-  重点需要掌握，时间轴上统计和绘图时需要完成的时间段和时间点的转换，以及时间轴样式的设置。</p>
-<a id="more"></a>
-<h1>绘制<em>M</em>-t图</h1>
-<h2 id="简介"><a class="header-anchor" href="#简介">¶</a>简介</h2>
-<p>在python中，利用matplotlib.pyplot.stem可以画茎叶图，stem的参数可以改变垂直线的类型，顶点的颜色大小等。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">stem(x,y, linefmt=<span class="literal">None</span>, markerfmt=<span class="literal">None</span>, basefmt=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="说明"><a class="header-anchor" href="#说明">¶</a>说明</h2>
-<ul>
-<li><code>x</code>, <code>y</code>分别是横纵坐标；</li>
-<li><code>linefmt</code>:垂直线的颜色和类型；<code>linefmt=‘r-’</code>，代表红色的实线;</li>
-<li><code>basefmt</code>指<code>y=0</code>那条直线；</li>
-<li><code>markerfmt</code>设置顶点的类型和颜色，比如<code>C3.</code>，<code>C</code>(大写字母C)是默认的，后面数字应该是<code>0-9</code>，改变颜色，最后的<code>.</code>或者<code>o</code>（小写字母o）分别可以设置顶点为小实点或者大实点，空格表示没有顶点。</li>
 </ul>
-<p><strong>以下为线型对应的字符</strong></p>
-<center>
-<table>
-<thead>
-<tr>
-<th>字符</th>
-<th>线型</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>‘-’</td>
-<td>solid line</td>
-</tr>
-<tr>
-<td>‘–’</td>
-<td>dashed line</td>
-</tr>
-<tr>
-<td>‘-.’</td>
-<td>dash-dot line</td>
-</tr>
-<tr>
-<td>‘:’</td>
-<td>dotted line</td>
-</tr>
-</tbody>
-</table>
-</center>
-<h1>绘制N-t图</h1>
-<h2 id="简介-v2"><a class="header-anchor" href="#简介-v2">¶</a>简介</h2>
-<p>python中可以利用<code>matplotlib.pyplot.bar</code>，通过绘制bar实现地震频度图的绘制。<br>
-工具：</p>
-<ul>
-<li><code>matplotlib.pyplot</code></li>
-<li><code>matplotlib.dates</code></li>
-<li><code>pandas</code></li>
-</ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">plt.bar(x,height,width=<span class="number">0.8</span>,bottom=<span class="literal">None</span>,align=<span class="string">'center'</span>,data=Nonecolor=<span class="string">'b'</span>,alpha=<span class="number">1.</span>..)</span><br></pre></td></tr></table></figure>
-<h3 id="参数说明"><a class="header-anchor" href="#参数说明">¶</a><strong>参数说明</strong></h3>
-<p><strong>xerr, yerr</strong>:<br>
-scalar or array-like of shape(N,) or shape(2, N), optional；If not <em>None</em>, add horizontal / vertical errorbars to the bar tips. The values are +/- sizes relative to the data:</p>
-<ul>
-<li>scalar: symmetric +/- values for all bars</li>
-<li>shape(N,): symmetric +/- values for each bar</li>
-<li>shape(2, N): Separate - and + values for each bar. First row contains the lower errors, the second row contains the upper<br>
-errors.</li>
-<li><em>None</em>: No errorbar. (Default)</li>
-</ul>
-<h1>实例</h1>
-<blockquote>
-<p><strong>Notice!</strong><br>
-本节最关键的问题在于地震数目的统计，和时间坐标的控制</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/bin/python</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> matplotlib.dates <span class="keyword">as</span> mdate</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment"># macos下解决中文乱码</span></span><br><span class="line">plt.rcParams[<span class="string">'font.sans-serif'</span>] = [<span class="string">'Arial Unicode MS'</span>]</span><br><span class="line">plt.rcParams[<span class="string">'axes.unicode_minus'</span>] = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">mc = <span class="number">3</span>  <span class="comment"># 设置最小震级</span></span><br><span class="line"><span class="comment"># 读入目录为DataFrame</span></span><br><span class="line">eq = pd.read_csv(<span class="string">'gsty.txt'</span>,sep=<span class="string">' '</span>,</span><br><span class="line">                 encoding=<span class="string">'gbk'</span>,skipinitialspace=<span class="literal">True</span>,</span><br><span class="line">                 names=[<span class="string">'date'</span>,<span class="string">'time'</span>,<span class="string">'lat'</span>,<span class="string">'lon'</span>,<span class="string">'dep'</span>,<span class="string">'mag'</span>,<span class="string">'diming'</span>])</span><br><span class="line">eq[<span class="string">'datetime'</span>] = eq.apply(<span class="keyword">lambda</span> x: x.date+<span class="string">' '</span>+x.time, axis=<span class="number">1</span>)</span><br><span class="line">eq[<span class="string">'datetime_f'</span>] = pd.to_datetime(eq[<span class="string">'datetime'</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置图片布局</span></span><br><span class="line">fig = plt.figure(figsize=(<span class="number">10</span>,<span class="number">5</span>),dpi=<span class="number">100</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 利用stem绘制M-t图</span></span><br><span class="line">ax1 = fig.add_subplot(<span class="number">211</span>)</span><br><span class="line">x = eq[eq.mag&gt;=mc].datetime_f</span><br><span class="line">y = eq[eq.mag&gt;=mc].mag</span><br><span class="line">ax1.stem(x,y,linefmt=<span class="string">'k-'</span>, basefmt=<span class="string">'r-'</span>, markerfmt=<span class="string">'C2 '</span>,label=<span class="string">'地震'</span>)</span><br><span class="line">plt.ylim(mc<span class="number">-1</span>,eq.mag.max()+<span class="number">1</span>)</span><br><span class="line">plt.ylabel(<span class="string">'震级(Ml)'</span>)</span><br><span class="line">plt.gcf().autofmt_xdate()</span><br><span class="line">plt.xlabel(<span class="string">"时间"</span>)</span><br><span class="line">plt.legend()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 绘制频度图前的准备</span></span><br><span class="line"><span class="comment"># 将时间设置为index，便于按时间段进行数量统计</span></span><br><span class="line">eq.set_index(<span class="string">'datetime_f'</span>,inplace=<span class="literal">True</span>,drop=<span class="literal">True</span>)</span><br><span class="line"><span class="comment"># eq_p = eq.to_period('M') # 按月显示</span></span><br><span class="line"><span class="comment"># print(eq_p.index.asfreq('M'))</span></span><br><span class="line">afreq = eq.mag.resample(<span class="string">'A'</span>).count()  <span class="comment"># 按年统计</span></span><br><span class="line">mfreq = eq.mag.resample(<span class="string">'M'</span>).count()  <span class="comment"># 按月统计</span></span><br><span class="line">dfreq = eq.resample(<span class="string">'d'</span>).count().to_period(<span class="string">'d'</span>)  <span class="comment"># 按天统计</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 利用bar绘制频度图</span></span><br><span class="line">ax2 = fig.add_subplot(<span class="number">212</span>)</span><br><span class="line">x = dfreq.index.start_time</span><br><span class="line">y = dfreq.mag</span><br><span class="line"><span class="comment">#设置x轴为时间格式，这句非常重要，否则x轴显示的将是类似于‘736268’这样的转码后的数格式</span></span><br><span class="line">ax2.xaxis.set_major_formatter(mdate.DateFormatter(<span class="string">'%Y-%m-%d'</span>))</span><br><span class="line">plt.xticks(pd.date_range(dfreq.index[<span class="number">0</span>].start_time,dfreq.index[<span class="number">-1</span>]end_time,freq=<span class="string">'10d'</span>), rotation=<span class="number">45</span>)</span><br><span class="line">ax2.bar(x,y,color=<span class="string">'c'</span>,align=<span class="string">'edge'</span>,alpha=<span class="number">0.8</span>)</span><br><span class="line">plt.ylabel(<span class="string">'频数'</span>)</span><br><span class="line">plt.xlabel(<span class="string">"时间"</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<p>运行以上代码生成如下图片</p>
-<p><img src="https://wpttt.github.io/images/plot-time1.png" alt="fig1"></p>
-<h2 id="说明-v2"><a class="header-anchor" href="#说明-v2">¶</a>说明</h2>
-<p>以下为在时间坐标下绘制数据时的关键顺序</p>
-<ol>
-<li>读取数据后，利用pd.set_index设置时间列为index</li>
-<li>利用时间index对表数据进行统计<code>eq.resample('d').count().toperiod('d')</code>，此处d表示按天采样，获取每日地震数量。<br>
-<strong><font color=deepskyblue>注意：此时生成的dataframe中index为时间段，不可直接用于时间坐标（时间坐标用时间点）</font></strong></li>
-<li>设置x轴时间格式，<code>ax.xaxis.set_major_formatter(mdate.DateFormatter('%Y-%m-%d'))</code></li>
-<li>对index时间段取start_time作为时间点，利用始末时间点生成时间序列，作为x轴坐标；<code>pd.date_range</code></li>
-<li>绘图</li>
-</ol>
-<blockquote>
-<p><img class="emoji" draggable="false" alt="👉" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f449.png"/> <strong><font color=deepskyblue>Notice:</font></strong><br>
-可选参数<em>color</em>， <em>edgecolor</em>， <em>linewidth</em>，<em>xerr</em>和<em>yerr</em>可以是标量或长度等于bar数目的序列。这是绘制条形图作为堆叠条形图或烛台图的基础。:wstar:<br>
-详细信息：<em>xerr</em>和<em>yerr</em>被直接传递到:meth:‘errorbar’，所以他们也可以有形状2xN,独立规定上下误差。</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>Python</category>
-      </categories>
-      <tags>
-        <tag>Python</tag>
-        <tag>Matplotlib</tag>
-        <tag>M-t图</tag>
-        <tag>N-t图</tag>
-        <tag>时间坐标</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hexo中添加emoji表情</title>
-    <url>/2020/04/16/Hexo%E4%B8%AD%E6%B7%BB%E5%8A%A0emoji%E8%A1%A8%E6%83%85/</url>
-    <content><![CDATA[<p>本文介绍如何让Hexo支持emoji表情。</p>
-<a id="more"></a>
-<p>首先，要知道markdown 变成html的转换器叫做markdown渲染器。在Hexo中默认的markdown渲染器使用的是<a href="https://github.com/hexojs/hexo-renderer-marked" target="_blank" rel="noopener">hexo-renderer-marked</a>，此渲染器不支持插件扩展；要让hexo支持emoji，则需要将渲染器更换为支持插件扩展的渲染器。网络博主们推荐<a href="https://github.com/celsomiranda/hexo-renderer-markdown-it" target="_blank" rel="noopener">hexo-renderer-markdown-it</a>，该渲染器可通过使用<a href="https://github.com/markdown-it/markdown-it-emoji" target="_blank" rel="noopener">markdown-it-emoji</a>插件来支持emoji渲染。</p>
+<p>在弹出的窗口点击“Install”即可。</p>
+<p>此处安装的Command Line Tools可能不是最新版，可以到“App Store”的“更新”中查看是 否有相关更新。如果有，则升级到最新版。 今后 App Store 来的系统大版本号升级的时候，可能需要更新 Command line tools， 小版本升级无需更新。</p>
 <h1>安装</h1>
-<p>三步：卸载旧渲染器，安装新渲染器，安装插件</p>
-<h2 id="卸载hexo-renderer-marked"><a class="header-anchor" href="#卸载hexo-renderer-marked">¶</a>卸载<a href="https://github.com/hexojs/hexo-renderer-marked" target="_blank" rel="noopener">hexo-renderer-marked</a></h2>
-<p>切换到本地blog目录</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm un hexo-renderer-marked --save</span><br></pre></td></tr></table></figure>
-<h2 id="安装和配置hexo-renderer-markdown-it渲染器"><a class="header-anchor" href="#安装和配置hexo-renderer-markdown-it渲染器">¶</a>安装和配置<a href="https://github.com/celsomiranda/hexo-renderer-markdown-it" target="_blank" rel="noopener">hexo-renderer-markdown-it</a>渲染器</h2>
-<p><strong>安装渲染器</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm i hexo-renderer-markdown-it --save</span><br></pre></td></tr></table></figure>
-<p><strong>渲染器配置：</strong></p>
-<ol>
-<li>
-<p>在站点配置文件<code>_config.yml</code>中添加如下代码：</p>
- <figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Markdown-it config</span></span><br><span class="line"><span class="comment">## Docs: https://github.com/celsomiranda/hexo-renderer-markdown-it/wiki</span></span><br><span class="line"><span class="attr">markdown:</span></span><br><span class="line">  <span class="attr">render:</span></span><br><span class="line">    <span class="attr">html:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">xhtmlOut:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">breaks:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">linkify:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">typographer:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">quotes:</span> <span class="string">'“”‘’'</span></span><br><span class="line">  <span class="attr">plugins:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">markdown-it-abbr</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">markdown-it-footnote</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">markdown-it-ins</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">markdown-it-sub</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">markdown-it-sup</span></span><br><span class="line">  <span class="attr">anchors:</span></span><br><span class="line">    <span class="attr">level:</span> <span class="number">2</span></span><br><span class="line">    <span class="attr">collisionSuffix:</span> <span class="string">'v'</span></span><br><span class="line">    <span class="attr">permalink:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">permalinkClass:</span> <span class="string">header-anchor</span></span><br><span class="line">    <span class="attr">permalinkSide:</span> <span class="string">'left'</span></span><br><span class="line">    <span class="attr">permalinkSymbol:</span> <span class="string">¶</span></span><br></pre></td></tr></table></figure>
-<p>以上配置详细说明如下，或见<a href="https://github.com/celsomiranda/hexo-renderer-markdown-it/wiki/Advanced-Configuration" target="_blank" rel="noopener">Advanced Configuration</a></p>
+<p>homebrew的安装方法现已更新，从ruby转到了bash，网上的很多方法都是基于ruby的，可能无法完成安装，最新的安装操作引导请参考<a href="https://brew.sh/index_zh-cn" target="_blank" rel="noopener">homebrew主页</a>。</p>
+<p>在终端中执行如下命令以安装Homebrew:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/bin/bash -c <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)</span>"</span></span><br></pre></td></tr></table></figure>
+<p>也可以根据网上的说法，首先打开<a href="https://raw.githubusercontent.com/Homebrew/install/master/install.sh" target="_blank" rel="noopener">https://raw.githubusercontent.com/Homebrew/install/master/install.sh</a>，将页面代码全选复制进新建的install.sh文件，然后在bash下运行该脚本。</p>
+<p>当然，这种做法主要是为了解决国内访问brew官方镜像速度低尔导致安装速度慢的问题，因此如果总是因为安装速度慢导致安装失败，则可以尝试该方法，但在运行install.sh前需要将其内brew-repo所指向的镜像仓库链接改为国内镜像，如清华、科大等镜像仓库。此处以清华镜像为例，找到下面这行代码：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">BREW_REPO=<span class="string">"https://github.com/Homebrew/brew"</span></span><br></pre></td></tr></table></figure>
+<p>将其改为：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">BREW_REPO=<span class="string">"https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"</span></span><br></pre></td></tr></table></figure>
+<p>然后在终端执行该脚本，进行安装。</p>
+<h1>Homebrew的常见用法</h1>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">brew search xxx     # 模糊搜索某个软件</span><br><span class="line">brew install xxx    # 安装某个软件</span><br><span class="line">brew upgrade xxx    # 升级某个软件</span><br><span class="line">brew uninstall xxx  # 卸载某个软件</span><br><span class="line">brew list xxx       # 列出某个软件的所有相关文件</span><br></pre></td></tr></table></figure>
+<p>运行<code>brew help</code>查看详细用法。</p>
+<h1>Homebrew中的几个概念：</h1>
 <ul>
-<li><strong>markdown：</strong></li>
-<li><strong>render</strong></li>
-<li><strong>plugin</strong></li>
-<li><strong>anchors</strong></li>
+<li>Formulae：Formulae指定了如何安装某个软件，因而每个软件对应一个Formulae</li>
+<li>Bottle：从软件源码编译安装软件会比较慢，Bootle是已经编译好的二进制版本，以加快软件安装速度</li>
+<li>Tap：软件仓库，包含了一系列软件的Fromulae</li>
 </ul>
-</li>
-<li>
-<p>安装markdown-it-checkbox插件</p>
- <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install markdown-it-checkbox --save</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>在站点配置文件_config.yml文件中的markdown.plugins添加- markdown-it-checkbox,即:</p>
- <figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">plugins:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-abbr</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-footnote</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-ins</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-sub</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-sup</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-checkbox</span> <span class="comment"># 本行启用了checkbox插件</span></span><br></pre></td></tr></table></figure>
-<p>示例:</p>
-<p><input type="checkbox" id="checkbox1"><label for="checkbox1"> 这是未勾选的checkbox</label><br>
-<input type="checkbox" id="checkbox0" checked="true"><label for="checkbox0"> 这是已勾选的checkbox</label></p>
-<p>语法:</p>
- <figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">[ ] 这是未勾选的checkbox</span><br><span class="line">[x] 这是已勾选的checkbox</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h2 id="安装和配置markdown-it-emoji插件"><a class="header-anchor" href="#安装和配置markdown-it-emoji插件">¶</a>安装和配置markdown-it-emoji插件</h2>
-<p><strong>安装插件</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 安装markdown-it-emoji插件</span></span><br><span class="line">npm install markdown-it-emoji --save</span><br></pre></td></tr></table></figure>
-<p>在站点配置文件<code>_config.yml</code>文件中的<code>markdown.plugins</code>添加<code>- markdown-it-emoji</code>，即:</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">plugins:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-abbr</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-footnote</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-ins</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-sub</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-sup</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-checkbox</span> <span class="comment"># 本行启用了checkbox插件</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-emoji</span> <span class="comment"># 本行启用了emoji插件</span></span><br></pre></td></tr></table></figure>
-<p><strong>配置插件 &amp; 优化Emoji样式</strong></p>
-<ol>
-<li>
-<p>安装twemoji</p>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install twemoji</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>配置</p>
-<p>在<code>node_modules\markdown-it-emoji\index.js</code>目录下添加代码:</p>
- <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> twemoji           = <span class="built_in">require</span>(<span class="string">'twemoji'</span>)  <span class="comment">//添加twemoji</span></span><br><span class="line"><span class="comment">//使用twemoji渲染</span></span><br><span class="line">  md.renderer.rules.emoji = <span class="function"><span class="keyword">function</span>(<span class="params">token, idx</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> twemoji.parse(token[idx].content);</span><br><span class="line">  &#125;;</span><br></pre></td></tr></table></figure>
-<p>完整代码为:</p>
- <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="meta">'use strict'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> emojies_defs      = <span class="built_in">require</span>(<span class="string">'./lib/data/full.json'</span>);</span><br><span class="line"><span class="keyword">var</span> emojies_shortcuts = <span class="built_in">require</span>(<span class="string">'./lib/data/shortcuts'</span>);</span><br><span class="line"><span class="keyword">var</span> emoji_html        = <span class="built_in">require</span>(<span class="string">'./lib/render'</span>);</span><br><span class="line"><span class="keyword">var</span> emoji_replace     = <span class="built_in">require</span>(<span class="string">'./lib/replace'</span>);</span><br><span class="line"><span class="keyword">var</span> normalize_opts    = <span class="built_in">require</span>(<span class="string">'./lib/normalize_opts'</span>);</span><br><span class="line"><span class="keyword">var</span> twemoji           = <span class="built_in">require</span>(<span class="string">'twemoji'</span>)  <span class="comment">//添加twemoji</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> <span class="title">emoji_plugin</span>(<span class="params">md, options</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> defaults = &#123;</span><br><span class="line">    defs: emojies_defs,</span><br><span class="line">    shortcuts: emojies_shortcuts,</span><br><span class="line">    enabled: []</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> opts = normalize_opts(md.utils.assign(&#123;&#125;, defaults, options || &#123;&#125;));</span><br><span class="line"></span><br><span class="line">  md.renderer.rules.emoji = emoji_html;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//使用twemoji渲染</span></span><br><span class="line">  md.renderer.rules.emoji = <span class="function"><span class="keyword">function</span>(<span class="params">token, idx</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> twemoji.parse(token[idx].content);</span><br><span class="line">  &#125;;</span><br><span class="line">  </span><br><span class="line">  md.core.ruler.push(<span class="string">'emoji'</span>, emoji_replace(md, opts.defs, opts.shortcuts, opts.scanRE, opts.replaceRE));</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>在themes/next/source/css/main.styl文件中添加Emoji样式：</p>
- <figure class="highlight styl"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*emoji样式*/</span></span><br><span class="line"><span class="selector-class">.emoji</span> &#123;  <span class="attribute">height</span>: <span class="number">1.2em</span>;&#125;</span><br><span class="line"><span class="selector-tag">img</span>.emoji&#123;</span><br><span class="line">    margin: 0 .05em 0 .1em !important;</span><br><span class="line">    <span class="attribute">vertical-align</span>: -<span class="number">0.1em</span>;</span><br><span class="line">    <span class="comment">//override theme default style</span></span><br><span class="line">    <span class="attribute">padding</span>:<span class="number">0px</span> !important;</span><br><span class="line">    <span class="attribute">border</span>:none !important;</span><br><span class="line">    <span class="attribute">display</span>:inline !important;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>示例：</p>
-<p><img class="emoji" draggable="false" alt="💯" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f4af.png"/><img class="emoji" draggable="false" alt="🔢" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f522.png"/><img class="emoji" draggable="false" alt="😋" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f60b.png"/><img class="emoji" draggable="false" alt="🚵" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f6b5.png"/><img class="emoji" draggable="false" alt="🔜" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f51c.png"/><img class="emoji" draggable="false" alt="🛥" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f6e5.png"/><img class="emoji" draggable="false" alt="🏞" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f3de.png"/><img class="emoji" draggable="false" alt="🌃" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f303.png"/><img class="emoji" draggable="false" alt="🎆" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f386.png"/><img class="emoji" draggable="false" alt="📘" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f4d8.png"/><img class="emoji" draggable="false" alt="❎" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/274e.png"/><img class="emoji" draggable="false" alt="🇨🇳" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f1e8-1f1f3.png"/><img class="emoji" draggable="false" alt="🐱" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f431.png"/>:full _moon:<img class="emoji" draggable="false" alt="🌖" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f316.png"/><img class="emoji" draggable="false" alt="🌗" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f317.png"/><img class="emoji" draggable="false" alt="🌘" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f318.png"/><img class="emoji" draggable="false" alt="🌑" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f311.png"/><img class="emoji" draggable="false" alt="🌒" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f312.png"/><img class="emoji" draggable="false" alt="🌓" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f313.png"/><img class="emoji" draggable="false" alt="🌔" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f314.png"/><img class="emoji" draggable="false" alt="0️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/30-20e3.png"/><img class="emoji" draggable="false" alt="1️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/31-20e3.png"/>:  two:<img class="emoji" draggable="false" alt="3️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/33-20e3.png"/><img class="emoji" draggable="false" alt="4️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/34-20e3.png"/><img class="emoji" draggable="false" alt="5️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/35-20e3.png"/><img class="emoji" draggable="false" alt="6️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/36-20e3.png"/><img class="emoji" draggable="false" alt="7️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/37-20e3.png"/><img class="emoji" draggable="false" alt="8️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/38-20e3.png"/><img class="emoji" draggable="false" alt="9️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/39-20e3.png"/><img class="emoji" draggable="false" alt="🔟" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f51f.png"/><img class="emoji" draggable="false" alt="🕐" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f550.png"/><img class="emoji" draggable="false" alt="🕑" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f551.png"/><img class="emoji" draggable="false" alt="🕒" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f552.png"/><img class="emoji" draggable="false" alt="🕓" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f553.png"/><img class="emoji" draggable="false" alt="🕔" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f554.png"/><img class="emoji" draggable="false" alt="🕕" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f555.png"/><img class="emoji" draggable="false" alt="🕖" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f556.png"/><img class="emoji" draggable="false" alt="🕗" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f557.png"/><img class="emoji" draggable="false" alt="🕘" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f558.png"/><img class="emoji" draggable="false" alt="🕙" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f559.png"/><img class="emoji" draggable="false" alt="🕚" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f55a.png"/>:cl ock12:<img class="emoji" draggable="false" alt="🕜" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f55c.png"/><img class="emoji" draggable="false" alt="🕝" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f55d.png"/><img class="emoji" draggable="false" alt="🕞" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f55e.png"/><img class="emoji" draggable="false" alt="🕟" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f55f.png"/><img class="emoji" draggable="false" alt="🕠" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f560.png"/><img class="emoji" draggable="false" alt="🕡" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f561.png"/><img class="emoji" draggable="false" alt="🕢" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f562.png"/><img class="emoji" draggable="false" alt="🕣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f563.png"/><img class="emoji" draggable="false" alt="🕤" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f564.png"/><img class="emoji" draggable="false" alt="🕥" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f565.png"/><img class="emoji" draggable="false" alt="🕦" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f566.png"/><img class="emoji" draggable="false" alt="🕧" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f567.png"/><img class="emoji" draggable="false" alt="🇸🇨" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f1f8-1f1e8.png"/>:latin_cross  :<img class="emoji" draggable="false" alt="☪️" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/262a.png"/><img class="emoji" draggable="false" alt="☮️" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/262e.png"/><img class="emoji" draggable="false" alt="🕉" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f549.png"/><img class="emoji" draggable="false" alt="☸️" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/2638.png"/><img class="emoji" draggable="false" alt="✡️" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/2721.png"/><img class="emoji" draggable="false" alt="🔯" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f52f.png"/><img class="emoji" draggable="false" alt="🕎" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f54e.png"/><img class="emoji" draggable="false" alt="☯️" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/262f.png"/><img class="emoji" draggable="false" alt="✡️" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/2721.png"/><img class="emoji" draggable="false" alt="☦️" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/2626.png"/><img class="emoji" draggable="false" alt="⚾️" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/26be.png"/></p>
-<p>源代码:</p>
- <figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">:100::1234::yum::mountain<span class="emphasis">_biking_</span>man::soon::motor<span class="emphasis">_boat::national_</span>park::night<span class="emphasis">_with_</span>stars::fireworks::blue_book:</span><br><span class="line">:negative<span class="emphasis">_squared_</span>cross<span class="emphasis">_mark::cn::cat::full_</span>moon::waning<span class="emphasis">_gibbous_</span>moon::last<span class="emphasis">_quarter_</span>moon::waning<span class="emphasis">_crescent_</span>moon:</span><br><span class="line">:new<span class="emphasis">_moon::waxing_</span>crescent<span class="emphasis">_moon::first_</span>quarter<span class="emphasis">_moon::waxing_</span>gibbous_moon::zero::one::two::three::four::five::six:</span><br><span class="line">:seven::eight::nine::keycap_ten::clock1::clock2::clock3::clock4::clock5::clock6::clock7::clock8::clock9::clock10:</span><br><span class="line">:clock11::clock12::clock130::clock230::clock330::clock430::clock530::clock630::clock730::clock830::clock930:</span><br><span class="line">:clock1030::clock1130::clock1230::seychelles::latin<span class="emphasis">_cross::star_</span>and<span class="emphasis">_crescent::peace_</span>symbol::om::wheel<span class="emphasis">_of_</span>dharma:</span><br><span class="line">:star<span class="emphasis">_of_</span>david::six<span class="emphasis">_pointed_</span>star::menorah::yin<span class="emphasis">_yang::star_</span>of<span class="emphasis">_david::orthodox_</span>cross::baseball:</span><br></pre></td></tr></table></figure>
-<p>插件地址：</p>
-<ul>
-<li><a href="https://github.com/hexojs/hexo-renderer-markdown-it" target="_blank" rel="noopener">hexo-renderer-markdown-it</a></li>
-<li><a href="https://www.npmjs.com/package/markdown-it-checkbox" target="_blank" rel="noopener">markdown-it-checkbox</a></li>
-<li><a href="https://github.com/markdown-it/markdown-it-emoji" target="_blank" rel="noopener">markdown-it-emoji</a></li>
-<li><a href="https://github.com/twitter/twemoji" target="_blank" rel="noopener">twemoji</a></li>
-</ul>
-<p>Emoji表情检索：</p>
-<ul>
-<li><a href="https://emoji.muan.co/#" target="_blank" rel="noopener">Emoji</a></li>
-<li><a href="https://emoji.svend.cc/" target="_blank" rel="noopener">Emoji(快)</a></li>
-</ul>
-</li>
-</ol>
-<h1>Emoji and code</h1>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">😊 :blush:	😃 :smiley:	☺️ :relaxed:</span><br><span class="line">😏 :smirk:	😍 :heart_eyes:	😘 :kissing_heart:</span><br><span class="line">😚 :kissing_closed_eyes:	😳 :flushed:	😌 :relieved:</span><br><span class="line">😆 :satisfied:	😁 :grin:	😉 :wink:</span><br><span class="line">😜 :stuck_out_tongue_winking_eye:	😝 :stuck_out_tongue_closed_eyes:	😀 :grinning:</span><br><span class="line">😗 :kissing:	😙 :kissing_smiling_eyes:	😛 :stuck_out_tongue:</span><br><span class="line">😴 :sleeping:	😟 :worried:	😦 :frowning:</span><br><span class="line">😧 :anguished:	😮 :open_mouth:	😬 :grimacing:</span><br><span class="line">😕 :confused:	😯 :hushed:	😑 :expressionless:</span><br><span class="line">😒 :unamused:	😅 :sweat_smile:	😓 :sweat:</span><br><span class="line">😥 :disappointed_relieved:	😩 :weary:	😔 :pensive:</span><br><span class="line">😞 :disappointed:	😖 :confounded:	😨 :fearful:</span><br><span class="line">😰 :cold_sweat:	😣 :persevere:	😢 :cry:</span><br><span class="line">😭 :sob:	😂 :joy:	😲 :astonished:</span><br><span class="line">😱 :scream:	:neckbeard: :neckbeard:	😫 :tired_face:</span><br><span class="line">😠 :angry:	😡 :rage:	😤 :triumph:</span><br><span class="line">😪 :sleepy:	😋 :yum:	😷 :mask:</span><br><span class="line">😎 :sunglasses:	😵 :dizzy_face:	👿 :imp:</span><br><span class="line">😈 :smiling_imp:	😐 :neutral_face:	😶 :no_mouth:</span><br><span class="line">😇 :innocent:	👽 :alien:	💛 :yellow_heart:</span><br><span class="line">💙 :blue_heart:	💜 :purple_heart:	❤️ :heart:</span><br><span class="line">💚 :green_heart:	💔 :broken_heart:	💓 :heartbeat:</span><br><span class="line">💗 :heartpulse:	💕 :two_hearts:	💞 :revolving_hearts:</span><br><span class="line">💘 :cupid:	💖 :sparkling_heart:	✨ :sparkles:</span><br><span class="line">⭐️ :star:	🌟 :star2:	💫 :dizzy:</span><br><span class="line">💥 :boom:	💥 :collision:	💢 :anger:</span><br><span class="line">❗️ :exclamation:	❓ :question:	❕ :grey_exclamation:</span><br><span class="line">❔ :grey_question:	💤 :zzz:	💨 :dash:</span><br><span class="line">💦 :sweat_drops:	🎶 :notes:	🎵 :musical_note:</span><br><span class="line">🔥 :fire:	💩 :hankey:	💩 :poop:</span><br><span class="line">💩 :shit:	👍 :+1:	👍 :thumbsup:</span><br><span class="line">👎 :-1:	👎 :thumbsdown:	👌 :ok_hand:</span><br><span class="line">👊 :punch:	👊 :facepunch:	✊ :fist:</span><br><span class="line">✌️ :v:	👋 :wave:	✋ :hand:</span><br><span class="line">✋ :raised_hand:	👐 :open_hands:	☝️ :point_up:</span><br><span class="line">👇 :point_down:	👈 :point_left:	👉 :point_right:</span><br><span class="line">🙌 :raised_hands:	🙏 :pray:	👆 :point_up_2:</span><br><span class="line">👏 :clap:	💪 :muscle:	🤘 :metal:</span><br><span class="line">🖕 :fu:	🚶 :walking:	🏃 :runner:</span><br><span class="line">🏃 :running:	👫 :couple:	👪 :family:</span><br><span class="line">👬 :two_men_holding_hands:	👭 :two_women_holding_hands:	💃 :dancer:</span><br><span class="line">👯 :dancers:	🙆 :ok_woman:	🙅 :no_good:</span><br><span class="line">💁 :information_desk_person:	🙋 :raising_hand:	👰 :bride_with_veil:</span><br><span class="line">🙎 :person_with_pouting_face:	🙍 :person_frowning:	🙇 :bow:</span><br><span class="line">:couplekiss: :couplekiss:	💑 :couple_with_heart:	💆 :massage:</span><br><span class="line">💇 :haircut:	💅 :nail_care:	👦 :boy:</span><br><span class="line">👧 :girl:	👩 :woman:	👨 :man:</span><br><span class="line">👶 :baby:	👵 :older_woman:	👴 :older_man:</span><br><span class="line">👱 :person_with_blond_hair:	👲 :man_with_gua_pi_mao:	👳 :man_with_turban:</span><br><span class="line">👷 :construction_worker:	👮 :cop:	👼 :angel:</span><br><span class="line">👸 :princess:	😺 :smiley_cat:	😸 :smile_cat:</span><br><span class="line">😻 :heart_eyes_cat:	😽 :kissing_cat:	😼 :smirk_cat:</span><br><span class="line">🙀 :scream_cat:	😿 :crying_cat_face:	😹 :joy_cat:</span><br><span class="line">😾 :pouting_cat:	👹 :japanese_ogre:	👺 :japanese_goblin:</span><br><span class="line">🙈 :see_no_evil:	🙉 :hear_no_evil:	🙊 :speak_no_evil:</span><br><span class="line">💂 :guardsman:	💀 :skull:	🐾 :feet:</span><br><span class="line">👄 :lips:	💋 :kiss:	💧 :droplet:</span><br><span class="line">👂 :ear:	👀 :eyes:	👃 :nose:</span><br><span class="line">👅 :tongue:	💌 :love_letter:	👤 :bust_in_silhouette:</span><br><span class="line">👥 :busts_in_silhouette:	💬 :speech_balloon:	💭 :thought_balloon:</span><br></pre></td></tr></table></figure>
-<h1>参考资料</h1>
-<p><a href="https://www.jianshu.com/p/f9e57ecca150" target="_blank" rel="noopener">https://www.jianshu.com/p/f9e57ecca150</a></p>
-<p><a href="https://vxiaozhe1998.gitee.io/2020/03/25/HEXO%E4%B8%8B%E7%9A%84%E9%94%9A%E7%82%B9%E6%A0%87%E9%A2%98%E4%B8%8EEmoji%E8%A1%A8%E6%83%85/#more" target="_blank" rel="noopener">https://vxiaozhe1998.gitee.io/2020/03/25/HEXO下的锚点标题与Emoji表情/#more</a></p>
-<p><a href="https://blog.csdn.net/weixin_30745641/article/details/95686757" target="_blank" rel="noopener">https://blog.csdn.net/weixin_30745641/article/details/95686757</a></p>
+<h1>常用的软件仓库Taps</h1>
+<h2 id="1-homebrew-core-内置核心仓库"><a class="header-anchor" href="#1-homebrew-core-内置核心仓库">¶</a>1. <a href="https://github.com/Homebrew/homebrew-core" target="_blank" rel="noopener">homebrew-core</a> 内置核心仓库</h2>
+<p>详细介绍见官方主页。</p>
+<h2 id="2-Homebrew-Cask"><a class="header-anchor" href="#2-Homebrew-Cask">¶</a>2. Homebrew-Cask</h2>
+<p>Homebrew只能用于安装命令行软件，不能用于安装带图形界面的软件。Homebrew-Cask是Homebrew的 一个扩展，可以用于安装带图形界面软件。</p>
+<p>在终端执行如下命令以安装Homebrew-Cask:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">brew tap homebrew/cask    <span class="comment"># caskroom主仓库</span></span><br><span class="line">brew tap homebrew/cask-fonts   <span class="comment"># caskroom字体仓库</span></span><br></pre></td></tr></table></figure>
+<p>常见用法:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">brew cask search xxx     <span class="comment"># 模糊搜索某个软件</span></span><br><span class="line">brew cask install xxx    <span class="comment"># 安装某个软件</span></span><br><span class="line">brew cask uninstall xxx  <span class="comment"># 卸载某个软件</span></span><br><span class="line">brew cask reinstall      <span class="comment"># 重新安装某个软件</span></span><br><span class="line">brew cask cleanup        <span class="comment"># 清理缓存</span></span><br></pre></td></tr></table></figure>
+<p>安装字体:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">brew cask install font-source-code-pro</span><br></pre></td></tr></table></figure>
+<h1>更新源</h1>
+<p>由于homebrew官方源都是存放在<a href="https://github.com/" target="_blank" rel="noopener">Github</a>上的，因此中国大陆用户的访问速度被极大限制，所以下一步需要做的就是更换为国内源。</p>
+<p>国内源可选的也比较多，此处推荐使用<a href="https://mirrors.tuna.tsinghua.edu.cn/" target="_blank" rel="noopener">清华源</a>或者<a href="https://mirrors.ustc.edu.cn/" target="_blank" rel="noopener">科大源</a>。</p>
+<p>可以通过下面的命令更新源（此处以科大源为例）</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 替换brew程序本身:</span></span><br><span class="line"><span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo)</span>"</span> </span><br><span class="line"><span class="comment"># 替换为科大源</span></span><br><span class="line">git remote <span class="built_in">set</span>-url origin https://mirrors.ustc.edu.cn/brew.git</span><br><span class="line"><span class="comment"># 替换为清华源</span></span><br><span class="line">$ git remote <span class="built_in">set</span>-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git</span><br><span class="line"></span><br><span class="line"><span class="comment"># 替换homebrew-core.git:</span></span><br><span class="line"><span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo)</span>/Library/Taps/homebrew/homebrew-core"</span></span><br><span class="line"><span class="comment"># 科大源</span></span><br><span class="line">git remote <span class="built_in">set</span>-url origin https://mirrors.ustc.edu.cn/homebrew-core.git</span><br><span class="line"><span class="comment"># 清华源</span></span><br><span class="line">git remote <span class="built_in">set</span>-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git</span><br><span class="line"></span><br><span class="line"><span class="comment"># 替换homebrew-cask.git:</span></span><br><span class="line"><span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo)</span>"</span>/Library/Taps/caskroom/homebrew-cask</span><br><span class="line"><span class="comment"># 科大</span></span><br><span class="line">git remote <span class="built_in">set</span>-url origin https://mirrors.ustc.edu.cn/homebrew-cask.git</span><br><span class="line"><span class="comment"># 清华</span></span><br><span class="line">git remote <span class="built_in">set</span>-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-cask.git</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 替换homebrew-bottles:</span></span><br><span class="line"><span class="comment"># 科大</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles'</span> &gt;&gt; ~/.bash_profile</span><br><span class="line"><span class="comment"># 清华</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles'</span> &gt;&gt; ~/.bash_profile</span><br><span class="line"><span class="comment"># 使环境变量生效</span></span><br><span class="line"><span class="built_in">source</span> ~/.bash_profile</span><br><span class="line"></span><br><span class="line"><span class="comment"># 更新源、应用生效</span></span><br><span class="line">brew update</span><br></pre></td></tr></table></figure>
+<p>如果你之前折腾过不少导致你的Homebrew有点问题，那么可以尝试使用如下方案：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 诊断Homebrew的问题:</span></span><br><span class="line">$ brew doctor</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重置brew.git设置:</span></span><br><span class="line">$ <span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo)</span>"</span></span><br><span class="line">$ git fetch</span><br><span class="line">$ git reset --hard origin/master</span><br><span class="line"></span><br><span class="line"><span class="comment"># homebrew-core.git同理:</span></span><br><span class="line">$ <span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo)</span>/Library/Taps/homebrew/homebrew-core"</span></span><br><span class="line">$ git fetch</span><br><span class="line">$ git reset --hard origin/master</span><br><span class="line"></span><br><span class="line"><span class="comment"># 应用生效:</span></span><br><span class="line">$ brew update</span><br></pre></td></tr></table></figure>
+<p>重置更新源 某些时候也有换回官方源的需求</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 重置brew.git:</span></span><br><span class="line">$ <span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo)</span>"</span></span><br><span class="line">$ git remote <span class="built_in">set</span>-url origin https://github.com/Homebrew/brew.git</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重置homebrew-core.git:</span></span><br><span class="line">$ <span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo)</span>/Library/Taps/homebrew/homebrew-core"</span></span><br><span class="line">$ git remote <span class="built_in">set</span>-url origin https://github.com/Homebrew/homebrew-core.git</span><br></pre></td></tr></table></figure>
+<p>以上如果有任何的不成功就用 brew doctor 查找原因。</p>
 ]]></content>
       <categories>
-        <category>前端</category>
+        <category>后端</category>
       </categories>
       <tags>
-        <tag>Hexo</tag>
-        <tag>Markdown</tag>
-        <tag>emoji</tag>
+        <tag>mac</tag>
       </tags>
   </entry>
 </search>
