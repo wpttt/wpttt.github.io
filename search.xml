@@ -963,7 +963,7 @@ errors.</li>
 <h1>Homebrew的常见用法</h1>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">brew search xxx     # 模糊搜索某个软件</span><br><span class="line">brew install xxx    # 安装某个软件</span><br><span class="line">brew upgrade xxx    # 升级某个软件</span><br><span class="line">brew uninstall xxx  # 卸载某个软件</span><br><span class="line">brew list xxx       # 列出某个软件的所有相关文件</span><br></pre></td></tr></table></figure>
 <p>运行<code>brew help</code>查看详细用法。</p>
-<h1>Homebrew中的几个概念：</h1>
+<h1>几个相关概念：</h1>
 <ul>
 <li>Formulae：Formulae指定了如何安装某个软件，因而每个软件对应一个Formulae</li>
 <li>Bottle：从软件源码编译安装软件会比较慢，Bootle是已经编译好的二进制版本，以加快软件安装速度</li>
