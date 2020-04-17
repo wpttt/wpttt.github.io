@@ -11,7 +11,7 @@
 <p>bat批处理脚本中写法为：</p>
 <figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">echo <span class="number">1.22</span> | gawk <span class="string">"&#123;printf "</span><span class="string">""</span>%%<span class="number">7.3</span>f<span class="string">""</span><span class="string">", <span class="variable">$1</span>&#125;"</span></span><br></pre></td></tr></table></figure>
 <p>输出结果为</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="number">1.220</span>  <span class="comment"># 最前面有两个空字符</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="number">1.220</span>  <span class="comment"># 数字前面有两个空字符</span></span><br></pre></td></tr></table></figure>
 <h3 id="2️⃣-常用数据类型"><a class="header-anchor" href="#2️⃣-常用数据类型">¶</a><img class="emoji" draggable="false" alt="2️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/32-20e3.png"/> 常用数据类型</h3>
 <table>
 <thead>
