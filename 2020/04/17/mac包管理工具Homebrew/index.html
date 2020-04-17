@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-mac-osx.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"wpttt.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null,"activeClass":"disqus"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="本文介绍macOS下的软件包管理工具Homebrew，适合mac新手。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mac包管理工具Homebrew">
+<meta property="og:url" content="http://wpttt.github.io/2020/04/17/mac%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7Homebrew/index.html">
+<meta property="og:site_name" content="GSEASRX">
+<meta property="og:description" content="本文介绍macOS下的软件包管理工具Homebrew，适合mac新手。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://wpttt.github.io/2020/04/17/mac%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7Homebrew/github.com/wpttt/hexoblog/source/image/homebrew.png">
+<meta property="article:published_time" content="2020-04-17T12:00:29.000Z">
+<meta property="article:modified_time" content="2020-04-17T13:40:33.584Z">
+<meta property="article:author" content="Wang PT">
+<meta property="article:tag" content="mac">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://wpttt.github.io/2020/04/17/mac%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7Homebrew/github.com/wpttt/hexoblog/source/image/homebrew.png">
+
+<link rel="canonical" href="http://wpttt.github.io/2020/04/17/mac%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7Homebrew/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>mac包管理工具Homebrew | GSEASRX</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">GSEASRX</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">For Earthquake Science</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://wpttt.github.io/2020/04/17/mac%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7Homebrew/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Wang PT">
+      <meta itemprop="description" content="A Rookie Working for Earthquake Science">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GSEASRX">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          mac包管理工具Homebrew
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-17 20:00:29 / 修改时间：21:40:33" itemprop="dateCreated datePublished" datetime="2020-04-17T20:00:29+08:00">2020-04-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%90%8E%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">后端</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2020/04/17/mac%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7Homebrew/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/04/17/mac包管理工具Homebrew/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <center>
+<p><img src="github.com/wpttt/hexoblog/source/image/homebrew.png" alt=""></p>
+<p>本文介绍macOS下的软件包管理工具Homebrew，适合mac新手。</center></p>
+<a id="more"></a>
+<h1>简介</h1>
+<p><a href="https://brew.sh/index_zh-cn" target="_blank" rel="noopener">Homebrew</a> 是macOS下的一个软件包管理器，用于安装各种命令行工，是macOS开发环境搭建必不可少的工具。起作用类似centOS下的yum和Debian、Ubuntu下的apt，可以用命令行实现软件的安装、卸载、更新等。</p>
+<h1>要求</h1>
+<ul>
+<li>
+<p>Intel CPU</p>
+</li>
+<li>
+<p>OS X 10.9 及以上</p>
+</li>
+<li>
+<p>Command Line Tools for Xcode</p>
+<p>Command Line Tools for Xcode中包含了常用的命令行开发工具，比如gcc/g++编译器、 make、git等，是安装很多其他软件的基础。在 Terminal 中执行如下命令以安装 Command Line Tools for Xcode:</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xcode-select --install</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>在弹出的窗口点击“Install”即可。</p>
+<p>此处安装的Command Line Tools可能不是最新版，可以到“App Store”的“更新”中查看是 否有相关更新。如果有，则升级到最新版。 今后 App Store 来的系统大版本号升级的时候，可能需要更新 Command line tools， 小版本升级无需更新。</p>
+<h1>安装</h1>
+<p>homebrew的安装方法现已更新，从ruby转到了bash，网上的很多方法都是基于ruby的，可能无法完成安装，最新的安装操作引导请参考<a href="https://brew.sh/index_zh-cn" target="_blank" rel="noopener">homebrew主页</a>。</p>
+<p>在终端中执行如下命令以安装Homebrew:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/bin/bash -c <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)</span>"</span></span><br></pre></td></tr></table></figure>
+<p>也可以根据网上的说法，首先打开<a href="https://raw.githubusercontent.com/Homebrew/install/master/install.sh" target="_blank" rel="noopener">https://raw.githubusercontent.com/Homebrew/install/master/install.sh</a>，将页面代码全选复制进新建的install.sh文件，然后在bash下运行该脚本。</p>
+<p>当然，这种做法主要是为了解决国内访问brew官方镜像速度低尔导致安装速度慢的问题，因此如果总是因为安装速度慢导致安装失败，则可以尝试该方法，但在运行install.sh前需要将其内brew-repo所指向的镜像仓库链接改为国内镜像，如清华、科大等镜像仓库。此处以清华镜像为例，找到下面这行代码：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">BREW_REPO=<span class="string">"https://github.com/Homebrew/brew"</span></span><br></pre></td></tr></table></figure>
+<p>将其改为：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">BREW_REPO=<span class="string">"https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"</span></span><br></pre></td></tr></table></figure>
+<p>然后在终端执行该脚本，进行安装。</p>
+<h1>Homebrew的常见用法</h1>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">brew search xxx     # 模糊搜索某个软件</span><br><span class="line">brew install xxx    # 安装某个软件</span><br><span class="line">brew upgrade xxx    # 升级某个软件</span><br><span class="line">brew uninstall xxx  # 卸载某个软件</span><br><span class="line">brew list xxx       # 列出某个软件的所有相关文件</span><br></pre></td></tr></table></figure>
+<p>运行<code>brew help</code>查看详细用法。</p>
+<h1>Homebrew中的几个概念：</h1>
+<ul>
+<li>Formulae：Formulae指定了如何安装某个软件，因而每个软件对应一个Formulae</li>
+<li>Bottle：从软件源码编译安装软件会比较慢，Bootle是已经编译好的二进制版本，以加快软件安装速度</li>
+<li>Tap：软件仓库，包含了一系列软件的Fromulae</li>
+</ul>
+<h1>常用的软件仓库Taps</h1>
+<h2 id="1-homebrew-core-内置核心仓库"><a class="header-anchor" href="#1-homebrew-core-内置核心仓库">¶</a>1. <a href="https://github.com/Homebrew/homebrew-core" target="_blank" rel="noopener">homebrew-core</a> 内置核心仓库</h2>
+<p>详细介绍见官方主页。</p>
+<h2 id="2-Homebrew-Cask"><a class="header-anchor" href="#2-Homebrew-Cask">¶</a>2. Homebrew-Cask</h2>
+<p>Homebrew只能用于安装命令行软件，不能用于安装带图形界面的软件。Homebrew-Cask是Homebrew的 一个扩展，可以用于安装带图形界面软件。</p>
+<p>在终端执行如下命令以安装Homebrew-Cask:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew tap homebrew/cask    <span class="comment"># caskroom主仓库</span></span><br><span class="line">brew tap homebrew/cask-fonts   <span class="comment"># caskroom字体仓库</span></span><br></pre></td></tr></table></figure>
+<p>常见用法:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">brew cask search xxx     <span class="comment"># 模糊搜索某个软件</span></span><br><span class="line">brew cask install xxx    <span class="comment"># 安装某个软件</span></span><br><span class="line">brew cask uninstall xxx  <span class="comment"># 卸载某个软件</span></span><br><span class="line">brew cask reinstall      <span class="comment"># 重新安装某个软件</span></span><br><span class="line">brew cask cleanup        <span class="comment"># 清理缓存</span></span><br></pre></td></tr></table></figure>
+<p>安装字体:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew cask install font-source-code-pro</span><br></pre></td></tr></table></figure>
+<h1>更新源</h1>
+<p>由于homebrew官方源都是存放在<a href="https://github.com/" target="_blank" rel="noopener">Github</a>上的，因此中国大陆用户的访问速度被极大限制，所以下一步需要做的就是更换为国内源。</p>
+<p>国内源可选的也比较多，此处推荐使用<a href="https://mirrors.tuna.tsinghua.edu.cn/" target="_blank" rel="noopener">清华源</a>或者<a href="https://mirrors.ustc.edu.cn/" target="_blank" rel="noopener">科大源</a>。</p>
+<p>可以通过下面的命令更新源（此处以科大源为例）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 替换brew程序本身:</span></span><br><span class="line"><span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo)</span>"</span> </span><br><span class="line"><span class="comment"># 替换为科大源</span></span><br><span class="line">git remote <span class="built_in">set</span>-url origin https://mirrors.ustc.edu.cn/brew.git</span><br><span class="line"><span class="comment"># 替换为清华源</span></span><br><span class="line">$ git remote <span class="built_in">set</span>-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git</span><br><span class="line"></span><br><span class="line"><span class="comment"># 替换homebrew-core.git:</span></span><br><span class="line"><span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo)</span>/Library/Taps/homebrew/homebrew-core"</span></span><br><span class="line"><span class="comment"># 科大源</span></span><br><span class="line">git remote <span class="built_in">set</span>-url origin https://mirrors.ustc.edu.cn/homebrew-core.git</span><br><span class="line"><span class="comment"># 清华源</span></span><br><span class="line">git remote <span class="built_in">set</span>-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git</span><br><span class="line"></span><br><span class="line"><span class="comment"># 替换homebrew-cask.git:</span></span><br><span class="line"><span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo)</span>"</span>/Library/Taps/caskroom/homebrew-cask</span><br><span class="line"><span class="comment"># 科大</span></span><br><span class="line">git remote <span class="built_in">set</span>-url origin https://mirrors.ustc.edu.cn/homebrew-cask.git</span><br><span class="line"><span class="comment"># 清华</span></span><br><span class="line">git remote <span class="built_in">set</span>-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-cask.git</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 替换homebrew-bottles:</span></span><br><span class="line"><span class="comment"># 科大</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles'</span> &gt;&gt; ~/.bash_profile</span><br><span class="line"><span class="comment"># 清华</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles'</span> &gt;&gt; ~/.bash_profile</span><br><span class="line"><span class="comment"># 使环境变量生效</span></span><br><span class="line"><span class="built_in">source</span> ~/.bash_profile</span><br><span class="line"></span><br><span class="line"><span class="comment"># 更新源、应用生效</span></span><br><span class="line">brew update</span><br></pre></td></tr></table></figure>
+<p>如果你之前折腾过不少导致你的Homebrew有点问题，那么可以尝试使用如下方案：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 诊断Homebrew的问题:</span></span><br><span class="line">$ brew doctor</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重置brew.git设置:</span></span><br><span class="line">$ <span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo)</span>"</span></span><br><span class="line">$ git fetch</span><br><span class="line">$ git reset --hard origin/master</span><br><span class="line"></span><br><span class="line"><span class="comment"># homebrew-core.git同理:</span></span><br><span class="line">$ <span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo)</span>/Library/Taps/homebrew/homebrew-core"</span></span><br><span class="line">$ git fetch</span><br><span class="line">$ git reset --hard origin/master</span><br><span class="line"></span><br><span class="line"><span class="comment"># 应用生效:</span></span><br><span class="line">$ brew update</span><br></pre></td></tr></table></figure>
+<p>重置更新源 某些时候也有换回官方源的需求</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 重置brew.git:</span></span><br><span class="line">$ <span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo)</span>"</span></span><br><span class="line">$ git remote <span class="built_in">set</span>-url origin https://github.com/Homebrew/brew.git</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重置homebrew-core.git:</span></span><br><span class="line">$ <span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo)</span>/Library/Taps/homebrew/homebrew-core"</span></span><br><span class="line">$ git remote <span class="built_in">set</span>-url origin https://github.com/Homebrew/homebrew-core.git</span><br></pre></td></tr></table></figure>
+<p>以上如果有任何的不成功就用 brew doctor 查找原因。</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.JPG" alt="Wang PT 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.JPG" alt="Wang PT 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/mac/" rel="tag"><i class="fa fa-tag"></i> mac</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/04/17/%E9%A9%BE%E8%80%83%E7%A7%91%E7%9B%AE%E4%B8%80/" rel="prev" title="驾考科目一">
+      <i class="fa fa-chevron-left"></i> 驾考科目一
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">2.</span> <span class="nav-text">要求</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">3.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">4.</span> <span class="nav-text">Homebrew的常见用法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">5.</span> <span class="nav-text">Homebrew中的几个概念：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">6.</span> <span class="nav-text">常用的软件仓库Taps</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-homebrew-core-内置核心仓库"><span class="nav-number">6.1.</span> <span class="nav-text">1. homebrew-core 内置核心仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Homebrew-Cask"><span class="nav-number">6.2.</span> <span class="nav-text">2. Homebrew-Cask</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">7.</span> <span class="nav-text">更新源</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Wang PT"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Wang PT</p>
+  <div class="site-description" itemprop="description">A Rookie Working for Earthquake Science</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yourname" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-github-alt fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yourname@gmail.com" title="E-Mail → mailto:yourname@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/yourname" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://zhihu.com/people/your-user-name" title="zhihu → http:&#x2F;&#x2F;zhihu.com&#x2F;people&#x2F;your-user-name" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://aganr.com/about/" title="wechat → https:&#x2F;&#x2F;aganr.com&#x2F;about&#x2F;" rel="noopener" target="_blank"><i class="fab fa-weixin fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://aganr.com/about/" title="qq → https:&#x2F;&#x2F;aganr.com&#x2F;about&#x2F;" rel="noopener" target="_blank"><i class="fab fa-qq fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Related Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://www.gsdzj.gov.cn/" title="http:&#x2F;&#x2F;www.gsdzj.gov.cn&#x2F;" rel="noopener" target="_blank">GSEA</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.cea.gov.cn/" title="https:&#x2F;&#x2F;www.cea.gov.cn&#x2F;" rel="noopener" target="_blank">CEA</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.usgs.gov/" title="https:&#x2F;&#x2F;www.usgs.gov&#x2F;" rel="noopener" target="_blank">USGS</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://www.csi.ac.cn/" title="http:&#x2F;&#x2F;www.csi.ac.cn&#x2F;" rel="noopener" target="_blank">CEIN</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://gmt-china.org/" title="https:&#x2F;&#x2F;gmt-china.org&#x2F;" rel="noopener" target="_blank">GMT-China</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.globalcmt.org/CMTsearch.html" title="https:&#x2F;&#x2F;www.globalcmt.org&#x2F;CMTsearch.html" rel="noopener" target="_blank">Global CMT</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://seisman.info/" title="https:&#x2F;&#x2F;seisman.info&#x2F;" rel="noopener" target="_blank">SeisMan Blog</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hexo.io/" title="https:&#x2F;&#x2F;hexo.io&#x2F;" rel="noopener" target="_blank">Hexo</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.csdn.net/" title="https:&#x2F;&#x2F;www.csdn.net&#x2F;" rel="noopener" target="_blank">CSDN</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.matplotlib.org.cn/" title="https:&#x2F;&#x2F;www.matplotlib.org.cn&#x2F;" rel="noopener" target="_blank">Matplotlib-CN</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.pypandas.cn/" title="https:&#x2F;&#x2F;www.pypandas.cn&#x2F;" rel="noopener" target="_blank">Pandas-CN</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fas fa-arrow-alt-circle-right"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wang PT</span>
+</div>
+
+<span class="post-meta-item-icon">
+  <span id="busuanzi_container_site_pv">
+	  <i class="fa fa-eye"></i>
+	</span>
+	访问量:<span id="busuanzi_value_site_pv"></span> 次数
+</span>
+
+<span class="post-meta-divider">|</span>
+	<span id="busuanzi_container_site_uv">
+  	<i class="fas fa-users"></i>
+	访问数:<span id="busuanzi_value_site_uv"></span> 人次
+</span>
+
+<span class="post-meta-divider">|</span>
+	<span id="busuanzi_container_page_pv">
+    <i class="fas fa-book-open"></i>
+	阅读数:<span id="busuanzi_value_page_pv"></span> 次
+</span>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://wangpt.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://wpttt.github.io/2020/04/17/mac%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7Homebrew/";
+    this.page.identifier = "2020/04/17/mac包管理工具Homebrew/";
+    this.page.title = "mac包管理工具Homebrew";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://wangpt.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

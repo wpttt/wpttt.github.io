@@ -1,99 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Hexo中添加emoji表情</title>
-    <url>/2020/04/16/Hexo%E4%B8%AD%E6%B7%BB%E5%8A%A0emoji%E8%A1%A8%E6%83%85/</url>
-    <content><![CDATA[<p>本文介绍如何让Hexo支持emoji表情。</p>
+    <title>mac包管理工具Homebrew</title>
+    <url>/2020/04/17/mac%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7Homebrew/</url>
+    <content><![CDATA[<center>
+<p><img src="github.com/wpttt/hexoblog/source/image/homebrew.png" alt=""></p>
+<p>本文介绍macOS下的软件包管理工具Homebrew，适合mac新手。</center></p>
 <a id="more"></a>
-<p>首先，要知道markdown 变成html的转换器叫做markdown渲染器。在Hexo中默认的markdown渲染器使用的是<a href="https://github.com/hexojs/hexo-renderer-marked" target="_blank" rel="noopener">hexo-renderer-marked</a>，此渲染器不支持插件扩展；要让hexo支持emoji，则需要将渲染器更换为支持插件扩展的渲染器。网络博主们推荐<a href="https://github.com/celsomiranda/hexo-renderer-markdown-it" target="_blank" rel="noopener">hexo-renderer-markdown-it</a>，该渲染器可通过使用<a href="https://github.com/markdown-it/markdown-it-emoji" target="_blank" rel="noopener">markdown-it-emoji</a>插件来支持emoji渲染。</p>
+<h1>简介</h1>
+<p><a href="https://brew.sh/index_zh-cn" target="_blank" rel="noopener">Homebrew</a> 是macOS下的一个软件包管理器，用于安装各种命令行工，是macOS开发环境搭建必不可少的工具。起作用类似centOS下的yum和Debian、Ubuntu下的apt，可以用命令行实现软件的安装、卸载、更新等。</p>
+<h1>要求</h1>
+<ul>
+<li>
+<p>Intel CPU</p>
+</li>
+<li>
+<p>OS X 10.9 及以上</p>
+</li>
+<li>
+<p>Command Line Tools for Xcode</p>
+<p>Command Line Tools for Xcode中包含了常用的命令行开发工具，比如gcc/g++编译器、 make、git等，是安装很多其他软件的基础。在 Terminal 中执行如下命令以安装 Command Line Tools for Xcode:</p>
+  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">xcode-select --install</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>在弹出的窗口点击“Install”即可。</p>
+<p>此处安装的Command Line Tools可能不是最新版，可以到“App Store”的“更新”中查看是 否有相关更新。如果有，则升级到最新版。 今后 App Store 来的系统大版本号升级的时候，可能需要更新 Command line tools， 小版本升级无需更新。</p>
 <h1>安装</h1>
-<p>三步：卸载旧渲染器，安装新渲染器，安装插件</p>
-<h2 id="卸载hexo-renderer-marked"><a class="header-anchor" href="#卸载hexo-renderer-marked">¶</a>卸载<a href="https://github.com/hexojs/hexo-renderer-marked" target="_blank" rel="noopener">hexo-renderer-marked</a></h2>
-<p>切换到本地blog目录</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm un hexo-renderer-marked --save</span><br></pre></td></tr></table></figure>
-<h2 id="安装和配置hexo-renderer-markdown-it渲染器"><a class="header-anchor" href="#安装和配置hexo-renderer-markdown-it渲染器">¶</a>安装和配置<a href="https://github.com/celsomiranda/hexo-renderer-markdown-it" target="_blank" rel="noopener">hexo-renderer-markdown-it</a>渲染器</h2>
-<p><strong>安装渲染器</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm i hexo-renderer-markdown-it --save</span><br></pre></td></tr></table></figure>
-<p><strong>渲染器配置：</strong></p>
-<ol>
-<li>
-<p>在站点配置文件<code>_config.yml</code>中添加如下代码：</p>
- <figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Markdown-it config</span></span><br><span class="line"><span class="comment">## Docs: https://github.com/celsomiranda/hexo-renderer-markdown-it/wiki</span></span><br><span class="line"><span class="attr">markdown:</span></span><br><span class="line">  <span class="attr">render:</span></span><br><span class="line">    <span class="attr">html:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">xhtmlOut:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">breaks:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">linkify:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">typographer:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">quotes:</span> <span class="string">'“”‘’'</span></span><br><span class="line">  <span class="attr">plugins:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">markdown-it-abbr</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">markdown-it-footnote</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">markdown-it-ins</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">markdown-it-sub</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">markdown-it-sup</span></span><br><span class="line">  <span class="attr">anchors:</span></span><br><span class="line">    <span class="attr">level:</span> <span class="number">2</span></span><br><span class="line">    <span class="attr">collisionSuffix:</span> <span class="string">'v'</span></span><br><span class="line">    <span class="attr">permalink:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">permalinkClass:</span> <span class="string">header-anchor</span></span><br><span class="line">    <span class="attr">permalinkSide:</span> <span class="string">'left'</span></span><br><span class="line">    <span class="attr">permalinkSymbol:</span> <span class="string">¶</span></span><br></pre></td></tr></table></figure>
-<p>以上配置详细说明如下，或见<a href="https://github.com/celsomiranda/hexo-renderer-markdown-it/wiki/Advanced-Configuration" target="_blank" rel="noopener">Advanced Configuration</a></p>
+<p>homebrew的安装方法现已更新，从ruby转到了bash，网上的很多方法都是基于ruby的，可能无法完成安装，最新的安装操作引导请参考<a href="https://brew.sh/index_zh-cn" target="_blank" rel="noopener">homebrew主页</a>。</p>
+<p>在终端中执行如下命令以安装Homebrew:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/bin/bash -c <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)</span>"</span></span><br></pre></td></tr></table></figure>
+<p>也可以根据网上的说法，首先打开<a href="https://raw.githubusercontent.com/Homebrew/install/master/install.sh" target="_blank" rel="noopener">https://raw.githubusercontent.com/Homebrew/install/master/install.sh</a>，将页面代码全选复制进新建的install.sh文件，然后在bash下运行该脚本。</p>
+<p>当然，这种做法主要是为了解决国内访问brew官方镜像速度低尔导致安装速度慢的问题，因此如果总是因为安装速度慢导致安装失败，则可以尝试该方法，但在运行install.sh前需要将其内brew-repo所指向的镜像仓库链接改为国内镜像，如清华、科大等镜像仓库。此处以清华镜像为例，找到下面这行代码：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">BREW_REPO=<span class="string">"https://github.com/Homebrew/brew"</span></span><br></pre></td></tr></table></figure>
+<p>将其改为：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">BREW_REPO=<span class="string">"https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"</span></span><br></pre></td></tr></table></figure>
+<p>然后在终端执行该脚本，进行安装。</p>
+<h1>Homebrew的常见用法</h1>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">brew search xxx     # 模糊搜索某个软件</span><br><span class="line">brew install xxx    # 安装某个软件</span><br><span class="line">brew upgrade xxx    # 升级某个软件</span><br><span class="line">brew uninstall xxx  # 卸载某个软件</span><br><span class="line">brew list xxx       # 列出某个软件的所有相关文件</span><br></pre></td></tr></table></figure>
+<p>运行<code>brew help</code>查看详细用法。</p>
+<h1>Homebrew中的几个概念：</h1>
 <ul>
-<li><strong>markdown：</strong></li>
-<li><strong>render</strong></li>
-<li><strong>plugin</strong></li>
-<li><strong>anchors</strong></li>
+<li>Formulae：Formulae指定了如何安装某个软件，因而每个软件对应一个Formulae</li>
+<li>Bottle：从软件源码编译安装软件会比较慢，Bootle是已经编译好的二进制版本，以加快软件安装速度</li>
+<li>Tap：软件仓库，包含了一系列软件的Fromulae</li>
 </ul>
-</li>
-<li>
-<p>安装markdown-it-checkbox插件</p>
- <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install markdown-it-checkbox --save</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>在站点配置文件_config.yml文件中的markdown.plugins添加- markdown-it-checkbox,即:</p>
- <figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">plugins:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-abbr</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-footnote</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-ins</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-sub</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-sup</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-checkbox</span> <span class="comment"># 本行启用了checkbox插件</span></span><br></pre></td></tr></table></figure>
-<p>示例:</p>
-<p><input type="checkbox" id="checkbox1"><label for="checkbox1"> 这是未勾选的checkbox</label><br>
-<input type="checkbox" id="checkbox0" checked="true"><label for="checkbox0"> 这是已勾选的checkbox</label></p>
-<p>语法:</p>
- <figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">[ ] 这是未勾选的checkbox</span><br><span class="line">[x] 这是已勾选的checkbox</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h2 id="安装和配置markdown-it-emoji插件"><a class="header-anchor" href="#安装和配置markdown-it-emoji插件">¶</a>安装和配置markdown-it-emoji插件</h2>
-<p><strong>安装插件</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 安装markdown-it-emoji插件</span></span><br><span class="line">npm install markdown-it-emoji --save</span><br></pre></td></tr></table></figure>
-<p>在站点配置文件<code>_config.yml</code>文件中的<code>markdown.plugins</code>添加<code>- markdown-it-emoji</code>，即:</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">plugins:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-abbr</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-footnote</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-ins</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-sub</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-sup</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-checkbox</span> <span class="comment"># 本行启用了checkbox插件</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-emoji</span> <span class="comment"># 本行启用了emoji插件</span></span><br></pre></td></tr></table></figure>
-<p><strong>配置插件 &amp; 优化Emoji样式</strong></p>
-<ol>
-<li>
-<p>安装twemoji</p>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install twemoji</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>配置</p>
-<p>在<code>node_modules\markdown-it-emoji\index.js</code>目录下添加代码:</p>
- <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> twemoji           = <span class="built_in">require</span>(<span class="string">'twemoji'</span>)  <span class="comment">//添加twemoji</span></span><br><span class="line"><span class="comment">//使用twemoji渲染</span></span><br><span class="line">  md.renderer.rules.emoji = <span class="function"><span class="keyword">function</span>(<span class="params">token, idx</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> twemoji.parse(token[idx].content);</span><br><span class="line">  &#125;;</span><br></pre></td></tr></table></figure>
-<p>完整代码为:</p>
- <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="meta">'use strict'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> emojies_defs      = <span class="built_in">require</span>(<span class="string">'./lib/data/full.json'</span>);</span><br><span class="line"><span class="keyword">var</span> emojies_shortcuts = <span class="built_in">require</span>(<span class="string">'./lib/data/shortcuts'</span>);</span><br><span class="line"><span class="keyword">var</span> emoji_html        = <span class="built_in">require</span>(<span class="string">'./lib/render'</span>);</span><br><span class="line"><span class="keyword">var</span> emoji_replace     = <span class="built_in">require</span>(<span class="string">'./lib/replace'</span>);</span><br><span class="line"><span class="keyword">var</span> normalize_opts    = <span class="built_in">require</span>(<span class="string">'./lib/normalize_opts'</span>);</span><br><span class="line"><span class="keyword">var</span> twemoji           = <span class="built_in">require</span>(<span class="string">'twemoji'</span>)  <span class="comment">//添加twemoji</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> <span class="title">emoji_plugin</span>(<span class="params">md, options</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> defaults = &#123;</span><br><span class="line">    defs: emojies_defs,</span><br><span class="line">    shortcuts: emojies_shortcuts,</span><br><span class="line">    enabled: []</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> opts = normalize_opts(md.utils.assign(&#123;&#125;, defaults, options || &#123;&#125;));</span><br><span class="line"></span><br><span class="line">  md.renderer.rules.emoji = emoji_html;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//使用twemoji渲染</span></span><br><span class="line">  md.renderer.rules.emoji = <span class="function"><span class="keyword">function</span>(<span class="params">token, idx</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> twemoji.parse(token[idx].content);</span><br><span class="line">  &#125;;</span><br><span class="line">  </span><br><span class="line">  md.core.ruler.push(<span class="string">'emoji'</span>, emoji_replace(md, opts.defs, opts.shortcuts, opts.scanRE, opts.replaceRE));</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>在themes/next/source/css/main.styl文件中添加Emoji样式：</p>
- <figure class="highlight styl"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*emoji样式*/</span></span><br><span class="line"><span class="selector-class">.emoji</span> &#123;  <span class="attribute">height</span>: <span class="number">1.2em</span>;&#125;</span><br><span class="line"><span class="selector-tag">img</span>.emoji&#123;</span><br><span class="line">    margin: 0 .05em 0 .1em !important;</span><br><span class="line">    <span class="attribute">vertical-align</span>: -<span class="number">0.1em</span>;</span><br><span class="line">    <span class="comment">//override theme default style</span></span><br><span class="line">    <span class="attribute">padding</span>:<span class="number">0px</span> !important;</span><br><span class="line">    <span class="attribute">border</span>:none !important;</span><br><span class="line">    <span class="attribute">display</span>:inline !important;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>示例：</p>
-<p><img class="emoji" draggable="false" alt="💯" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f4af.png"/><img class="emoji" draggable="false" alt="🔢" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f522.png"/><img class="emoji" draggable="false" alt="😋" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f60b.png"/><img class="emoji" draggable="false" alt="🚵" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f6b5.png"/><img class="emoji" draggable="false" alt="🔜" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f51c.png"/><img class="emoji" draggable="false" alt="🛥" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f6e5.png"/><img class="emoji" draggable="false" alt="🏞" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f3de.png"/><img class="emoji" draggable="false" alt="🌃" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f303.png"/><img class="emoji" draggable="false" alt="🎆" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f386.png"/><img class="emoji" draggable="false" alt="📘" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f4d8.png"/><img class="emoji" draggable="false" alt="❎" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/274e.png"/><img class="emoji" draggable="false" alt="🇨🇳" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f1e8-1f1f3.png"/><img class="emoji" draggable="false" alt="🐱" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f431.png"/>:full _moon:<img class="emoji" draggable="false" alt="🌖" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f316.png"/><img class="emoji" draggable="false" alt="🌗" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f317.png"/><img class="emoji" draggable="false" alt="🌘" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f318.png"/><img class="emoji" draggable="false" alt="🌑" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f311.png"/><img class="emoji" draggable="false" alt="🌒" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f312.png"/><img class="emoji" draggable="false" alt="🌓" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f313.png"/><img class="emoji" draggable="false" alt="🌔" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f314.png"/><img class="emoji" draggable="false" alt="0️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/30-20e3.png"/><img class="emoji" draggable="false" alt="1️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/31-20e3.png"/>:  two:<img class="emoji" draggable="false" alt="3️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/33-20e3.png"/><img class="emoji" draggable="false" alt="4️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/34-20e3.png"/><img class="emoji" draggable="false" alt="5️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/35-20e3.png"/><img class="emoji" draggable="false" alt="6️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/36-20e3.png"/><img class="emoji" draggable="false" alt="7️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/37-20e3.png"/><img class="emoji" draggable="false" alt="8️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/38-20e3.png"/><img class="emoji" draggable="false" alt="9️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/39-20e3.png"/><img class="emoji" draggable="false" alt="🔟" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f51f.png"/><img class="emoji" draggable="false" alt="🕐" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f550.png"/><img class="emoji" draggable="false" alt="🕑" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f551.png"/><img class="emoji" draggable="false" alt="🕒" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f552.png"/><img class="emoji" draggable="false" alt="🕓" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f553.png"/><img class="emoji" draggable="false" alt="🕔" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f554.png"/><img class="emoji" draggable="false" alt="🕕" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f555.png"/><img class="emoji" draggable="false" alt="🕖" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f556.png"/><img class="emoji" draggable="false" alt="🕗" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f557.png"/><img class="emoji" draggable="false" alt="🕘" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f558.png"/><img class="emoji" draggable="false" alt="🕙" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f559.png"/><img class="emoji" draggable="false" alt="🕚" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f55a.png"/>:cl ock12:<img class="emoji" draggable="false" alt="🕜" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f55c.png"/><img class="emoji" draggable="false" alt="🕝" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f55d.png"/><img class="emoji" draggable="false" alt="🕞" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f55e.png"/><img class="emoji" draggable="false" alt="🕟" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f55f.png"/><img class="emoji" draggable="false" alt="🕠" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f560.png"/><img class="emoji" draggable="false" alt="🕡" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f561.png"/><img class="emoji" draggable="false" alt="🕢" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f562.png"/><img class="emoji" draggable="false" alt="🕣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f563.png"/><img class="emoji" draggable="false" alt="🕤" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f564.png"/><img class="emoji" draggable="false" alt="🕥" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f565.png"/><img class="emoji" draggable="false" alt="🕦" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f566.png"/><img class="emoji" draggable="false" alt="🕧" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f567.png"/><img class="emoji" draggable="false" alt="🇸🇨" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f1f8-1f1e8.png"/>:latin_cross  :<img class="emoji" draggable="false" alt="☪️" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/262a.png"/><img class="emoji" draggable="false" alt="☮️" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/262e.png"/><img class="emoji" draggable="false" alt="🕉" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f549.png"/><img class="emoji" draggable="false" alt="☸️" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/2638.png"/><img class="emoji" draggable="false" alt="✡️" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/2721.png"/><img class="emoji" draggable="false" alt="🔯" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f52f.png"/><img class="emoji" draggable="false" alt="🕎" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f54e.png"/><img class="emoji" draggable="false" alt="☯️" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/262f.png"/><img class="emoji" draggable="false" alt="✡️" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/2721.png"/><img class="emoji" draggable="false" alt="☦️" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/2626.png"/><img class="emoji" draggable="false" alt="⚾️" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/26be.png"/></p>
-<p>源代码:</p>
- <figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">:100::1234::yum::mountain<span class="emphasis">_biking_</span>man::soon::motor<span class="emphasis">_boat::national_</span>park::night<span class="emphasis">_with_</span>stars::fireworks::blue_book:</span><br><span class="line">:negative<span class="emphasis">_squared_</span>cross<span class="emphasis">_mark::cn::cat::full_</span>moon::waning<span class="emphasis">_gibbous_</span>moon::last<span class="emphasis">_quarter_</span>moon::waning<span class="emphasis">_crescent_</span>moon:</span><br><span class="line">:new<span class="emphasis">_moon::waxing_</span>crescent<span class="emphasis">_moon::first_</span>quarter<span class="emphasis">_moon::waxing_</span>gibbous_moon::zero::one::two::three::four::five::six:</span><br><span class="line">:seven::eight::nine::keycap_ten::clock1::clock2::clock3::clock4::clock5::clock6::clock7::clock8::clock9::clock10:</span><br><span class="line">:clock11::clock12::clock130::clock230::clock330::clock430::clock530::clock630::clock730::clock830::clock930:</span><br><span class="line">:clock1030::clock1130::clock1230::seychelles::latin<span class="emphasis">_cross::star_</span>and<span class="emphasis">_crescent::peace_</span>symbol::om::wheel<span class="emphasis">_of_</span>dharma:</span><br><span class="line">:star<span class="emphasis">_of_</span>david::six<span class="emphasis">_pointed_</span>star::menorah::yin<span class="emphasis">_yang::star_</span>of<span class="emphasis">_david::orthodox_</span>cross::baseball:</span><br></pre></td></tr></table></figure>
-<p>插件地址：</p>
-<ul>
-<li><a href="https://github.com/hexojs/hexo-renderer-markdown-it" target="_blank" rel="noopener">hexo-renderer-markdown-it</a></li>
-<li><a href="https://www.npmjs.com/package/markdown-it-checkbox" target="_blank" rel="noopener">markdown-it-checkbox</a></li>
-<li><a href="https://github.com/markdown-it/markdown-it-emoji" target="_blank" rel="noopener">markdown-it-emoji</a></li>
-<li><a href="https://github.com/twitter/twemoji" target="_blank" rel="noopener">twemoji</a></li>
-</ul>
-<p>Emoji表情检索：</p>
-<ul>
-<li><a href="https://emoji.muan.co/#" target="_blank" rel="noopener">Emoji</a></li>
-<li><a href="https://emoji.svend.cc/" target="_blank" rel="noopener">Emoji(快)</a></li>
-</ul>
-</li>
-</ol>
-<h1>Emoji and code</h1>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">😊 :blush:	😃 :smiley:	☺️ :relaxed:</span><br><span class="line">😏 :smirk:	😍 :heart_eyes:	😘 :kissing_heart:</span><br><span class="line">😚 :kissing_closed_eyes:	😳 :flushed:	😌 :relieved:</span><br><span class="line">😆 :satisfied:	😁 :grin:	😉 :wink:</span><br><span class="line">😜 :stuck_out_tongue_winking_eye:	😝 :stuck_out_tongue_closed_eyes:	😀 :grinning:</span><br><span class="line">😗 :kissing:	😙 :kissing_smiling_eyes:	😛 :stuck_out_tongue:</span><br><span class="line">😴 :sleeping:	😟 :worried:	😦 :frowning:</span><br><span class="line">😧 :anguished:	😮 :open_mouth:	😬 :grimacing:</span><br><span class="line">😕 :confused:	😯 :hushed:	😑 :expressionless:</span><br><span class="line">😒 :unamused:	😅 :sweat_smile:	😓 :sweat:</span><br><span class="line">😥 :disappointed_relieved:	😩 :weary:	😔 :pensive:</span><br><span class="line">😞 :disappointed:	😖 :confounded:	😨 :fearful:</span><br><span class="line">😰 :cold_sweat:	😣 :persevere:	😢 :cry:</span><br><span class="line">😭 :sob:	😂 :joy:	😲 :astonished:</span><br><span class="line">😱 :scream:	:neckbeard: :neckbeard:	😫 :tired_face:</span><br><span class="line">😠 :angry:	😡 :rage:	😤 :triumph:</span><br><span class="line">😪 :sleepy:	😋 :yum:	😷 :mask:</span><br><span class="line">😎 :sunglasses:	😵 :dizzy_face:	👿 :imp:</span><br><span class="line">😈 :smiling_imp:	😐 :neutral_face:	😶 :no_mouth:</span><br><span class="line">😇 :innocent:	👽 :alien:	💛 :yellow_heart:</span><br><span class="line">💙 :blue_heart:	💜 :purple_heart:	❤️ :heart:</span><br><span class="line">💚 :green_heart:	💔 :broken_heart:	💓 :heartbeat:</span><br><span class="line">💗 :heartpulse:	💕 :two_hearts:	💞 :revolving_hearts:</span><br><span class="line">💘 :cupid:	💖 :sparkling_heart:	✨ :sparkles:</span><br><span class="line">⭐️ :star:	🌟 :star2:	💫 :dizzy:</span><br><span class="line">💥 :boom:	💥 :collision:	💢 :anger:</span><br><span class="line">❗️ :exclamation:	❓ :question:	❕ :grey_exclamation:</span><br><span class="line">❔ :grey_question:	💤 :zzz:	💨 :dash:</span><br><span class="line">💦 :sweat_drops:	🎶 :notes:	🎵 :musical_note:</span><br><span class="line">🔥 :fire:	💩 :hankey:	💩 :poop:</span><br><span class="line">💩 :shit:	👍 :+1:	👍 :thumbsup:</span><br><span class="line">👎 :-1:	👎 :thumbsdown:	👌 :ok_hand:</span><br><span class="line">👊 :punch:	👊 :facepunch:	✊ :fist:</span><br><span class="line">✌️ :v:	👋 :wave:	✋ :hand:</span><br><span class="line">✋ :raised_hand:	👐 :open_hands:	☝️ :point_up:</span><br><span class="line">👇 :point_down:	👈 :point_left:	👉 :point_right:</span><br><span class="line">🙌 :raised_hands:	🙏 :pray:	👆 :point_up_2:</span><br><span class="line">👏 :clap:	💪 :muscle:	🤘 :metal:</span><br><span class="line">🖕 :fu:	🚶 :walking:	🏃 :runner:</span><br><span class="line">🏃 :running:	👫 :couple:	👪 :family:</span><br><span class="line">👬 :two_men_holding_hands:	👭 :two_women_holding_hands:	💃 :dancer:</span><br><span class="line">👯 :dancers:	🙆 :ok_woman:	🙅 :no_good:</span><br><span class="line">💁 :information_desk_person:	🙋 :raising_hand:	👰 :bride_with_veil:</span><br><span class="line">🙎 :person_with_pouting_face:	🙍 :person_frowning:	🙇 :bow:</span><br><span class="line">:couplekiss: :couplekiss:	💑 :couple_with_heart:	💆 :massage:</span><br><span class="line">💇 :haircut:	💅 :nail_care:	👦 :boy:</span><br><span class="line">👧 :girl:	👩 :woman:	👨 :man:</span><br><span class="line">👶 :baby:	👵 :older_woman:	👴 :older_man:</span><br><span class="line">👱 :person_with_blond_hair:	👲 :man_with_gua_pi_mao:	👳 :man_with_turban:</span><br><span class="line">👷 :construction_worker:	👮 :cop:	👼 :angel:</span><br><span class="line">👸 :princess:	😺 :smiley_cat:	😸 :smile_cat:</span><br><span class="line">😻 :heart_eyes_cat:	😽 :kissing_cat:	😼 :smirk_cat:</span><br><span class="line">🙀 :scream_cat:	😿 :crying_cat_face:	😹 :joy_cat:</span><br><span class="line">😾 :pouting_cat:	👹 :japanese_ogre:	👺 :japanese_goblin:</span><br><span class="line">🙈 :see_no_evil:	🙉 :hear_no_evil:	🙊 :speak_no_evil:</span><br><span class="line">💂 :guardsman:	💀 :skull:	🐾 :feet:</span><br><span class="line">👄 :lips:	💋 :kiss:	💧 :droplet:</span><br><span class="line">👂 :ear:	👀 :eyes:	👃 :nose:</span><br><span class="line">👅 :tongue:	💌 :love_letter:	👤 :bust_in_silhouette:</span><br><span class="line">👥 :busts_in_silhouette:	💬 :speech_balloon:	💭 :thought_balloon:</span><br></pre></td></tr></table></figure>
-<h1>参考资料</h1>
-<p><a href="https://www.jianshu.com/p/f9e57ecca150" target="_blank" rel="noopener">https://www.jianshu.com/p/f9e57ecca150</a></p>
-<p><a href="https://vxiaozhe1998.gitee.io/2020/03/25/HEXO%E4%B8%8B%E7%9A%84%E9%94%9A%E7%82%B9%E6%A0%87%E9%A2%98%E4%B8%8EEmoji%E8%A1%A8%E6%83%85/#more" target="_blank" rel="noopener">https://vxiaozhe1998.gitee.io/2020/03/25/HEXO下的锚点标题与Emoji表情/#more</a></p>
-<p><a href="https://blog.csdn.net/weixin_30745641/article/details/95686757" target="_blank" rel="noopener">https://blog.csdn.net/weixin_30745641/article/details/95686757</a></p>
+<h1>常用的软件仓库Taps</h1>
+<h2 id="1-homebrew-core-内置核心仓库"><a class="header-anchor" href="#1-homebrew-core-内置核心仓库">¶</a>1. <a href="https://github.com/Homebrew/homebrew-core" target="_blank" rel="noopener">homebrew-core</a> 内置核心仓库</h2>
+<p>详细介绍见官方主页。</p>
+<h2 id="2-Homebrew-Cask"><a class="header-anchor" href="#2-Homebrew-Cask">¶</a>2. Homebrew-Cask</h2>
+<p>Homebrew只能用于安装命令行软件，不能用于安装带图形界面的软件。Homebrew-Cask是Homebrew的 一个扩展，可以用于安装带图形界面软件。</p>
+<p>在终端执行如下命令以安装Homebrew-Cask:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">brew tap homebrew/cask    <span class="comment"># caskroom主仓库</span></span><br><span class="line">brew tap homebrew/cask-fonts   <span class="comment"># caskroom字体仓库</span></span><br></pre></td></tr></table></figure>
+<p>常见用法:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">brew cask search xxx     <span class="comment"># 模糊搜索某个软件</span></span><br><span class="line">brew cask install xxx    <span class="comment"># 安装某个软件</span></span><br><span class="line">brew cask uninstall xxx  <span class="comment"># 卸载某个软件</span></span><br><span class="line">brew cask reinstall      <span class="comment"># 重新安装某个软件</span></span><br><span class="line">brew cask cleanup        <span class="comment"># 清理缓存</span></span><br></pre></td></tr></table></figure>
+<p>安装字体:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">brew cask install font-source-code-pro</span><br></pre></td></tr></table></figure>
+<h1>更新源</h1>
+<p>由于homebrew官方源都是存放在<a href="https://github.com/" target="_blank" rel="noopener">Github</a>上的，因此中国大陆用户的访问速度被极大限制，所以下一步需要做的就是更换为国内源。</p>
+<p>国内源可选的也比较多，此处推荐使用<a href="https://mirrors.tuna.tsinghua.edu.cn/" target="_blank" rel="noopener">清华源</a>或者<a href="https://mirrors.ustc.edu.cn/" target="_blank" rel="noopener">科大源</a>。</p>
+<p>可以通过下面的命令更新源（此处以科大源为例）</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 替换brew程序本身:</span></span><br><span class="line"><span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo)</span>"</span> </span><br><span class="line"><span class="comment"># 替换为科大源</span></span><br><span class="line">git remote <span class="built_in">set</span>-url origin https://mirrors.ustc.edu.cn/brew.git</span><br><span class="line"><span class="comment"># 替换为清华源</span></span><br><span class="line">$ git remote <span class="built_in">set</span>-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git</span><br><span class="line"></span><br><span class="line"><span class="comment"># 替换homebrew-core.git:</span></span><br><span class="line"><span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo)</span>/Library/Taps/homebrew/homebrew-core"</span></span><br><span class="line"><span class="comment"># 科大源</span></span><br><span class="line">git remote <span class="built_in">set</span>-url origin https://mirrors.ustc.edu.cn/homebrew-core.git</span><br><span class="line"><span class="comment"># 清华源</span></span><br><span class="line">git remote <span class="built_in">set</span>-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git</span><br><span class="line"></span><br><span class="line"><span class="comment"># 替换homebrew-cask.git:</span></span><br><span class="line"><span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo)</span>"</span>/Library/Taps/caskroom/homebrew-cask</span><br><span class="line"><span class="comment"># 科大</span></span><br><span class="line">git remote <span class="built_in">set</span>-url origin https://mirrors.ustc.edu.cn/homebrew-cask.git</span><br><span class="line"><span class="comment"># 清华</span></span><br><span class="line">git remote <span class="built_in">set</span>-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-cask.git</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 替换homebrew-bottles:</span></span><br><span class="line"><span class="comment"># 科大</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles'</span> &gt;&gt; ~/.bash_profile</span><br><span class="line"><span class="comment"># 清华</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles'</span> &gt;&gt; ~/.bash_profile</span><br><span class="line"><span class="comment"># 使环境变量生效</span></span><br><span class="line"><span class="built_in">source</span> ~/.bash_profile</span><br><span class="line"></span><br><span class="line"><span class="comment"># 更新源、应用生效</span></span><br><span class="line">brew update</span><br></pre></td></tr></table></figure>
+<p>如果你之前折腾过不少导致你的Homebrew有点问题，那么可以尝试使用如下方案：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 诊断Homebrew的问题:</span></span><br><span class="line">$ brew doctor</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重置brew.git设置:</span></span><br><span class="line">$ <span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo)</span>"</span></span><br><span class="line">$ git fetch</span><br><span class="line">$ git reset --hard origin/master</span><br><span class="line"></span><br><span class="line"><span class="comment"># homebrew-core.git同理:</span></span><br><span class="line">$ <span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo)</span>/Library/Taps/homebrew/homebrew-core"</span></span><br><span class="line">$ git fetch</span><br><span class="line">$ git reset --hard origin/master</span><br><span class="line"></span><br><span class="line"><span class="comment"># 应用生效:</span></span><br><span class="line">$ brew update</span><br></pre></td></tr></table></figure>
+<p>重置更新源 某些时候也有换回官方源的需求</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 重置brew.git:</span></span><br><span class="line">$ <span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo)</span>"</span></span><br><span class="line">$ git remote <span class="built_in">set</span>-url origin https://github.com/Homebrew/brew.git</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重置homebrew-core.git:</span></span><br><span class="line">$ <span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo)</span>/Library/Taps/homebrew/homebrew-core"</span></span><br><span class="line">$ git remote <span class="built_in">set</span>-url origin https://github.com/Homebrew/homebrew-core.git</span><br></pre></td></tr></table></figure>
+<p>以上如果有任何的不成功就用 brew doctor 查找原因。</p>
 ]]></content>
       <categories>
-        <category>前端</category>
+        <category>后端</category>
       </categories>
       <tags>
-        <tag>Hexo</tag>
-        <tag>Markdown</tag>
-        <tag>emoji</tag>
+        <tag>mac</tag>
       </tags>
   </entry>
   <entry>
@@ -142,6 +119,622 @@
       <tags>
         <tag>Python</tag>
         <tag>pip</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>驾考科目一</title>
+    <url>/2020/04/17/%E9%A9%BE%E8%80%83%E7%A7%91%E7%9B%AE%E4%B8%80/</url>
+    <content><![CDATA[<h1>速度和距离</h1>
+<ul>
+<li>高速公路行驶，车速<font color=red>&gt;100km/h</font>时，应与同车道前车保持<font color=red>100m</font>以上的距离。</li>
+<li>机动车在高速公路上行驶，遇有雾、雨、雪、沙尘、冰雹等低能见度气象条件时，应当遵守下列规定：<a id="more"></a>
+<ul>
+<li>能见度<font color=red>&lt;200m</font>时，车速<font color=red>≤60km/h</font>，距前车<font color=red>&gt;100m</font>，开雾灯、近光灯、示廓灯和前后位灯；</li>
+<li>能见度<font color=red>&lt;100m</font>时，车速<font color=red>≤40km/h</font>，距前车<font color=red>&gt;50m</font>，开雾灯、近光灯、示廓灯、前后位灯和<font color=red>危险报警闪光灯</font>。</li>
+<li>能见度<font color=red>&lt;50m</font>时，车速<font color=red>≤20km/h</font>，尽快驶离高速公里。</li>
+</ul>
+</li>
+</ul>
+<h1>速度（高速公里）</h1>
+<ul>
+<li>同向<font color=red>四车道</font>左到右最低限速依次为：<font color=red>110、90、90、60</font>；</li>
+<li>同向<font color=red>三车道</font>左到右最低限速依次为：<font color=red>110、90、60</font>；</li>
+<li>同向<font color=red>两车道</font>左到右最低限速依次为：<font color=red>100、60</font>。</li>
+</ul>
+<h1>超速处罚</h1>
+<ul>
+<li>超过规定时速50%，200~2000罚款，可以并处吊销机动车驾驶证</li>
+</ul>
+<h1>12分</h1>
+<ol>
+<li>驾驶与准驾车型不服的机动车</li>
+<li>因酒后驾驶机动车</li>
+<li>驾驶营运客车（<s>公共汽车</s>）、校车超载20%以上</li>
+<li>造成交通事故后逃逸，尚不构成犯罪的</li>
+<li>上路未悬挂号牌，遮挡号牌、污损号牌、不按规定安装号牌</li>
+<li>伪造、变造号牌、行驶证、驾驶证、小车标牌，或使用其他机动车号牌、行驶证的</li>
+<li>高速上倒车、逆行、穿越中央分隔带掉头</li>
+<li>驾驶营运客车在高速车道内停车</li>
+<li>驾驶中型以上客车货车、校车、危险品运输车在高速、城市快速路上超速20%；在高速公路、城市快速路以外的道路上行驶超过规定时速50％以上；以及驾驶其他机动车行驶超过规定时速50%以上</li>
+<li>连续驾驶中型以上客车、危险品运输车超过4个小时未停车休息或停车休息不足20分钟</li>
+<li>未取得校车驾驶资格驾驶校车</li>
+</ol>
+<h1>6分</h1>
+<ol>
+<li>驾驶证被暂扣期间驾驶机动车</li>
+<li>驾驶机动车违反道路交通信号等通行</li>
+<li>驾驶营运客车（<s>公共汽车</s>）、校车人数超载未达20%，或者驾驶其他客车人数超载20%以上</li>
+<li>驾驶中型以上客货汽车、校车、危险品车在高速、城快上超速20%以内</li>
+<li>驾驶中型以上客货汽车、校车、危险品车在高速、城快外的道路上或其他机动车超速20%~50%</li>
+<li>驾驶货车重量超载20%以上，或违反规定载客的</li>
+<li>驾驶营运客车意外的机动车在高速公路车道内停车</li>
+<li>驾驶机动车在高速公路或城快上违法占用应急车道行驶</li>
+<li>低能见度条件下，在高速公路上不按规定行驶</li>
+<li>驾车运载超限的不可解体的物品，未按指定时间、路线、速度行驶，或未悬挂明显标志</li>
+<li>驾车运载爆炸物品、易燃易爆化学物品、剧毒、放射性等危险品，未按指定时间、路线、速度行驶，或未悬挂警示标志并采取必要的安全措施</li>
+<li>以隐瞒、欺骗手段补领机动车驾驶证</li>
+<li>连续驾驶中型以上客车、危险品运输车以外机动车超4个小时未停车休息或休息时间少于20分钟</li>
+<li>驾驶机动车不按规定避让校车</li>
+</ol>
+<h1>3分</h1>
+<ol>
+<li>驾驶营运客车（不包括公共汽车）、校车以外的载客汽车载人超过核定人数未达20%的</li>
+<li>驾驶中型以上载客载货汽车、危险物品运输车辆在高速公路、城市快速路以外的道路上行驶或者驾驶其他机动车行驶超过规定时速未达20% 的</li>
+<li>驾驶货车载物超过核定载质量未达30% 的</li>
+<li>驾驶机动车在高速公路上行驶低于规定最低时速的</li>
+<li>驾驶禁止驶入高速公路的机动车驶入高速公路的</li>
+<li>驾驶机动车在高速公路或者城市快速路上不按规定车道行驶的</li>
+<li>驾驶机动车行经人行横道，不按规定减速、停车、避让行人的</li>
+<li>驾驶机动车违反禁令标志、禁止标线指示的</li>
+<li>驾驶机动车不按规定超车、让行的，或者逆向行驶的</li>
+<li>驾驶机动车违反规定牵引挂车的</li>
+<li>在道路上车辆发生故障、事故停车后，不按规定使用灯光和设置警告标志的</li>
+<li>上道路行驶的机动车未按规定定期进行安全技术检验的</li>
+</ol>
+<h1>罚款</h1>
+<ul>
+<li>驾驶<font color=red><strong>拼装</strong></font>或<font color=red><strong>报废</strong></font>机动车 —— 强制报废，200~2000罚款，吊销驾驶证</li>
+</ul>
+<h1>警告标志</h1>
+<table>
+<thead>
+<tr>
+<th>含义</th>
+<th>标志</th>
+<th>含义</th>
+<th>标志</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>两侧变窄</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/692a0ac7adc947c1b6835483b5be1e40.jpg" width="100" height="100" alt="两侧变窄" align=center></td>
+<td>右侧变窄</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/4352c48383034791b9f0da7c13e5619f.jpg" width="100" height="100" align=center></td>
+</tr>
+<tr>
+<td>左侧变窄</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/9bffbc8b12fe4c9bb99c102204c10736.jpg" width="100" height="100" align=center></td>
+<td>窄桥</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/66a96a7ab4014f2c99ee45ec7cfe33a4.jpg" width="100" height="100" align=center></td>
+</tr>
+<tr>
+<td>注意行人</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/d436454ee236469fadd9c9d720e6a267.jpg" width="100" height="100" align=center></td>
+<td>双向交通</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/2c948686ad5b4734bdc9fba3808678a2.jpg" width="100" height="100" align=center></td>
+</tr>
+<tr>
+<td>注意儿童</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/eeb5cb9905e044c08d46555c02ceb87b.jpg" width="100" height="100" align=center></td>
+<td>注意信号灯</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/17f54bd47b8e4bbe9ce5c2e1d6ce81ec.jpg" width="100" height="100" align=center></td>
+</tr>
+<tr>
+<td>注意牲畜</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/d86b06d7a27a442a9615b33eb560e7a7.jpg" width="100" height="100" align=center></td>
+<td>注意野生动物</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/fb73c058a98e4d1ca5465f60f63dfb6e.jpg" width="100" height="100" align=center></td>
+</tr>
+<tr>
+<td>注意落石</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/f5ff10e0001449378850b7ecbdde84ae.jpg" width="100" height="100" align=center></td>
+<td>注意横风</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/ab29a1741a124513b3d94a2ff49410d8.jpg" width="100" height="100" align=center></td>
+</tr>
+<tr>
+<td>易滑路段</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/4808e67c4a52415194140f458b1e28ac.jpg" width="100" height="100" align=center></td>
+<td>傍山险路</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/8f9129ebe7144c13afcbf59b6a3a28aa.jpg" width="100" height="100" align=center></td>
+</tr>
+<tr>
+<td>堤坝路</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/54a538de4d4943909fba46b6eccd35b8.jpg" width="100" height="100" align=center></td>
+<td>村庄或集镇</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/884e529299f749b1a8be5a1e53fdeac1.jpg" width="100" height="100" align=center></td>
+</tr>
+<tr>
+<td>注意隧道</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/c289a513fe74458f8dbe256486a9189b.jpg" width="100" height="100" align=center></td>
+<td>驼峰桥</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/e5ad5b2d156346ea85107141a22fe6e9.jpg" width="100" height="100" align=center></td>
+</tr>
+<tr>
+<td>路面高突</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/f7665c1abc67481684dfe39af5f9edf5.jpg" width="100" height="100" align=center></td>
+<td>路面低洼</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/715533d1ae6c4d9aaebd211b5fb0fc4a.jpg" width="100" height="100" align=center></td>
+</tr>
+<tr>
+<td>过水路面</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/a5cd763c08f2403085b3e924b2655c58.jpg" width="100" height="100" align=center></td>
+<td>----</td>
+<td></td>
+</tr>
+<tr>
+<td>有人道口</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/3d8dc3278e014ac7a814d292d15bf6fd.jpg" width="100" height="100" align=center></td>
+<td>无人道口</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/4575ad610cae45f5a4e78509c7e7cce5.jpg" width="100" height="100" align=center></td>
+</tr>
+<tr>
+<td>多股相交</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/5df30432dae14c4ea511f3895131b0a8.jpg" width="100" height="100" align=center></td>
+<td>无人道口50米</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/d86ca5d8689a4263888ff50263616520.jpg" width="100" height="100" align=center></td>
+</tr>
+<tr>
+<td>无人道口100米</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/cc59b37586ad43bf971967fe4f4f0621.jpg" width="100" height="100" align=center></td>
+<td>无人道口150米</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/cead04a3964f4a379ab286d4ec2e644b.jpg" width="100" height="100" align=center></td>
+</tr>
+<tr>
+<td>注意非机动车</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/12b3d0893528432d8bcf018457f72772.jpg" width="100" height="100" align=center></td>
+<td>注意残疾人</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/c08b7c8f71dd4a8d83b35e58083578c8.jpg" width="100" height="100" align=center></td>
+</tr>
+<tr>
+<td>事故易发路段</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/7d8e1be2a32b41818757496440920675.jpg" width="100" height="100" align=center></td>
+<td>注意慢行</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/e1a4918ed2b4422db114568193cb44f7.jpg" width="100" height="100" align=center></td>
+</tr>
+<tr>
+<td>左右绕行</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/efa9f9a8164b4a24b9a6c80cebf9baa0.jpg" width="100" height="100" align=center></td>
+<td>左侧绕行</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/0055e265e06f48bfa62a54071280b61b.jpg" width="100" height="100" align=center></td>
+</tr>
+<tr>
+<td>右侧绕行</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/829ac120826b470bb386fb1468d38e31.jpg" width="100" height="100" align=center></td>
+<td>注意危险</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/4d2bd414487f43e1beb4ccaca510ce97.jpg" width="100" height="100" align=center></td>
+</tr>
+<tr>
+<td>施工路段</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/3e399077d7064cb59a4607b7dc144f4c.jpg" width="100" height="100" align=center></td>
+<td>建议速度</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/4c225ce8ea144c87aaf190496da34d1f.jpg" width="100" height="50" align=center></td>
+</tr>
+<tr>
+<td>隧道开灯</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/0b4c8cc476b44763a7610f83df23db57.jpg" width="100" height="100" align=center></td>
+<td>潮汐车道</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/9e21906ce9e148c8b3fc2e19ec69f6a8.jpg" width="100" height="100" align=center></td>
+</tr>
+<tr>
+<td>注意保持车距</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/667022fc318d4cf79de8c5f0d12662eb.jpg" width="100" height="100" align=center></td>
+<td>分离式道路</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/4bfacc5a7099407eaf9508b00dafba3f.jpg" width="100" height="100" align=center></td>
+</tr>
+<tr>
+<td>注意合流</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/509025b0fde04510b46f200c7eb81dcd.jpg" width="100" height="100" align=center></td>
+<td>避险车道</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/b8ac819c9085457b88bf57177a65cbd0.jpg" width="100" height="100" align=center></td>
+</tr>
+<tr>
+<td>两个以上的<br>连续下坡</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/417dc8a95f3e40afa28e631983dfa792.jpg" width="100" height="100" align=center></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1>禁令标志</h1>
+<table>
+<thead>
+<tr>
+<th>含义</th>
+<th>标志</th>
+<th>含义</th>
+<th>标志</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>停车让行</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/5b4cb1cd6bf047438d58cc977c4f7377.jpg" width="100" height="100" align=center></td>
+<td>减速让行</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/b474581c7bfa413a952121b5fa074619.jpg" width="100" height="100" align=center></td>
+</tr>
+<tr>
+<td>对向先行</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/6e7ff7ad10834e008f875cb27a492308.jpg" width="100" height="100" align=center></td>
+<td>禁止小型客车</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/83caa31e78c047458289576e22e67b55.jpg" width="100" height="100" align=center></td>
+</tr>
+<tr>
+<td>禁止通行</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/f07be7113d3c4775a3eb993b507cbf78.jpg" width="100" height="100" align=center></td>
+<td>禁止驶入</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/57b473b612054a58a5839fc57056ea64.jpg" width="100" height="100" align=center></td>
+</tr>
+<tr>
+<td>禁止左转</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/e2a094eb56664e5a9979dd064b20dc56.jpg" width="100" height="100" align=center></td>
+<td>禁止右转</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/bdb00ea7a88f4643bd3bd4586ef1a70d.jpg" width="100" height="100" align=center></td>
+</tr>
+<tr>
+<td>禁止直行</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/ad93e1c7d6704dfcb437623ed2bcd78a.jpg" width="100" height="100" align=center></td>
+<td>禁止左右转弯</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/1f9d61d50f3f4058bf17e23456ceb71d.jpg" width="100" height="100" align=center></td>
+</tr>
+<tr>
+<td>禁止直行和左转</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/c56c03055a20445685fbbba8fb812b47.jpg" width="100" height="100" align=center></td>
+<td>禁止直行和右转</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/43fdcbe2e9ca48b2849cf8306284076e.jpg" width="100" height="100" align=center></td>
+</tr>
+<tr>
+<td>禁止掉头</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/0a6c21e37ca949d09f5fd59fa0cd38c9.jpg" width="100" height="100" align=center></td>
+<td>禁止超车</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/132bdf34639e4665944f36d401f7d417.jpg" width="100" height="100" align=center></td>
+</tr>
+<tr>
+<td>解除禁止超车</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/7298507b2363434dad22abe06e5f2211.jpg" width="100" height="100" align=center></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>禁止停放车辆</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/2c58a3bd5ba34b9d8eeb10d67f40677c.jpg" width="100" height="100" align=center></td>
+<td>禁止长时停车</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/c384f706fd804fbea7c2e27473c3e139.jpg" width="100" height="100" align=center></td>
+</tr>
+<tr>
+<td>限宽3m</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/ae7eae5b6cb244c1ae7cc9ca92424404.jpg" width="100" height="100" align=center></td>
+<td>限高3.5m</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/8781dde8d8b740e5953c88ff19868780.jpg" width="100" height="100" align=center></td>
+</tr>
+<tr>
+<td>限速最高40</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/ee6ad68fcd2448a9b57978286f9bb9d9.jpg" width="100" height="100" align=center></td>
+<td>解除限速</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/366a1be455e64f62800bf935b141d09f.jpg" width="100" height="100" align=center></td>
+</tr>
+<tr>
+<td>停车检查</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/06ffadb16bb0452dbbf9ff2f21486084.jpg" width="100" height="100" align=center></td>
+<td>海关</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/e76763c8a879413ba9eb608c39423752.jpg" width="100" height="100" align=center></td>
+</tr>
+</tbody>
+</table>
+<h1>指示（指路）标志</h1>
+<table>
+<thead>
+<tr>
+<th>含义</th>
+<th>标志</th>
+<th>含义</th>
+<th>标志</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>只准直行</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/e4c1cdb04e6f4f63920e55952b91a9cd.jpg" width="100" height="100" align=center></td>
+<td>向左转弯</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/cbc8ccef225349b696c4e6ffd16b9c5f.jpg" width="100" height="100" align=center></td>
+</tr>
+<tr>
+<td>向右转弯</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/cdac326b5521401c8dd7d2b53911cf3d.jpg" width="100" height="100" align=center></td>
+<td>直行和右转弯</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/e9b37ff1a3c5498bbe6a7b053ecef150.jpg" width="100" height="100" align=center></td>
+</tr>
+<tr>
+<td>直行和左转弯</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/62c433ea2fbd411c8484c13af7ac0182.jpg" width="100" height="100" align=center></td>
+<td>左右转弯</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/8333bc0765df4ce5ba6319f92afe2cf6.jpg" width="100" height="100" align=center></td>
+</tr>
+<tr>
+<td>靠右侧车道行驶</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/653a4d2c9f9a402b8bf4145bc31d00bc.jpg" width="100" height="100" align=center></td>
+<td>靠左侧车道行驶</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/6a3cb82b0f6b473abaf80ece0084e678.jpg" width="100" height="100" align=center></td>
+</tr>
+<tr>
+<td>立体直行左转</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/3c9105c1a84045db94d81d1aca6ac951.jpg" width="100" height="100" align=center></td>
+<td>立体直行右转</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/cd6ac618dc4a46bf8f52ef3615605448.jpg" width="100" height="100" align=center></td>
+</tr>
+<tr>
+<td>环岛行驶</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/f65fe0791f534c6b872a9645fef675e1.jpg" width="100" height="100" align=center></td>
+<td>向左单行路</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/8d3e2bf4dd414fedbf74e8d2fd6a6ed3.jpg" width="100" height="60" align=center></td>
+</tr>
+<tr>
+<td>向右单行路</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/97a09d32a37a4efa9e3d88e73b9cc945.jpg" width="100" height="60" align=center></td>
+<td>直行单行路</td>
+<td><center><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/b9c0db39bae9490b948c10b28d8f979f.jpg" width="60" height="100" align=center></center></td>
+</tr>
+<tr>
+<td>步行</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/15f5774346f941678195091f1192bbc6.jpg" width="100" height="100" align=center></td>
+<td>应当鸣喇叭</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/655772c68257478f8e77fa547681e40c.jpg" width="100" height="100" align=center></td>
+</tr>
+<tr>
+<td>人行横道</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/3dbeca0d792247e7be2a0cb39a23ede1.jpg" width="100" height="100" align=center></td>
+<td>最低限速50</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/a03ae73e59a34848998cf520e645670e.jpg" width="100" height="100" align=center></td>
+</tr>
+<tr>
+<td>干路先行</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/d0fbf807501f4fc68523c539c1da6db8.jpg" width="100" height="100" align=center></td>
+<td>会车先行</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/3c356ac94f894c7684435c4ebaba5856.jpg" width="100" height="100" align=center></td>
+</tr>
+<tr>
+<td>右转车道</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/45cec950a5e14ff79affd825899a08f5.jpg" width="100" height="100" align=center></td>
+<td>左转车道</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/8204e30857d84a5c98bdbc03a460a24e.jpg" width="100" height="100" align=center></td>
+</tr>
+<tr>
+<td>直行车道</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/56b681cbbda346e6894c0a5efa61a626.jpg" width="100" height="100" align=center></td>
+<td></td>
+<td><img src="" width="100" height="100" align=center></td>
+</tr>
+<tr>
+<td>直左合用车道</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/de1487d8a0334799b15c7a8e26a643df.jpg" width="100" height="100" align=center></td>
+<td>直右合用车道</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/22cb4f262ead43a08d2664afa3e2c64e.jpg" width="100" height="100" align=center></td>
+</tr>
+<tr>
+<td>掉头车道</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/85bde0d45e3544dd8033f8b6f5b3a6cf.jpg" width="100" height="100" align=center></td>
+<td>掉左合用车道</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/6a636df8059c4f3a8ff8cea7d41ab65d.jpg" width="100" height="100" align=center></td>
+</tr>
+<tr>
+<td>分向行驶车道</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/99de2b94446142138cdb82b7c8119e72.jpg" width="100" height="70" align=center></td>
+<td>公交专用车道</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/825e4daa232e49adba3af9ca22d8e02b.jpg" width="100" height="70" align=center></td>
+</tr>
+<tr>
+<td>机动车行驶</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/d7ccac7fb8bf4749920fda875e68f4f5.jpg" width="100" height="100" align=center></td>
+<td>机动车车道</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/7892a933ac964047ae845c75b9f695a4.jpg" width="100" height="70" align=center></td>
+</tr>
+<tr>
+<td>非机动车行驶</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/43b46c50cd55445d89ebe4b6d1a927da.jpg" width="100" height="100" align=center></td>
+<td>非机动车车道</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/bb194545eca147a69eb0b573f74c96a9.jpg" width="100" height="70" align=center></td>
+</tr>
+<tr>
+<td>BRT专用车道</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/d976c39e343b4c75810c2684934aff3a.jpg" width="100" height="70" align=center></td>
+<td>多成员车专道</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/c14c5aa68fa44441afe67d15fac38546.jpg" width="100" height="90" align=center></td>
+</tr>
+<tr>
+<td>掉头</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/2dfcee5d0f334bd6a65138046f1fdafb.jpg" width="100" height="100" align=center></td>
+<td>交叉路口预告</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/b470fa5276f442bf82d7dc18a6f4d812.jpg" width="100" height="50" align=center></td>
+</tr>
+<tr>
+<td>十字路口预告</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/6e1648b854a6437e9f8e456109af2341.jpg" width="100" height="50" align=center></td>
+<td>丁字路口预告</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/70b31ee9cb674552894624eacf6ab6ee.jpg" width="100" height="40" align=center></td>
+</tr>
+<tr>
+<td>Y型路口预告</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/2992876362754145a749c6ee0fefb6ca.jpg" width="100" height="100" align=center></td>
+<td>环形交口预告</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/d524105c6d084503a14f15414025f14a.jpg" width="100" height="40" align=center></td>
+</tr>
+<tr>
+<td><center>互通式立体<br>交叉路口预告</center></td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/145a8b78007a432581008375f06690b2.jpg" width="100" height="50" align=center></td>
+<td>地点距离</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/446833ea906140cfaf47930c35cf5208.jpg" width="100" height="100" align=center></td>
+</tr>
+<tr>
+<td>国道编号</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/609374d8edc94a4180ac87a0f52cb65f.jpg" width="100" height="50" align=center></td>
+<td>省道编号</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/be6c6c6dfd274a00a54ea9176afc501c.jpg" width="100" height="50" align=center></td>
+</tr>
+<tr>
+<td>县道编号</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/214aeb79fd364cec84e27d925e01a624.jpg" width="100" height="50" align=center></td>
+<td>乡道编号</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/6477a452fee245d6916675aa6868e596.jpg" width="100" height="50" align=center></td>
+</tr>
+<tr>
+<td>露天停车场</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/75ad260c0675455f9a6fa1a1782a054a.jpg" width="100" height="100" align=center></td>
+<td>室内停车场</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/f7475759dda54c1699ff1907cc6cccbf.jpg" width="100" height="100" align=center></td>
+</tr>
+<tr>
+<td>错车道</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/a54509af515f40dbb31d4521c07986cd.jpg" width="100" height="80" align=center></td>
+<td>超高绕行</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/3301402ee9534942a684559a699c22c3.jpg" width="100" height="70" align=center></td>
+</tr>
+<tr>
+<td>此路不通</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/462d2786e72e4bdb8e7cc6bcb7fa7188.jpg" width="100" height="100" align=center></td>
+<td>线性诱导标志</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/e1093cec77b4437894e76d5b9d3954cf.jpg" width="100" height="30" align=center></td>
+</tr>
+<tr>
+<td>车道数减少</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/559068f1b59a495a9f11ffa4d3736a83.jpg" width="100" height="100" align=center></td>
+<td>车道数增加</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/054e107752c34d2c990b3a2f029ed7cf.jpg" width="100" height="100" align=center></td>
+</tr>
+<tr>
+<td>交通监控设备</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/940ccfc818b84d9a9e92c58d6b176023.jpg" width="100" height="100" align=center></td>
+<td>隧道出口距离</td>
+<td><center><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/218f22a013764600a86f4451790e2874.jpg" width="80" height="100" align=center></center></td>
+</tr>
+<tr>
+<td>右侧通行</td>
+<td><center><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/36b12487fe714cffb608ff8733db6292.jpg" width="50" height="100" align=center></center></td>
+<td>左侧通行</td>
+<td><center><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/bd0d39ca60ce406890d7fa1800a3f703.jpg" width="50" height="100" align=center></center></td>
+</tr>
+<tr>
+<td>两侧通行</td>
+<td><center><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/55d4b94474ba4f02a88343ef79f93d76.jpg" width="50" height="100" align=center></center></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>高速入口预告</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/6c9d4d2181be4490928f049b8c065eed.jpg" width="100" height="100" align=center></td>
+<td>高速公路<br>地点方向预告</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/7de8319aca374f629cd5048357c1582e.jpg" width="100" height="40" align=center></td>
+</tr>
+<tr>
+<td>高速公路<br>地点距离预</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/ed07b11d40554741825ca91649619b4c.jpg" width="100" height="100" align=center></td>
+<td>高速公路<br>命名编号</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/b28a941e38594af39850a818408ac562.jpg" width="100" height="100" align=center></td>
+</tr>
+<tr>
+<td>下一出口预告</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/10b97301af924de5ac391effe5dea721.jpg" width="100" height="65" align=center></td>
+<td>高速公路<br>交通广播频率</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/eedccb7cb74145bbb1b9ef2c4a0dd6e1.jpg" width="100" height="90" align=center></td>
+</tr>
+<tr>
+<td>右侧出口预告</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/da75901108a14c8baad5ceebf6fbb5fb.jpg" width="80" height="100" align=center></td>
+<td>左侧出口预告</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/51a82508430b41828a4c8ef93a748738.jpg" width="80" height="100" align=center></td>
+</tr>
+<tr>
+<td>高速公路起点</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/dcd17c844444423fa5f0a1c8965c7872.jpg" width="90" height="100" align=center></td>
+<td>高速公路终点</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/8c8b406a647b4e07b024b9a0398daac1.jpg" width="90" height="100" align=center></td>
+</tr>
+<tr>
+<td>停车领卡</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/fd3801a8ad9748b08f4102501e0edcb2.jpg" width="80" height="100" align=center></td>
+<td>设有ETC<br>的收费站</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/a0a03fe27a4a4323992bdbdb53830de0.jpg" width="100" height="80" align=center></td>
+</tr>
+<tr>
+<td>高速公路<br>ETC车道</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/9fa1ffbf4c9344a796f06b59228b2c75.jpg" width="80" height="100" align=center></td>
+<td>高速公路特殊<br>天气建议速度</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/648d5db40603466ca85514b4acb27787.jpg" width="80" height="100" align=center></td>
+</tr>
+<tr>
+<td>高速公路<br>紧急电话</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/87386506872544b183d8e6cff7ead23e.jpg" width="100" height="100" align=center></td>
+<td>高速公路<br>救援电话</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/72b1525405c24077be905a1a68f42a70.jpg" width="100" height="60" align=center></td>
+</tr>
+<tr>
+<td>高速公路<br>紧急停车带</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/7df30622172443ddb91fda02ea898d63.jpg" width="100" height="100" align=center></td>
+<td>高速公路<br>加油站</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/142e0fd4d5b9494da8240825b35ed798.jpg" width="80" height="100" align=center></td>
+</tr>
+<tr>
+<td>高速公路<br>服务区预告</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/f1adfcc6000a4e4d8e28dd1acc4d6e99.jpg" width="100" height="80" align=center></td>
+<td>高速公路<br>停车区预告</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/6b5e0c8b4a764882b7c25d8100234352.jpg" width="100" height="80" align=center></td>
+</tr>
+<tr>
+<td>高速公路<br>停车场预告</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/2c6532b687524655bcbd7682ba467f9b.jpg" width="100" height="80" align=center></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>旅游区标志</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/7169aa17fa9d4ab9819cc59172ba197e.jpg" width="100" height="70" align=center></td>
+<td>旅游区距离</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/e0eca6ddccf04832b5cfcb1349eeac1e.jpg" width="100" height="70" align=center></td>
+</tr>
+<tr>
+<td>旅游区方向</td>
+<td><img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/9d11deb82c7a4ad2aec5f8cb6cfa9be8.jpg" width="100" height="70" align=center></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1>交警手势</h1>
+<ul>
+<li>停止信号<br>
+<img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/7b7d928b19114f23b656d24c2fe2fe34.jpg" alt=""></li>
+<li>直行信号<br>
+<img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/e951bcb4ef094148af26316a06917549.jpg" alt=""></li>
+<li>左转弯信号<br>
+<img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/80790f9de57e4198ac8c694c4cbd9bf0.jpg" alt=""><br>
+<img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/c8378c1ababc4ec18e58b91e9fcbde2e.jpg" alt=""></li>
+<li>左转弯待转信号<br>
+<img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/a7f7883e483740d3b4a7a4a6680d8e47.jpg" alt=""></li>
+<li>右转弯信号<br>
+<img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/8cf49eae668c4b2082cbe37153684c20.jpg" alt=""><br>
+<img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/a9e349320cef4b6d934f8d4118c7abf4.jpg" alt=""></li>
+<li>变道信号<br>
+<img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/58d5c7db8cfb47eaaedb0b20b0a38723.jpg" alt=""></li>
+<li>减速慢行信号<br>
+<img src="https://jiakao-web.image.mucang.cn/jiakao-web/2019/12/30/14/dbd74b86cc834254b0f8d18408229ede.jpg" alt=""></li>
+<li></li>
+</ul>
+]]></content>
+      <categories>
+        <category>生活技能</category>
+      </categories>
+      <tags>
+        <tag>生活</tag>
+        <tag>驾考</tag>
       </tags>
   </entry>
   <entry>
@@ -307,6 +900,102 @@ errors.</li>
         <tag>M-t图</tag>
         <tag>N-t图</tag>
         <tag>时间坐标</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo中添加emoji表情</title>
+    <url>/2020/04/16/Hexo%E4%B8%AD%E6%B7%BB%E5%8A%A0emoji%E8%A1%A8%E6%83%85/</url>
+    <content><![CDATA[<p>本文介绍如何让Hexo支持emoji表情。</p>
+<a id="more"></a>
+<p>首先，要知道markdown 变成html的转换器叫做markdown渲染器。在Hexo中默认的markdown渲染器使用的是<a href="https://github.com/hexojs/hexo-renderer-marked" target="_blank" rel="noopener">hexo-renderer-marked</a>，此渲染器不支持插件扩展；要让hexo支持emoji，则需要将渲染器更换为支持插件扩展的渲染器。网络博主们推荐<a href="https://github.com/celsomiranda/hexo-renderer-markdown-it" target="_blank" rel="noopener">hexo-renderer-markdown-it</a>，该渲染器可通过使用<a href="https://github.com/markdown-it/markdown-it-emoji" target="_blank" rel="noopener">markdown-it-emoji</a>插件来支持emoji渲染。</p>
+<h1>安装</h1>
+<p>三步：卸载旧渲染器，安装新渲染器，安装插件</p>
+<h2 id="卸载hexo-renderer-marked"><a class="header-anchor" href="#卸载hexo-renderer-marked">¶</a>卸载<a href="https://github.com/hexojs/hexo-renderer-marked" target="_blank" rel="noopener">hexo-renderer-marked</a></h2>
+<p>切换到本地blog目录</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm un hexo-renderer-marked --save</span><br></pre></td></tr></table></figure>
+<h2 id="安装和配置hexo-renderer-markdown-it渲染器"><a class="header-anchor" href="#安装和配置hexo-renderer-markdown-it渲染器">¶</a>安装和配置<a href="https://github.com/celsomiranda/hexo-renderer-markdown-it" target="_blank" rel="noopener">hexo-renderer-markdown-it</a>渲染器</h2>
+<p><strong>安装渲染器</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm i hexo-renderer-markdown-it --save</span><br></pre></td></tr></table></figure>
+<p><strong>渲染器配置：</strong></p>
+<ol>
+<li>
+<p>在站点配置文件<code>_config.yml</code>中添加如下代码：</p>
+ <figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Markdown-it config</span></span><br><span class="line"><span class="comment">## Docs: https://github.com/celsomiranda/hexo-renderer-markdown-it/wiki</span></span><br><span class="line"><span class="attr">markdown:</span></span><br><span class="line">  <span class="attr">render:</span></span><br><span class="line">    <span class="attr">html:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">xhtmlOut:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">breaks:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">linkify:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">typographer:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">quotes:</span> <span class="string">'“”‘’'</span></span><br><span class="line">  <span class="attr">plugins:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">markdown-it-abbr</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">markdown-it-footnote</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">markdown-it-ins</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">markdown-it-sub</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">markdown-it-sup</span></span><br><span class="line">  <span class="attr">anchors:</span></span><br><span class="line">    <span class="attr">level:</span> <span class="number">2</span></span><br><span class="line">    <span class="attr">collisionSuffix:</span> <span class="string">'v'</span></span><br><span class="line">    <span class="attr">permalink:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">permalinkClass:</span> <span class="string">header-anchor</span></span><br><span class="line">    <span class="attr">permalinkSide:</span> <span class="string">'left'</span></span><br><span class="line">    <span class="attr">permalinkSymbol:</span> <span class="string">¶</span></span><br></pre></td></tr></table></figure>
+<p>以上配置详细说明如下，或见<a href="https://github.com/celsomiranda/hexo-renderer-markdown-it/wiki/Advanced-Configuration" target="_blank" rel="noopener">Advanced Configuration</a></p>
+<ul>
+<li><strong>markdown：</strong></li>
+<li><strong>render</strong></li>
+<li><strong>plugin</strong></li>
+<li><strong>anchors</strong></li>
+</ul>
+</li>
+<li>
+<p>安装markdown-it-checkbox插件</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install markdown-it-checkbox --save</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>在站点配置文件_config.yml文件中的markdown.plugins添加- markdown-it-checkbox,即:</p>
+ <figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">plugins:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-abbr</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-footnote</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-ins</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-sub</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-sup</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-checkbox</span> <span class="comment"># 本行启用了checkbox插件</span></span><br></pre></td></tr></table></figure>
+<p>示例:</p>
+<p><input type="checkbox" id="checkbox1"><label for="checkbox1"> 这是未勾选的checkbox</label><br>
+<input type="checkbox" id="checkbox0" checked="true"><label for="checkbox0"> 这是已勾选的checkbox</label></p>
+<p>语法:</p>
+ <figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">[ ] 这是未勾选的checkbox</span><br><span class="line">[x] 这是已勾选的checkbox</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="安装和配置markdown-it-emoji插件"><a class="header-anchor" href="#安装和配置markdown-it-emoji插件">¶</a>安装和配置markdown-it-emoji插件</h2>
+<p><strong>安装插件</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 安装markdown-it-emoji插件</span></span><br><span class="line">npm install markdown-it-emoji --save</span><br></pre></td></tr></table></figure>
+<p>在站点配置文件<code>_config.yml</code>文件中的<code>markdown.plugins</code>添加<code>- markdown-it-emoji</code>，即:</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">plugins:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-abbr</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-footnote</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-ins</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-sub</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-sup</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-checkbox</span> <span class="comment"># 本行启用了checkbox插件</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">markdown-it-emoji</span> <span class="comment"># 本行启用了emoji插件</span></span><br></pre></td></tr></table></figure>
+<p><strong>配置插件 &amp; 优化Emoji样式</strong></p>
+<ol>
+<li>
+<p>安装twemoji</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install twemoji</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>配置</p>
+<p>在<code>node_modules\markdown-it-emoji\index.js</code>目录下添加代码:</p>
+ <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> twemoji           = <span class="built_in">require</span>(<span class="string">'twemoji'</span>)  <span class="comment">//添加twemoji</span></span><br><span class="line"><span class="comment">//使用twemoji渲染</span></span><br><span class="line">  md.renderer.rules.emoji = <span class="function"><span class="keyword">function</span>(<span class="params">token, idx</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> twemoji.parse(token[idx].content);</span><br><span class="line">  &#125;;</span><br></pre></td></tr></table></figure>
+<p>完整代码为:</p>
+ <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="meta">'use strict'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> emojies_defs      = <span class="built_in">require</span>(<span class="string">'./lib/data/full.json'</span>);</span><br><span class="line"><span class="keyword">var</span> emojies_shortcuts = <span class="built_in">require</span>(<span class="string">'./lib/data/shortcuts'</span>);</span><br><span class="line"><span class="keyword">var</span> emoji_html        = <span class="built_in">require</span>(<span class="string">'./lib/render'</span>);</span><br><span class="line"><span class="keyword">var</span> emoji_replace     = <span class="built_in">require</span>(<span class="string">'./lib/replace'</span>);</span><br><span class="line"><span class="keyword">var</span> normalize_opts    = <span class="built_in">require</span>(<span class="string">'./lib/normalize_opts'</span>);</span><br><span class="line"><span class="keyword">var</span> twemoji           = <span class="built_in">require</span>(<span class="string">'twemoji'</span>)  <span class="comment">//添加twemoji</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> <span class="title">emoji_plugin</span>(<span class="params">md, options</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> defaults = &#123;</span><br><span class="line">    defs: emojies_defs,</span><br><span class="line">    shortcuts: emojies_shortcuts,</span><br><span class="line">    enabled: []</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> opts = normalize_opts(md.utils.assign(&#123;&#125;, defaults, options || &#123;&#125;));</span><br><span class="line"></span><br><span class="line">  md.renderer.rules.emoji = emoji_html;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//使用twemoji渲染</span></span><br><span class="line">  md.renderer.rules.emoji = <span class="function"><span class="keyword">function</span>(<span class="params">token, idx</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> twemoji.parse(token[idx].content);</span><br><span class="line">  &#125;;</span><br><span class="line">  </span><br><span class="line">  md.core.ruler.push(<span class="string">'emoji'</span>, emoji_replace(md, opts.defs, opts.shortcuts, opts.scanRE, opts.replaceRE));</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>在themes/next/source/css/main.styl文件中添加Emoji样式：</p>
+ <figure class="highlight styl"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*emoji样式*/</span></span><br><span class="line"><span class="selector-class">.emoji</span> &#123;  <span class="attribute">height</span>: <span class="number">1.2em</span>;&#125;</span><br><span class="line"><span class="selector-tag">img</span>.emoji&#123;</span><br><span class="line">    margin: 0 .05em 0 .1em !important;</span><br><span class="line">    <span class="attribute">vertical-align</span>: -<span class="number">0.1em</span>;</span><br><span class="line">    <span class="comment">//override theme default style</span></span><br><span class="line">    <span class="attribute">padding</span>:<span class="number">0px</span> !important;</span><br><span class="line">    <span class="attribute">border</span>:none !important;</span><br><span class="line">    <span class="attribute">display</span>:inline !important;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>示例：</p>
+<p><img class="emoji" draggable="false" alt="💯" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f4af.png"/><img class="emoji" draggable="false" alt="🔢" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f522.png"/><img class="emoji" draggable="false" alt="😋" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f60b.png"/><img class="emoji" draggable="false" alt="🚵" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f6b5.png"/><img class="emoji" draggable="false" alt="🔜" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f51c.png"/><img class="emoji" draggable="false" alt="🛥" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f6e5.png"/><img class="emoji" draggable="false" alt="🏞" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f3de.png"/><img class="emoji" draggable="false" alt="🌃" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f303.png"/><img class="emoji" draggable="false" alt="🎆" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f386.png"/><img class="emoji" draggable="false" alt="📘" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f4d8.png"/><img class="emoji" draggable="false" alt="❎" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/274e.png"/><img class="emoji" draggable="false" alt="🇨🇳" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f1e8-1f1f3.png"/><img class="emoji" draggable="false" alt="🐱" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f431.png"/>:full _moon:<img class="emoji" draggable="false" alt="🌖" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f316.png"/><img class="emoji" draggable="false" alt="🌗" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f317.png"/><img class="emoji" draggable="false" alt="🌘" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f318.png"/><img class="emoji" draggable="false" alt="🌑" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f311.png"/><img class="emoji" draggable="false" alt="🌒" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f312.png"/><img class="emoji" draggable="false" alt="🌓" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f313.png"/><img class="emoji" draggable="false" alt="🌔" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f314.png"/><img class="emoji" draggable="false" alt="0️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/30-20e3.png"/><img class="emoji" draggable="false" alt="1️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/31-20e3.png"/>:  two:<img class="emoji" draggable="false" alt="3️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/33-20e3.png"/><img class="emoji" draggable="false" alt="4️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/34-20e3.png"/><img class="emoji" draggable="false" alt="5️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/35-20e3.png"/><img class="emoji" draggable="false" alt="6️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/36-20e3.png"/><img class="emoji" draggable="false" alt="7️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/37-20e3.png"/><img class="emoji" draggable="false" alt="8️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/38-20e3.png"/><img class="emoji" draggable="false" alt="9️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/39-20e3.png"/><img class="emoji" draggable="false" alt="🔟" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f51f.png"/><img class="emoji" draggable="false" alt="🕐" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f550.png"/><img class="emoji" draggable="false" alt="🕑" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f551.png"/><img class="emoji" draggable="false" alt="🕒" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f552.png"/><img class="emoji" draggable="false" alt="🕓" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f553.png"/><img class="emoji" draggable="false" alt="🕔" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f554.png"/><img class="emoji" draggable="false" alt="🕕" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f555.png"/><img class="emoji" draggable="false" alt="🕖" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f556.png"/><img class="emoji" draggable="false" alt="🕗" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f557.png"/><img class="emoji" draggable="false" alt="🕘" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f558.png"/><img class="emoji" draggable="false" alt="🕙" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f559.png"/><img class="emoji" draggable="false" alt="🕚" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f55a.png"/>:cl ock12:<img class="emoji" draggable="false" alt="🕜" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f55c.png"/><img class="emoji" draggable="false" alt="🕝" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f55d.png"/><img class="emoji" draggable="false" alt="🕞" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f55e.png"/><img class="emoji" draggable="false" alt="🕟" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f55f.png"/><img class="emoji" draggable="false" alt="🕠" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f560.png"/><img class="emoji" draggable="false" alt="🕡" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f561.png"/><img class="emoji" draggable="false" alt="🕢" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f562.png"/><img class="emoji" draggable="false" alt="🕣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f563.png"/><img class="emoji" draggable="false" alt="🕤" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f564.png"/><img class="emoji" draggable="false" alt="🕥" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f565.png"/><img class="emoji" draggable="false" alt="🕦" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f566.png"/><img class="emoji" draggable="false" alt="🕧" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f567.png"/><img class="emoji" draggable="false" alt="🇸🇨" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f1f8-1f1e8.png"/>:latin_cross  :<img class="emoji" draggable="false" alt="☪️" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/262a.png"/><img class="emoji" draggable="false" alt="☮️" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/262e.png"/><img class="emoji" draggable="false" alt="🕉" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f549.png"/><img class="emoji" draggable="false" alt="☸️" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/2638.png"/><img class="emoji" draggable="false" alt="✡️" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/2721.png"/><img class="emoji" draggable="false" alt="🔯" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f52f.png"/><img class="emoji" draggable="false" alt="🕎" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f54e.png"/><img class="emoji" draggable="false" alt="☯️" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/262f.png"/><img class="emoji" draggable="false" alt="✡️" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/2721.png"/><img class="emoji" draggable="false" alt="☦️" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/2626.png"/><img class="emoji" draggable="false" alt="⚾️" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/26be.png"/></p>
+<p>源代码:</p>
+ <figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">:100::1234::yum::mountain<span class="emphasis">_biking_</span>man::soon::motor<span class="emphasis">_boat::national_</span>park::night<span class="emphasis">_with_</span>stars::fireworks::blue_book:</span><br><span class="line">:negative<span class="emphasis">_squared_</span>cross<span class="emphasis">_mark::cn::cat::full_</span>moon::waning<span class="emphasis">_gibbous_</span>moon::last<span class="emphasis">_quarter_</span>moon::waning<span class="emphasis">_crescent_</span>moon:</span><br><span class="line">:new<span class="emphasis">_moon::waxing_</span>crescent<span class="emphasis">_moon::first_</span>quarter<span class="emphasis">_moon::waxing_</span>gibbous_moon::zero::one::two::three::four::five::six:</span><br><span class="line">:seven::eight::nine::keycap_ten::clock1::clock2::clock3::clock4::clock5::clock6::clock7::clock8::clock9::clock10:</span><br><span class="line">:clock11::clock12::clock130::clock230::clock330::clock430::clock530::clock630::clock730::clock830::clock930:</span><br><span class="line">:clock1030::clock1130::clock1230::seychelles::latin<span class="emphasis">_cross::star_</span>and<span class="emphasis">_crescent::peace_</span>symbol::om::wheel<span class="emphasis">_of_</span>dharma:</span><br><span class="line">:star<span class="emphasis">_of_</span>david::six<span class="emphasis">_pointed_</span>star::menorah::yin<span class="emphasis">_yang::star_</span>of<span class="emphasis">_david::orthodox_</span>cross::baseball:</span><br></pre></td></tr></table></figure>
+<p>插件地址：</p>
+<ul>
+<li><a href="https://github.com/hexojs/hexo-renderer-markdown-it" target="_blank" rel="noopener">hexo-renderer-markdown-it</a></li>
+<li><a href="https://www.npmjs.com/package/markdown-it-checkbox" target="_blank" rel="noopener">markdown-it-checkbox</a></li>
+<li><a href="https://github.com/markdown-it/markdown-it-emoji" target="_blank" rel="noopener">markdown-it-emoji</a></li>
+<li><a href="https://github.com/twitter/twemoji" target="_blank" rel="noopener">twemoji</a></li>
+</ul>
+<p>Emoji表情检索：</p>
+<ul>
+<li><a href="https://emoji.muan.co/#" target="_blank" rel="noopener">Emoji</a></li>
+<li><a href="https://emoji.svend.cc/" target="_blank" rel="noopener">Emoji(快)</a></li>
+</ul>
+</li>
+</ol>
+<h1>Emoji and code</h1>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">😊 :blush:	😃 :smiley:	☺️ :relaxed:</span><br><span class="line">😏 :smirk:	😍 :heart_eyes:	😘 :kissing_heart:</span><br><span class="line">😚 :kissing_closed_eyes:	😳 :flushed:	😌 :relieved:</span><br><span class="line">😆 :satisfied:	😁 :grin:	😉 :wink:</span><br><span class="line">😜 :stuck_out_tongue_winking_eye:	😝 :stuck_out_tongue_closed_eyes:	😀 :grinning:</span><br><span class="line">😗 :kissing:	😙 :kissing_smiling_eyes:	😛 :stuck_out_tongue:</span><br><span class="line">😴 :sleeping:	😟 :worried:	😦 :frowning:</span><br><span class="line">😧 :anguished:	😮 :open_mouth:	😬 :grimacing:</span><br><span class="line">😕 :confused:	😯 :hushed:	😑 :expressionless:</span><br><span class="line">😒 :unamused:	😅 :sweat_smile:	😓 :sweat:</span><br><span class="line">😥 :disappointed_relieved:	😩 :weary:	😔 :pensive:</span><br><span class="line">😞 :disappointed:	😖 :confounded:	😨 :fearful:</span><br><span class="line">😰 :cold_sweat:	😣 :persevere:	😢 :cry:</span><br><span class="line">😭 :sob:	😂 :joy:	😲 :astonished:</span><br><span class="line">😱 :scream:	:neckbeard: :neckbeard:	😫 :tired_face:</span><br><span class="line">😠 :angry:	😡 :rage:	😤 :triumph:</span><br><span class="line">😪 :sleepy:	😋 :yum:	😷 :mask:</span><br><span class="line">😎 :sunglasses:	😵 :dizzy_face:	👿 :imp:</span><br><span class="line">😈 :smiling_imp:	😐 :neutral_face:	😶 :no_mouth:</span><br><span class="line">😇 :innocent:	👽 :alien:	💛 :yellow_heart:</span><br><span class="line">💙 :blue_heart:	💜 :purple_heart:	❤️ :heart:</span><br><span class="line">💚 :green_heart:	💔 :broken_heart:	💓 :heartbeat:</span><br><span class="line">💗 :heartpulse:	💕 :two_hearts:	💞 :revolving_hearts:</span><br><span class="line">💘 :cupid:	💖 :sparkling_heart:	✨ :sparkles:</span><br><span class="line">⭐️ :star:	🌟 :star2:	💫 :dizzy:</span><br><span class="line">💥 :boom:	💥 :collision:	💢 :anger:</span><br><span class="line">❗️ :exclamation:	❓ :question:	❕ :grey_exclamation:</span><br><span class="line">❔ :grey_question:	💤 :zzz:	💨 :dash:</span><br><span class="line">💦 :sweat_drops:	🎶 :notes:	🎵 :musical_note:</span><br><span class="line">🔥 :fire:	💩 :hankey:	💩 :poop:</span><br><span class="line">💩 :shit:	👍 :+1:	👍 :thumbsup:</span><br><span class="line">👎 :-1:	👎 :thumbsdown:	👌 :ok_hand:</span><br><span class="line">👊 :punch:	👊 :facepunch:	✊ :fist:</span><br><span class="line">✌️ :v:	👋 :wave:	✋ :hand:</span><br><span class="line">✋ :raised_hand:	👐 :open_hands:	☝️ :point_up:</span><br><span class="line">👇 :point_down:	👈 :point_left:	👉 :point_right:</span><br><span class="line">🙌 :raised_hands:	🙏 :pray:	👆 :point_up_2:</span><br><span class="line">👏 :clap:	💪 :muscle:	🤘 :metal:</span><br><span class="line">🖕 :fu:	🚶 :walking:	🏃 :runner:</span><br><span class="line">🏃 :running:	👫 :couple:	👪 :family:</span><br><span class="line">👬 :two_men_holding_hands:	👭 :two_women_holding_hands:	💃 :dancer:</span><br><span class="line">👯 :dancers:	🙆 :ok_woman:	🙅 :no_good:</span><br><span class="line">💁 :information_desk_person:	🙋 :raising_hand:	👰 :bride_with_veil:</span><br><span class="line">🙎 :person_with_pouting_face:	🙍 :person_frowning:	🙇 :bow:</span><br><span class="line">:couplekiss: :couplekiss:	💑 :couple_with_heart:	💆 :massage:</span><br><span class="line">💇 :haircut:	💅 :nail_care:	👦 :boy:</span><br><span class="line">👧 :girl:	👩 :woman:	👨 :man:</span><br><span class="line">👶 :baby:	👵 :older_woman:	👴 :older_man:</span><br><span class="line">👱 :person_with_blond_hair:	👲 :man_with_gua_pi_mao:	👳 :man_with_turban:</span><br><span class="line">👷 :construction_worker:	👮 :cop:	👼 :angel:</span><br><span class="line">👸 :princess:	😺 :smiley_cat:	😸 :smile_cat:</span><br><span class="line">😻 :heart_eyes_cat:	😽 :kissing_cat:	😼 :smirk_cat:</span><br><span class="line">🙀 :scream_cat:	😿 :crying_cat_face:	😹 :joy_cat:</span><br><span class="line">😾 :pouting_cat:	👹 :japanese_ogre:	👺 :japanese_goblin:</span><br><span class="line">🙈 :see_no_evil:	🙉 :hear_no_evil:	🙊 :speak_no_evil:</span><br><span class="line">💂 :guardsman:	💀 :skull:	🐾 :feet:</span><br><span class="line">👄 :lips:	💋 :kiss:	💧 :droplet:</span><br><span class="line">👂 :ear:	👀 :eyes:	👃 :nose:</span><br><span class="line">👅 :tongue:	💌 :love_letter:	👤 :bust_in_silhouette:</span><br><span class="line">👥 :busts_in_silhouette:	💬 :speech_balloon:	💭 :thought_balloon:</span><br></pre></td></tr></table></figure>
+<h1>参考资料</h1>
+<p><a href="https://www.jianshu.com/p/f9e57ecca150" target="_blank" rel="noopener">https://www.jianshu.com/p/f9e57ecca150</a></p>
+<p><a href="https://vxiaozhe1998.gitee.io/2020/03/25/HEXO%E4%B8%8B%E7%9A%84%E9%94%9A%E7%82%B9%E6%A0%87%E9%A2%98%E4%B8%8EEmoji%E8%A1%A8%E6%83%85/#more" target="_blank" rel="noopener">https://vxiaozhe1998.gitee.io/2020/03/25/HEXO下的锚点标题与Emoji表情/#more</a></p>
+<p><a href="https://blog.csdn.net/weixin_30745641/article/details/95686757" target="_blank" rel="noopener">https://blog.csdn.net/weixin_30745641/article/details/95686757</a></p>
+]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>Markdown</tag>
+        <tag>emoji</tag>
       </tags>
   </entry>
 </search>
