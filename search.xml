@@ -1,64 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>windows下awk指定文本输出格式</title>
-    <url>/2020/04/17/windows%E4%B8%8Bawk%E6%8C%87%E5%AE%9A%E6%96%87%E6%9C%AC%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F/</url>
-    <content><![CDATA[<h3 id="1️⃣-printf用法"><a class="header-anchor" href="#1️⃣-printf用法">¶</a><img class="emoji" draggable="false" alt="1️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/31-20e3.png"/> printf用法</h3>
-<a id="more"></a>
-<p>补齐只能补<code>0</code>或空格字符</p>
-<p>cmd中写法为：</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">echo <span class="number">1.22</span> | gawk <span class="string">"&#123;printf "</span><span class="string">""</span>%<span class="number">7.3</span>f<span class="string">""</span><span class="string">" <span class="variable">$1</span>&#125;"</span></span><br></pre></td></tr></table></figure>
-<p>bat批处理脚本中写法为：</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">echo <span class="number">1.22</span> | gawk <span class="string">"&#123;printf "</span><span class="string">""</span>%%<span class="number">7.3</span>f<span class="string">""</span><span class="string">", <span class="variable">$1</span>&#125;"</span></span><br></pre></td></tr></table></figure>
-<p>输出结果为</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="number">1.220</span>  <span class="comment"># 数字前面有两个空字符</span></span><br></pre></td></tr></table></figure>
-<h3 id="2️⃣-常用数据类型"><a class="header-anchor" href="#2️⃣-常用数据类型">¶</a><img class="emoji" draggable="false" alt="2️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/32-20e3.png"/> 常用数据类型</h3>
-<table>
-<thead>
-<tr>
-<th>字符</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>c</td>
-<td>字符</td>
-</tr>
-<tr>
-<td>s</td>
-<td>字符串</td>
-</tr>
-<tr>
-<td>d</td>
-<td>整数</td>
-</tr>
-<tr>
-<td>f</td>
-<td>浮点数</td>
-</tr>
-<tr>
-<td>ld</td>
-<td>长整数</td>
-</tr>
-</tbody>
-</table>
-<p><img class="emoji" draggable="false" alt="😂" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png"/><img class="emoji" draggable="false" alt="😂" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png"/><img class="emoji" draggable="false" alt="😂" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png"/>其他的百度 <img class="emoji" draggable="false" alt="😂" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png"/><img class="emoji" draggable="false" alt="😂" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png"/><img class="emoji" draggable="false" alt="😂" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png"/></p>
-<p><code>%07s</code>表示保留7位字符，并右对齐，用0补齐</p>
-<p><code>%-7s</code>表示保留7位字符，并左对齐，用空字符补齐</p>
-<p><code>%07d</code>表示保留7位整数，用0补齐</p>
-<p><code>%7.3f</code>表示总长度7位字符，并保留三位小数，不足7为用空格补齐，并右对齐，</p>
-<p><code>%-7.3f</code>表示总长度7位字符，并保留三位小数，不足7为用空格补齐，并左对齐，</p>
-<p><code>%07.3f</code>时不足7为用0补齐，并右对齐</p>
-]]></content>
-      <categories>
-        <category>数据处理</category>
-      </categories>
-      <tags>
-        <tag>awk</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hexo中添加emoji表情</title>
     <url>/2020/04/16/Hexo%E4%B8%AD%E6%B7%BB%E5%8A%A0emoji%E8%A1%A8%E6%83%85/</url>
     <content><![CDATA[<center>
@@ -276,6 +218,64 @@
       <tags>
         <tag>Python</tag>
         <tag>pip</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>windows下awk指定文本输出格式</title>
+    <url>/2020/04/17/windows%E4%B8%8Bawk%E6%8C%87%E5%AE%9A%E6%96%87%E6%9C%AC%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F/</url>
+    <content><![CDATA[<h3 id="1️⃣-printf用法"><a class="header-anchor" href="#1️⃣-printf用法">¶</a><img class="emoji" draggable="false" alt="1️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/31-20e3.png"/> printf用法</h3>
+<a id="more"></a>
+<p>补齐只能补<code>0</code>或空格字符</p>
+<p>cmd中写法为：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">echo <span class="number">1.22</span> | gawk <span class="string">"&#123;printf "</span><span class="string">""</span>%<span class="number">7.3</span>f<span class="string">""</span><span class="string">" <span class="variable">$1</span>&#125;"</span></span><br></pre></td></tr></table></figure>
+<p>bat批处理脚本中写法为：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">echo <span class="number">1.22</span> | gawk <span class="string">"&#123;printf "</span><span class="string">""</span>%%<span class="number">7.3</span>f<span class="string">""</span><span class="string">", <span class="variable">$1</span>&#125;"</span></span><br></pre></td></tr></table></figure>
+<p>输出结果为</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="number">1.220</span>  <span class="comment"># 数字前面有两个空字符</span></span><br></pre></td></tr></table></figure>
+<h3 id="2️⃣-常用数据类型"><a class="header-anchor" href="#2️⃣-常用数据类型">¶</a><img class="emoji" draggable="false" alt="2️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/32-20e3.png"/> 常用数据类型</h3>
+<table>
+<thead>
+<tr>
+<th>字符</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>c</td>
+<td>字符</td>
+</tr>
+<tr>
+<td>s</td>
+<td>字符串</td>
+</tr>
+<tr>
+<td>d</td>
+<td>整数</td>
+</tr>
+<tr>
+<td>f</td>
+<td>浮点数</td>
+</tr>
+<tr>
+<td>ld</td>
+<td>长整数</td>
+</tr>
+</tbody>
+</table>
+<p><img class="emoji" draggable="false" alt="😂" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png"/><img class="emoji" draggable="false" alt="😂" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png"/><img class="emoji" draggable="false" alt="😂" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png"/>其他的百度 <img class="emoji" draggable="false" alt="😂" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png"/><img class="emoji" draggable="false" alt="😂" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png"/><img class="emoji" draggable="false" alt="😂" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png"/></p>
+<p><code>%07s</code>表示保留7位字符，并右对齐，用0补齐</p>
+<p><code>%-7s</code>表示保留7位字符，并左对齐，用空字符补齐</p>
+<p><code>%07d</code>表示保留7位整数，用0补齐</p>
+<p><code>%7.3f</code>表示总长度7位字符，并保留三位小数，不足7为用空格补齐，并右对齐，</p>
+<p><code>%-7.3f</code>表示总长度7位字符，并保留三位小数，不足7为用空格补齐，并左对齐，</p>
+<p><code>%07.3f</code>时不足7为用0补齐，并右对齐</p>
+]]></content>
+      <categories>
+        <category>数据处理</category>
+      </categories>
+      <tags>
+        <tag>awk</tag>
       </tags>
   </entry>
   <entry>
