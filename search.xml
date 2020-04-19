@@ -274,64 +274,6 @@ Notepad++在关闭之间，仅第一次点击“Direct Execute Previous”工具
       </tags>
   </entry>
   <entry>
-    <title>windows下awk指定文本输出格式</title>
-    <url>/2020/04/17/windows%E4%B8%8Bawk%E6%8C%87%E5%AE%9A%E6%96%87%E6%9C%AC%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F/</url>
-    <content><![CDATA[<h3 id="1️⃣-printf用法"><a class="header-anchor" href="#1️⃣-printf用法">¶</a><img class="emoji" draggable="false" alt="1️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/31-20e3.png"/> printf用法</h3>
-<a id="more"></a>
-<p>补齐只能补<code>0</code>或空格字符</p>
-<p>cmd中写法为：</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">echo <span class="number">1.22</span> | gawk <span class="string">"&#123;printf "</span><span class="string">""</span>%<span class="number">7.3</span>f<span class="string">""</span><span class="string">" <span class="variable">$1</span>&#125;"</span></span><br></pre></td></tr></table></figure>
-<p>bat批处理脚本中写法为：</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">echo <span class="number">1.22</span> | gawk <span class="string">"&#123;printf "</span><span class="string">""</span>%%<span class="number">7.3</span>f<span class="string">""</span><span class="string">", <span class="variable">$1</span>&#125;"</span></span><br></pre></td></tr></table></figure>
-<p>输出结果为</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="number">1.220</span>  <span class="comment"># 数字前面有两个空字符</span></span><br></pre></td></tr></table></figure>
-<h3 id="2️⃣-常用数据类型"><a class="header-anchor" href="#2️⃣-常用数据类型">¶</a><img class="emoji" draggable="false" alt="2️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/32-20e3.png"/> 常用数据类型</h3>
-<table>
-<thead>
-<tr>
-<th>字符</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>c</td>
-<td>字符</td>
-</tr>
-<tr>
-<td>s</td>
-<td>字符串</td>
-</tr>
-<tr>
-<td>d</td>
-<td>整数</td>
-</tr>
-<tr>
-<td>f</td>
-<td>浮点数</td>
-</tr>
-<tr>
-<td>ld</td>
-<td>长整数</td>
-</tr>
-</tbody>
-</table>
-<p><img class="emoji" draggable="false" alt="😂" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png"/><img class="emoji" draggable="false" alt="😂" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png"/><img class="emoji" draggable="false" alt="😂" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png"/>其他的百度 <img class="emoji" draggable="false" alt="😂" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png"/><img class="emoji" draggable="false" alt="😂" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png"/><img class="emoji" draggable="false" alt="😂" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png"/></p>
-<p><code>%07s</code>表示保留7位字符，并右对齐，用0补齐</p>
-<p><code>%-7s</code>表示保留7位字符，并左对齐，用空字符补齐</p>
-<p><code>%07d</code>表示保留7位整数，用0补齐</p>
-<p><code>%7.3f</code>表示总长度7位字符，并保留三位小数，不足7为用空格补齐，并右对齐，</p>
-<p><code>%-7.3f</code>表示总长度7位字符，并保留三位小数，不足7为用空格补齐，并左对齐，</p>
-<p><code>%07.3f</code>时不足7为用0补齐，并右对齐</p>
-]]></content>
-      <categories>
-        <category>数据处理</category>
-      </categories>
-      <tags>
-        <tag>awk</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>在psxy中使用cpt填色</title>
     <url>/2020/04/15/%E5%9C%A8psxy%E4%B8%AD%E4%BD%BF%E7%94%A8cpt%E5%A1%AB%E8%89%B2/</url>
     <content><![CDATA[<p>  绘制震中分布图时经常需要绘制多年地震，并需要将不同年份地震进行区分，而区分的方式通常是给其填充不同的颜色。常规的绘图方法中将每一年的地震目录用awk提出后再绘制，此方对于每年的地震都需要单独一条命令进行绘制，并给其一个单独的颜色。如此一来同样的绘图语句就要重复写好几遍，个人觉得还是有点不方便。<br>
@@ -396,11 +338,70 @@ Notepad++在关闭之间，仅第一次点击“Direct Execute Previous”工具
       </tags>
   </entry>
   <entry>
+    <title>windows下awk指定文本输出格式</title>
+    <url>/2020/04/17/windows%E4%B8%8Bawk%E6%8C%87%E5%AE%9A%E6%96%87%E6%9C%AC%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F/</url>
+    <content><![CDATA[<h3 id="1️⃣-printf用法"><a class="header-anchor" href="#1️⃣-printf用法">¶</a><img class="emoji" draggable="false" alt="1️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/31-20e3.png"/> printf用法</h3>
+<a id="more"></a>
+<p>补齐只能补<code>0</code>或空格字符</p>
+<p>cmd中写法为：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">echo <span class="number">1.22</span> | gawk <span class="string">"&#123;printf "</span><span class="string">""</span>%<span class="number">7.3</span>f<span class="string">""</span><span class="string">" <span class="variable">$1</span>&#125;"</span></span><br></pre></td></tr></table></figure>
+<p>bat批处理脚本中写法为：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">echo <span class="number">1.22</span> | gawk <span class="string">"&#123;printf "</span><span class="string">""</span>%%<span class="number">7.3</span>f<span class="string">""</span><span class="string">", <span class="variable">$1</span>&#125;"</span></span><br></pre></td></tr></table></figure>
+<p>输出结果为</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="number">1.220</span>  <span class="comment"># 数字前面有两个空字符</span></span><br></pre></td></tr></table></figure>
+<h3 id="2️⃣-常用数据类型"><a class="header-anchor" href="#2️⃣-常用数据类型">¶</a><img class="emoji" draggable="false" alt="2️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/32-20e3.png"/> 常用数据类型</h3>
+<table>
+<thead>
+<tr>
+<th>字符</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>c</td>
+<td>字符</td>
+</tr>
+<tr>
+<td>s</td>
+<td>字符串</td>
+</tr>
+<tr>
+<td>d</td>
+<td>整数</td>
+</tr>
+<tr>
+<td>f</td>
+<td>浮点数</td>
+</tr>
+<tr>
+<td>ld</td>
+<td>长整数</td>
+</tr>
+</tbody>
+</table>
+<p><img class="emoji" draggable="false" alt="😂" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png"/><img class="emoji" draggable="false" alt="😂" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png"/><img class="emoji" draggable="false" alt="😂" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png"/>其他的百度 <img class="emoji" draggable="false" alt="😂" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png"/><img class="emoji" draggable="false" alt="😂" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png"/><img class="emoji" draggable="false" alt="😂" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png"/></p>
+<p><code>%07s</code>表示保留7位字符，并右对齐，用0补齐</p>
+<p><code>%-7s</code>表示保留7位字符，并左对齐，用空字符补齐</p>
+<p><code>%07d</code>表示保留7位整数，用0补齐</p>
+<p><code>%7.3f</code>表示总长度7位字符，并保留三位小数，不足7为用空格补齐，并右对齐，</p>
+<p><code>%-7.3f</code>表示总长度7位字符，并保留三位小数，不足7为用空格补齐，并左对齐，</p>
+<p><code>%07.3f</code>时不足7为用0补齐，并右对齐</p>
+]]></content>
+      <categories>
+        <category>数据处理</category>
+      </categories>
+      <tags>
+        <tag>awk</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>在支持Intel的PC上安装macOS Mojave</title>
     <url>/2020/04/19/%E5%9C%A8%E6%94%AF%E6%8C%81Intel%E7%9A%84PC%E4%B8%8A%E5%AE%89%E8%A3%85macOS-Mojave/</url>
-    <content><![CDATA[<p><img src="https://wpttt.github.io/images/mojave_install/mojave_install1.png" alt="mojave"></p>
-<p>本文转自 <a href="http://tonymacx86.com" target="_blank" rel="noopener">tonymacx86.com</a>，是更新或安装新版macOS Mojave的完整教程。所有基本安装和安装后工具都可以在 <a href="http://tonymacx86.com" target="_blank" rel="noopener">tonymacx86.com</a> 上找到。</p>
+    <content><![CDATA[<p>本文转自 <a href="http://tonymacx86.com" target="_blank" rel="noopener">tonymacx86.com</a>，是更新和安装macOS Mojave的完整教程。所有基本安装和安装后工具都可以在 <a href="http://tonymacx86.com" target="_blank" rel="noopener">tonymacx86.com</a> 上找到。经本人机器测试有效，并且几乎完美驱动所有硬件。</p>
+<!--![mojave](https://wpttt.github.io/images/mojave_install/mojave_install1.png)-->
 <a id="more"></a>
+<p><img class="emoji" draggable="false" alt="👉" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f449.png"/>  文末附配置。。。[^1]</p>
 <h1>准备工作</h1>
 <ol>
 <li>在tonymacx86注册！如果没有用户帐户，请创建一个！</li>
@@ -408,12 +409,12 @@ Notepad++在关闭之间，仅第一次点击“Direct Execute Previous”工具
 <li>购买16GB或更大的USB驱动器。</li>
 <li>对系统进行完整备份。 我们强烈建议使用Carbon Copy Cloner对现有系统执行完整备份。这样便可以随时返回工作安装。</li>
 </ol>
-<p>UniBeast是一个从我们下载的macOS版本中创建可启动安装程序的工具。 为了重新开始，您需要访问运行OS X Lion 10.7.5或更高版本的Mac计算机。 这是一项要求，因为我们需要访问Mac App Store才能下载macOS并创建安装驱动器。 要从头开始，直接启动10.6 Snow Leopard Retail DVD，请查看<a href="http://tonymacx86.blogspot.com/2010/04/iboot-multibeast-install-mac-os-x-on.html" target="_blank" rel="noopener">iBoot + MultiBeast</a>。</p>
-<p>现有的Clover用户可以像普通Mac用户那样只运行Install macOS Mojave应用程序直接更新macOS Mojave。 请按照下列步骤操作：<a href="https://www.tonymacx86.com/threads/update-directly-to-macos-mojave.260654/" target="_blank" rel="noopener">直接更新到macOS Mojave</a>。</p>
+<p>UniBeast是一个从我们下载的macOS版本中创建可启动安装程序的工具。 为了重新开始，需要一台运行OS X Lion 10.7.5或更高版本的Mac计算机。 这一点是必要的，因为我们需要访问Mac App Store才能下载macOS并创建安装驱动器。 要从头开始，直接启动10.6 Snow Leopard Retail DVD，请查看<a href="http://tonymacx86.blogspot.com/2010/04/iboot-multibeast-install-mac-os-x-on.html" target="_blank" rel="noopener">iBoot + MultiBeast</a>。</p>
+<p>现有的Clover用户可以像普通Mac用户那样运行App Store下载的Install macOS Mojave应用程序直接更新macOS Mojave。 请按照下面的步骤操作：<a href="https://www.tonymacx86.com/threads/update-directly-to-macos-mojave.260654/" target="_blank" rel="noopener">直接更新到macOS Mojave</a>。</p>
 <hr>
 <p><img src="https://wpttt.github.io/images/mojave_install/Mojave_install2.png" alt="mojave_download"></p>
 <h1>第一步：下载 macOS Mojave</h1>
-<p>对于购买了Mac OS X Snow Leopard，Lion或Mountain Lion或者预装了OS X Mavericks，Yosemite，El Capitan，macOS Sierra或macOS High Sierra的Mac，可以免费下载完整的操作系统。当然也可以用虚拟机实现。</p>
+<p>对于购买了Mac OS X Snow Leopard，Lion或Mountain Lion或者预装了OS X Mavericks，Yosemite，El Capitan，macOS Sierra或macOS High Sierra的Mac，可以免费下载完整的操作系统。当然也可以用虚拟机实现（虚拟机仅能实现下载，后面启动盘的创建在虚拟机上可能会失败）。</p>
 <p>在任何这些特定的Mac上使用Apple ID从Mac App Store下载应用程序：</p>
 <ul>
 <li>MacBook（2015年初或更早版本）</li>
@@ -430,22 +431,22 @@ Notepad++在关闭之间，仅第一次点击“Direct Execute Previous”工具
 <li>下载macOS Mojave</li>
 </ol>
 <p>应用程序 “Install macOS Mojave” 将出现在 <code>/Applications</code>目录中。</p>
+<hr>
 <p><img src="https://wpttt.github.io/images/mojave_install/mojave_install3.png" alt="unibeast3"></p>
 <h1>第二步：利用Unibeast创建可引导的USB启动盘</h1>
-<p>深吸一口气，慢慢来 - 这很简单，但如果你急于求成，很容易错过。 按照教程一步一步来。</p>
-<p>首先</p>
+<p>深吸一口气，慢慢来 - 其实这一步简单，因为有神器<font color='orangered'>Unibeast</font>。 按照教程一步一步来。</p>
 <ol>
 <li>插入USB驱动器</li>
 <li>打开 <strong>/Applications/Utilities/Disk Utility</strong></li>
 <li>点击左列中的USB驱动器至其突出显示（注意：在Mojave版本的“磁盘工具”中，必须先选择“查看/显示所有设备”，然后才能看到USB驱动器）<br>
 <img src="https://wpttt.github.io/images/mojave_install/mojave_install4.png" alt="mojave_install4"></li>
 <li>单击 <strong>Erase</strong> 按钮</li>
-<li>对于<strong>Name</strong>：键入 <strong>USB</strong>（可以稍后重命名）</li>
-<li>对于<strong>Format</strong>：选择 <strong>Mac OS Extended（Journaled）</strong><br>
+<li>在<strong>Name</strong>框：键入 <strong>USB</strong>（可以稍后重命名）</li>
+<li>在<strong>Format</strong>框：选择 <strong>Mac OS Extended（Journaled）</strong><br>
 <img src="https://wpttt.github.io/images/mojave_install/mojave_install5.png" alt="mojave_install5"></li>
 <li>单击<strong>Erase</strong>然后<strong>Done</strong><br>
 <img src="https://wpttt.github.io/images/mojave_install/mojave_install6.png" alt="mojave_install6"></li>
-<li>下载并运行<a href="https://www.tonymacx86.com/resources/categories8tonymacx86-downloads.3/" target="_blank" rel="noopener">UniBeast</a>（先确保系统语言为英语）</li>
+<li>下载并运行<a href="https://www.tonymacx86.com/resources/categories8tonymacx86-downloads.3/" target="_blank" rel="noopener">UniBeast</a>（<img class="emoji" draggable="false" alt="💡" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f4a1.png"/> <font color='orangered'>先确保系统语言为英语</font>）</li>
 <li>单击<strong>Continue</strong>，<strong>Continue</strong>，<strong>Continue</strong>，<strong>Continue</strong>，<strong>Agree</strong></li>
 <li>在 Destination Select 中，选择<strong>USB</strong>并单击<strong>Continue</strong><br>
 <img src="https://wpttt.github.io/images/mojave_install/mojave_install7.png" alt="mojave_install7"></li>
@@ -457,11 +458,11 @@ Notepad++在关闭之间，仅第一次点击“Direct Execute Previous”工具
 <img src="https://wpttt.github.io/images/mojave_install/mojave_install9.png" alt="mojave_install9"><br>
 现在UniBeast将创建可启动的USB驱动器。 该过程仅需10分钟左右，具体取决于系统和驱动器速度。 在此期间请勿拔下或停止。<br>
 <img src="https://wpttt.github.io/images/mojave_install/mojave_install10.png" alt="mojave_install10"></li>
-<li>将<a href="https://www.tonymacx86.com/resources/categories/tonymacx86-downloads.3/" target="_blank" rel="noopener">MultiBeast</a>拖到已完成的USB驱动器中。</li>
+<li>将下载好的<a href="https://www.tonymacx86.com/resources/categories/tonymacx86-downloads.3/" target="_blank" rel="noopener">MultiBeast</a>拖到已完成的USB驱动器中。</li>
 </ol>
 <blockquote>
-<p><strong>Clover注意</strong>：<br>
-UniBeast基于我们对推荐的CustoMac系统的测试提供基本的引导加载程序支持。 要进一步引导加载程序自定义，请下载并运行<a href="http://sourceforge.net/projects/cloverefiboot/" target="_blank" rel="noopener">Clover官方程序包</a>。 高级用户也可以通过下载完整的源代码来编译Clover。</p>
+<p><strong>Clover Note</strong>：<br>
+UniBeast基于tonymacx86上推荐的CustoMac系统的测试提供基本的引导加载程序支持。要进一步引导加载程序自定义，请下载并运行<a href="http://sourceforge.net/projects/cloverefiboot/" target="_blank" rel="noopener">Clover官方程序包</a>。 高级用户也可以通过下载完整的源代码来编译Clover。</p>
 </blockquote>
 <p><img src="https://wpttt.github.io/images/mojave_install/mojave_install11.jpg" alt="mojave_install11"></p>
 <h1>第三步：推荐的BIOS设置</h1>
@@ -480,7 +481,7 @@ UniBeast基于我们对推荐的CustoMac系统的测试提供基本的引导加�
 <li>保存并退出。</li>
 </ol>
 <p><img src="https://wpttt.github.io/images/mojave_install/mojave_install12.png" alt="mojave_install12"></p>
-<h1><span id="step4">第四步：安装 MacOS Mojave</span></h1>
+<h1>第四步：安装 MacOS Mojave</h1>
 <p>至此几乎已经完成！ 接下来需要做的就是从USB驱动器启动并安装！ 为获得最佳效果，请将USB插入USB 2.0端口。</p>
 <ol>
 <li>打开电脑</li>
@@ -515,31 +516,45 @@ UniBeast基于我们对推荐的CustoMac系统的测试提供基本的引导加�
 </ol>
 </li>
 </ol>
-<p><img src="https://wpttt.github.io/images/mojage_install/multibeast-0.png" alt="multibeast"></p>
+<p><img src="https://wpttt.github.io/images/mojave_install/multibeast-0.png" alt="multibeast"></p>
 <h1>第五步：使用MultiBeast进行安装后相关设置</h1>
 <p>MultiBeast是一款一体化的post-installation工具，旨在实现从硬盘启动，并安装对音频，网络和图形的支持。 安装已完成，但驱动器尚未启动。 再次从USB启动，这次选择Mojave。</p>
 <ol>
-<li>按热键选择启动设备（技嘉主板为F12，华硕主板为F8，ASrock主板为F11）</li>
-<li>选择<strong>USB</strong></li>
-<li>在启动界面中，选择<strong>Mojave</strong></li>
-<li>完成macOS设置</li>
-<li>打开并运行<a href="https://www.tonymacx86.com/downloads" target="_blank" rel="noopener">MultiBeast</a></li>
+<li>
+<p>按热键选择启动设备（技嘉主板为F12，华硕主板为F8，ASrock主板为F11）</p>
+</li>
+<li>
+<p>选择<strong>USB</strong></p>
+</li>
+<li>
+<p>在启动界面中，选择<strong>Mojave</strong></p>
+</li>
+<li>
+<p>完成macOS设置</p>
+</li>
+<li>
+<p>打开并运行<a href="https://www.tonymacx86.com/downloads" target="_blank" rel="noopener">MultiBeast</a><br>
+<img src="https://wpttt.github.io/images/mojave_install/multibeast-1.png" alt="multibeast1"></p>
+</li>
+<li>
+<p>如果这是全新安装，请单击<strong>Quick Start(快速启动)</strong>。 建议7/8/9/100/200/300系列CustoMac台式机和所有支持UEFI的系统使用<strong>UEFI Boot Mode(UEFI引导模式)</strong>。 建议将5/6 系列 CustoMac台式机和所有基于BIOS的系统使用<strong>Legacy Boot Mode(传统启动模式)</strong>。<br>
+<img src="https://wpttt.github.io/images/mojave_install/multibeast-2.png" alt="multibeast2"></p>
+</li>
+<li>
+<p>为您的系统选择适当的<strong>驱动程序</strong>选项。</p>
+</li>
+<li>
+<p>单击 <strong>Customize(自定义)</strong> 以获取更多选项(此处本人勾选了inject ATI)<br>
+<img src="https://wpttt.github.io/images/mojave_install/multibeast-3.png" alt="multibeast3"></p>
+</li>
+<li>
+<p>单击<strong>Print</strong>或<strong>Save</strong>以备份配置</p>
+</li>
+<li>
+<p>单击<strong>Build</strong>然后<strong>Install</strong><br>
+<img src="https://wpttt.github.io/images/mojave_install/multibeast-4.png" alt="multibeast4"></p>
+</li>
 </ol>
-<p><img src="https://wpttt.github.io/images/mojage_install/multibeast-1.png" alt="multibeast1"></p>
-<ol start="6">
-<li>如果这是全新安装，请单击<strong>Quick Start(快速启动)</strong>。 建议7/8/9/100/200/300系列CustoMac台式机和所有支持UEFI的系统使用<strong>UEFI Boot Mode(UEFI引导模式)</strong>。 建议将5/6 系列 CustoMac台式机和所有基于BIOS的系统使用<strong>Legacy Boot Mode(传统启动模式)</strong>。</li>
-</ol>
-<p><img src="https://wpttt.github.io/images/mojage_install/multibeast-2.png" alt="multibeast2"></p>
-<ol start="7">
-<li>为您的系统选择适当的<strong>驱动程序</strong>选项。</li>
-<li>单击 <strong>Customize(自定义)</strong> 以获取更多选项</li>
-</ol>
-<p><img src="https://wpttt.github.io/images/mojage_install/multibeast-3.png" alt="multibeast3"></p>
-<ol start="9">
-<li>单击<strong>Print</strong>或<strong>Save</strong>以备份配置</li>
-<li>单击<strong>Build</strong>然后<strong>Install</strong></li>
-</ol>
-<p><img src="https://wpttt.github.io/images/mojage_install/multibeast-4.png" alt="multibeast4"></p>
 <p>如果使用GeForce GTX 1050,1050 Ti，1060,1070,1070 Ti，1080,1080 Ti，TITAN Pascal和TITAN Xp’Pascal’显卡或NVIDIA GeForce GTX 750,750 Ti，950,960,970,980， 980 Ti和TITAN X’Maxwell’显卡，则此机不支持macOS Mojave图形驱动程序。 则需要其他NVIDIA驱动程序。</p>
 <blockquote>
 <p><img class="emoji" draggable="false" alt="⚠️" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/26a0.png"/><strong>注意:<br>
@@ -549,13 +564,14 @@ UniBeast基于我们对推荐的CustoMac系统的测试提供基本的引导加�
 <li>（可选）下载并安装其他NVIDIA图形驱动程序</li>
 <li>重启</li>
 </ol>
-<p><img src="https://wpttt.github.io/images/mojage_install/mojave-desktop.png" alt="mojave_desktop"></p>
+<p><img src="https://wpttt.github.io/images/mojave_install/mojave-desktop.png" alt="mojave_desktop"></p>
 <p>棒棒棒！ 现在我们的 CustoMac上就装好了一个完全更新的 macOS Mojave可启动版本！ 还有一个超级方便的 USB-Rescue 驱动器。</p>
 <p>此过程很容易遭受挫败，但不要放弃！如果遇到困难，tonymacx86论坛中有许多具有类似硬件的用户提供支持。</p>
 <p>感谢全世界所有努力工作的开发人员，黑客和测试人员，没有他们就没有本安装指南。</p>
 <p><img src="https://wpttt.github.io/images/mojave_install/troubleshooting.png" alt="troubleshooting"></p>
 <h1>故障排除和优化</h1>
 <p>完成安装后，HDMI音频和iMessage等内容可能无法自动运行。 以下列表应用于在初始设置后完全优化您的系统。</p>
+<font size=2>
 <p><a href="https://www.tonymacx86.com/threads/readme-common-problems-changes-fixes-on-mojave.255823/" target="_blank" rel="noopener">[README] Mojave上的常见问题/更改/修复</a></p>
 <p><a href="https://www.tonymacx86.com/threads/mojave-applehda-audio.260004/" target="_blank" rel="noopener">Mojave AppleHDA音频</a></p>
 <p><a href="https://www.tonymacx86.com/threads/update-directly-to-macos-mojave.260654/" target="_blank" rel="noopener">直接更新到MacOS Mojave</a></p>
@@ -568,8 +584,9 @@ UniBeast基于我们对推荐的CustoMac系统的测试提供基本的引导加�
 <p><a href="https://www.tonymacx86.com/threads/rough-guide-fix-for-finder-preview-not-working-on-mojave-10-14-1.264398/" target="_blank" rel="noopener">[粗略指南]修复Finder预览不适用于Mojave 10.14.1+</a></p>
 <p><a href="https://www.tonymacx86.com/threads/tool-generate-proper-problem-reporting-files.235953/" target="_blank" rel="noopener">[TOOL] [生成正确的问题报告文件]</a></p>
 <p><a href="https://www.tonymacx86.com/threads/faq-read-first-laptop-frequent-questions.164990/" target="_blank" rel="noopener">[FAQ]请先阅读！ 笔记本电脑常见问题</a></p>
-<p><a href="https://www.tonymacx86.com/threads/guide-booting-the-os-x-installer-on-laptops-with-clover.148093/" target="_blank" rel="noopener">[Guide]使用Clover在LAPTOPS上引导OS X安装程序</a></p>
-<p>此表将持续更新</p>
+<p><a href="https://www.tonymacx86.com/threads/guide-booting-the-os-x-installer-on-laptops-with-clover.148093/" target="_blank" rel="noopener">[Guide]使用Clover在LAPTOPS上引导OS X安装程序</a><br>
+</font><br>
+此表将持续更新</p>
 <p><strong><font size=5>备用NVIDIA显卡驱动程序</font></strong></p>
 <p>NVIDIA针对每个macOS版本在Web上单独发布备用图形驱动程序。 这些与Apple标配的驱动程序不同，应该被认为是实验性的。 过去，众所周知，驱动程序可以解决某些应用程序的OpenCL问题，并为某些设备提供更好的本机GPU电源管理。 这些驱动程序是目前唯一获得GeForce GTX 1050,1050 Ti，1060,1070,1070 Ti，1080,1080 Ti，TITAN Pascal和TITAN Xp’Pascal’显卡和NVIDIA GeForce GTX 750,750 Ti全加速的方法 ，950,960,970,980,980 Ti和TITAN X’Maxwell’显卡。 目前没有配备这些卡的Mac，因此macOS本身不支持。</p>
 <blockquote>
@@ -580,6 +597,15 @@ UniBeast基于我们对推荐的CustoMac系统的测试提供基本的引导加�
 <p>UniBeast包含并提供来自Clover EFI Bootloader项目的文件。 有关使用的更多信息和来源，请参阅<a href="http://sourceforge.net/projects/cloverefiboot/" target="_blank" rel="noopener">Clover EFI bootloader</a>。 Clover v2是基于不同项目的开源：Clover，rEFIt，XNU，VirtualBox。 主要是EDK2的最新版本。</p>
 <p><strong>Clover Notes：</strong></p>
 <p>UniBeast基于我们对推荐的CustoMac系统的测试提供基本的引导加载程序支持。 要进一步引导加载程序自定义，请下载并运行<a href="http://sourceforge.net/projects/cloverefiboot/" target="_blank" rel="noopener">Clover官方程序包</a>。 高级用户也可以通过下载完整的源代码来编译Clover。</p>
+<p>[^1] <strong>主要配置：</strong><br>
+<font size=2></p>
+<p>主板：GIGABYTE Z390 GAMING X<br>
+CPU：Intel i7-8700k<br>
+内存： 美商海盗船 Vengeance LPX DDR4 3000GHz 16G<br>
+显卡：AMD Radeon RX580-2048sp # (此卡不能正常驱动，据说是RX570换马甲后的版本，刷BIOS显卡型号为RX570后正常驱动)<br>
+硬盘：WD GREEN SATA SSD M.2 2280 电源：酷冷至尊 战剑II 500W<br>
+机箱：aigo 黑曼巴<br>
+</font></p>
 ]]></content>
       <categories>
         <category>系统</category>
