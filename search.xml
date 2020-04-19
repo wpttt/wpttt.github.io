@@ -226,6 +226,64 @@ Notepad++在关闭之间，仅第一次点击“Direct Execute Previous”工具
       </categories>
   </entry>
   <entry>
+    <title>windows下awk指定文本输出格式</title>
+    <url>/2020/04/17/windows%E4%B8%8Bawk%E6%8C%87%E5%AE%9A%E6%96%87%E6%9C%AC%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F/</url>
+    <content><![CDATA[<h3 id="1️⃣-printf用法"><a class="header-anchor" href="#1️⃣-printf用法">¶</a><img class="emoji" draggable="false" alt="1️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/31-20e3.png"/> printf用法</h3>
+<a id="more"></a>
+<p>补齐只能补<code>0</code>或空格字符</p>
+<p>cmd中写法为：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">echo <span class="number">1.22</span> | gawk <span class="string">"&#123;printf "</span><span class="string">""</span>%<span class="number">7.3</span>f<span class="string">""</span><span class="string">" <span class="variable">$1</span>&#125;"</span></span><br></pre></td></tr></table></figure>
+<p>bat批处理脚本中写法为：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">echo <span class="number">1.22</span> | gawk <span class="string">"&#123;printf "</span><span class="string">""</span>%%<span class="number">7.3</span>f<span class="string">""</span><span class="string">", <span class="variable">$1</span>&#125;"</span></span><br></pre></td></tr></table></figure>
+<p>输出结果为</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="number">1.220</span>  <span class="comment"># 数字前面有两个空字符</span></span><br></pre></td></tr></table></figure>
+<h3 id="2️⃣-常用数据类型"><a class="header-anchor" href="#2️⃣-常用数据类型">¶</a><img class="emoji" draggable="false" alt="2️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/32-20e3.png"/> 常用数据类型</h3>
+<table>
+<thead>
+<tr>
+<th>字符</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>c</td>
+<td>字符</td>
+</tr>
+<tr>
+<td>s</td>
+<td>字符串</td>
+</tr>
+<tr>
+<td>d</td>
+<td>整数</td>
+</tr>
+<tr>
+<td>f</td>
+<td>浮点数</td>
+</tr>
+<tr>
+<td>ld</td>
+<td>长整数</td>
+</tr>
+</tbody>
+</table>
+<p><img class="emoji" draggable="false" alt="😂" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png"/><img class="emoji" draggable="false" alt="😂" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png"/><img class="emoji" draggable="false" alt="😂" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png"/>其他的百度 <img class="emoji" draggable="false" alt="😂" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png"/><img class="emoji" draggable="false" alt="😂" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png"/><img class="emoji" draggable="false" alt="😂" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png"/></p>
+<p><code>%07s</code>表示保留7位字符，并右对齐，用0补齐</p>
+<p><code>%-7s</code>表示保留7位字符，并左对齐，用空字符补齐</p>
+<p><code>%07d</code>表示保留7位整数，用0补齐</p>
+<p><code>%7.3f</code>表示总长度7位字符，并保留三位小数，不足7为用空格补齐，并右对齐，</p>
+<p><code>%-7.3f</code>表示总长度7位字符，并保留三位小数，不足7为用空格补齐，并左对齐，</p>
+<p><code>%07.3f</code>时不足7为用0补齐，并右对齐</p>
+]]></content>
+      <categories>
+        <category>数据处理</category>
+      </categories>
+      <tags>
+        <tag>awk</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>pip2&amp;pip3共存</title>
     <url>/2020/04/15/pip2-pip3%E5%85%B1%E5%AD%98/</url>
     <content><![CDATA[<p>  虽然如今python2已经停止更新，但作为重要的python发行版，考虑到更新的成本，众多常用软件仍然再继续使用python2，比如ArcGIS以及一些专用软件等。因此有时候不得不遇到python2和python3装在同一台计算机上的情况，那么作为python重要的包管理软件pip2和pip3的共存问题也随之而来。<br>
@@ -338,64 +396,6 @@ Notepad++在关闭之间，仅第一次点击“Direct Execute Previous”工具
       </tags>
   </entry>
   <entry>
-    <title>windows下awk指定文本输出格式</title>
-    <url>/2020/04/17/windows%E4%B8%8Bawk%E6%8C%87%E5%AE%9A%E6%96%87%E6%9C%AC%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F/</url>
-    <content><![CDATA[<h3 id="1️⃣-printf用法"><a class="header-anchor" href="#1️⃣-printf用法">¶</a><img class="emoji" draggable="false" alt="1️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/31-20e3.png"/> printf用法</h3>
-<a id="more"></a>
-<p>补齐只能补<code>0</code>或空格字符</p>
-<p>cmd中写法为：</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">echo <span class="number">1.22</span> | gawk <span class="string">"&#123;printf "</span><span class="string">""</span>%<span class="number">7.3</span>f<span class="string">""</span><span class="string">" <span class="variable">$1</span>&#125;"</span></span><br></pre></td></tr></table></figure>
-<p>bat批处理脚本中写法为：</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">echo <span class="number">1.22</span> | gawk <span class="string">"&#123;printf "</span><span class="string">""</span>%%<span class="number">7.3</span>f<span class="string">""</span><span class="string">", <span class="variable">$1</span>&#125;"</span></span><br></pre></td></tr></table></figure>
-<p>输出结果为</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="number">1.220</span>  <span class="comment"># 数字前面有两个空字符</span></span><br></pre></td></tr></table></figure>
-<h3 id="2️⃣-常用数据类型"><a class="header-anchor" href="#2️⃣-常用数据类型">¶</a><img class="emoji" draggable="false" alt="2️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/32-20e3.png"/> 常用数据类型</h3>
-<table>
-<thead>
-<tr>
-<th>字符</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>c</td>
-<td>字符</td>
-</tr>
-<tr>
-<td>s</td>
-<td>字符串</td>
-</tr>
-<tr>
-<td>d</td>
-<td>整数</td>
-</tr>
-<tr>
-<td>f</td>
-<td>浮点数</td>
-</tr>
-<tr>
-<td>ld</td>
-<td>长整数</td>
-</tr>
-</tbody>
-</table>
-<p><img class="emoji" draggable="false" alt="😂" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png"/><img class="emoji" draggable="false" alt="😂" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png"/><img class="emoji" draggable="false" alt="😂" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png"/>其他的百度 <img class="emoji" draggable="false" alt="😂" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png"/><img class="emoji" draggable="false" alt="😂" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png"/><img class="emoji" draggable="false" alt="😂" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png"/></p>
-<p><code>%07s</code>表示保留7位字符，并右对齐，用0补齐</p>
-<p><code>%-7s</code>表示保留7位字符，并左对齐，用空字符补齐</p>
-<p><code>%07d</code>表示保留7位整数，用0补齐</p>
-<p><code>%7.3f</code>表示总长度7位字符，并保留三位小数，不足7为用空格补齐，并右对齐，</p>
-<p><code>%-7.3f</code>表示总长度7位字符，并保留三位小数，不足7为用空格补齐，并左对齐，</p>
-<p><code>%07.3f</code>时不足7为用0补齐，并右对齐</p>
-]]></content>
-      <categories>
-        <category>数据处理</category>
-      </categories>
-      <tags>
-        <tag>awk</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>在支持Intel的PC上安装macOS Mojave</title>
     <url>/2020/04/19/%E5%9C%A8%E6%94%AF%E6%8C%81Intel%E7%9A%84PC%E4%B8%8A%E5%AE%89%E8%A3%85macOS-Mojave/</url>
     <content><![CDATA[<p>本文转自 <a href="http://tonymacx86.com" target="_blank" rel="noopener">tonymacx86.com</a>，是更新和安装macOS Mojave的完整教程。所有基本安装和安装后工具都可以在 <a href="http://tonymacx86.com" target="_blank" rel="noopener">tonymacx86.com</a> 上找到。经本人机器测试有效，并且几乎完美驱动所有硬件。</p>
@@ -480,6 +480,7 @@ UniBeast基于tonymacx86上推荐的CustoMac系统的测试提供基本的引导
 <li>如果您有带有AWARD BIOS的6系列或x58系统，请禁用<strong>USB 3.0</strong></li>
 <li>保存并退出。</li>
 </ol>
+<hr>
 <p><img src="https://wpttt.github.io/images/mojave_install/mojave_install12.png" alt="mojave_install12"></p>
 <h1>第四步：安装 MacOS Mojave</h1>
 <p>至此几乎已经完成！ 接下来需要做的就是从USB驱动器启动并安装！ 为获得最佳效果，请将USB插入USB 2.0端口。</p>
@@ -516,6 +517,7 @@ UniBeast基于tonymacx86上推荐的CustoMac系统的测试提供基本的引导
 </ol>
 </li>
 </ol>
+<hr>
 <p><img src="https://wpttt.github.io/images/mojave_install/multibeast-0.png" alt="multibeast"></p>
 <h1>第五步：使用MultiBeast进行安装后相关设置</h1>
 <p>MultiBeast是一款一体化的post-installation工具，旨在实现从硬盘启动，并安装对音频，网络和图形的支持。 安装已完成，但驱动器尚未启动。 再次从USB启动，这次选择Mojave。</p>
@@ -568,6 +570,7 @@ UniBeast基于tonymacx86上推荐的CustoMac系统的测试提供基本的引导
 <p>棒棒棒！ 现在我们的 CustoMac上就装好了一个完全更新的 macOS Mojave可启动版本！ 还有一个超级方便的 USB-Rescue 驱动器。</p>
 <p>此过程很容易遭受挫败，但不要放弃！如果遇到困难，tonymacx86论坛中有许多具有类似硬件的用户提供支持。</p>
 <p>感谢全世界所有努力工作的开发人员，黑客和测试人员，没有他们就没有本安装指南。</p>
+<hr>
 <p><img src="https://wpttt.github.io/images/mojave_install/troubleshooting.png" alt="troubleshooting"></p>
 <h1>故障排除和优化</h1>
 <p>完成安装后，HDMI音频和iMessage等内容可能无法自动运行。 以下列表应用于在初始设置后完全优化您的系统。</p>
@@ -597,6 +600,7 @@ UniBeast基于tonymacx86上推荐的CustoMac系统的测试提供基本的引导
 <p>UniBeast包含并提供来自Clover EFI Bootloader项目的文件。 有关使用的更多信息和来源，请参阅<a href="http://sourceforge.net/projects/cloverefiboot/" target="_blank" rel="noopener">Clover EFI bootloader</a>。 Clover v2是基于不同项目的开源：Clover，rEFIt，XNU，VirtualBox。 主要是EDK2的最新版本。</p>
 <p><strong>Clover Notes：</strong></p>
 <p>UniBeast基于我们对推荐的CustoMac系统的测试提供基本的引导加载程序支持。 要进一步引导加载程序自定义，请下载并运行<a href="http://sourceforge.net/projects/cloverefiboot/" target="_blank" rel="noopener">Clover官方程序包</a>。 高级用户也可以通过下载完整的源代码来编译Clover。</p>
+<hr>
 <hr class="footnotes-sep">
 <section class="footnotes">
 <ol class="footnotes-list">
