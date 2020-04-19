@@ -1112,4 +1112,210 @@ errors.</li>
         <tag>驾考</tag>
       </tags>
   </entry>
+  <entry>
+    <title>在支持Intel的PC上安装macOS Mojave</title>
+    <url>/2020/04/19/%E5%9C%A8%E6%94%AF%E6%8C%81Intel%E7%9A%84PC%E4%B8%8A%E5%AE%89%E8%A3%85macOS-Mojave/</url>
+    <content><![CDATA[<p><font size=5, ><strong>目录</strong></font></p>
+<p><img src="https://wpttt.github.io/images/mogave_install/mojave_install1.png" alt=""> <a href="#step1"><strong>第一步：下载 macOS Mojave</strong></a></p>
+<p><img src="http://note.youdao.com/yws/res/5746/BEA91BF06A344E8DA669140F1A701CD2" alt=""><a href="#step2"><strong>第二步：利用Unibeast创建可引导的USB</strong></a></p>
+<p><img src="http://note.youdao.com/yws/res/5752/C5470510CCC24CA7912B5AA39D30BA0E" alt=""><a href="#step3"><strong>第三步：推荐的BIOS设置</strong></a></p>
+<p><img src="http://note.youdao.com/yws/res/5756/5CF048CF8CB24A1298CBA3B8CBFF183D" alt=""><a href="#step4"><strong>第四步：安装 MacOS Mojave</strong></a></p>
+<p><img src="http://note.youdao.com/yws/res/5738/0674C943E1BC480996ABA80877903F5F" alt=""><a href="#step5"> <strong>第五步：使用MultiBeast进行后安装</strong></a></p>
+<p><img src="http://note.youdao.com/yws/res/5745/DBEAA99B002A4FC7B77BB5B8983342F7" alt=""><a href="#step6"><strong>故障排除和优化</strong></a></p>
+<p><img src="http://note.youdao.com/yws/res/5748/856F51F66A0B48DCB16F907AFA213C62" alt=""></p>
+<p>以下指南是更新或安装新版macOS Mojave的完整演练。 它不需要经验，所有基本安装和安装后工具都可以在 <a href="http://tonymacx86.com" target="_blank" rel="noopener">tonymacx86.com</a> 上找到。</p>
+<p><font size=5, ><strong>开始之前</strong></font></p>
+<ol>
+<li>在tonymacx86注册！如果没有用户帐户，请创建一个！</li>
+<li>从下载部分获取最新的UniBeast和MultiBeast工具。</li>
+<li>购买16GB或更大的USB驱动器。</li>
+<li>对系统进行完整备份。 我们强烈建议使用Carbon Copy Cloner对现有系统执行完整备份。这样便可以随时返回工作安装。</li>
+</ol>
+<p>UniBeast是一个从我们下载的macOS版本中创建可启动安装程序的工具。 为了重新开始，您需要访问运行OS X Lion 10.7.5或更高版本的Mac计算机。 这是一项要求，因为我们需要访问Mac App Store才能下载macOS并创建安装驱动器。 要从头开始，直接启动10.6 Snow Leopard Retail DVD，请查看<a href="http://tonymacx86.blogspot.com/2010/04/iboot-multibeast-install-mac-os-x-on.html" target="_blank" rel="noopener">iBoot + MultiBeast</a>。</p>
+<p>现有的Clover用户可以像普通Mac用户那样只运行Install macOS Mojave应用程序直接更新macOS Mojave。 请按照下列步骤操作：<a href="https://www.tonymacx86.com/threads/update-directly-to-macos-mojave.260654/" target="_blank" rel="noopener">直接更新到macOS Mojave</a>。</p>
+<p><img src="http://note.youdao.com/yws/res/5729/9DE872F0C707461B9655432341988D96" alt=""></p>
+<h1><span id="step1">第一步: 下载 macOS Mojave</span></h1>
+<p>对于购买了Mac OS X Snow Leopard，Lion或Mountain Lion或者预装了OS X Mavericks，Yosemite，El Capitan，macOS Sierra或macOS High Sierra的Mac，可以免费下载完整的操作系统。当然也可以用虚拟机实现。</p>
+<p>在任何这些特定的Mac上使用Apple ID从Mac App Store下载应用程序：</p>
+<ul>
+<li>MacBook（2015年初或更早版本）</li>
+<li>MacBook Air（2012年中或更新版本）</li>
+<li>MacBook Pro（2012年中期或更新版）</li>
+<li>Mac mini（2012年末或更新版）</li>
+<li>iMac（2012年末或更新）</li>
+<li>iMac Pro（2017）</li>
+<li>Mac Pro（2013年末，加上2010年中期和2012年中期推出支持Metal的GPU型号）</li>
+</ul>
+<ol>
+<li>打开Mac App Store</li>
+<li>登陆Apple ID</li>
+<li>下载macOS Mojave</li>
+</ol>
+<p>应用程序 “Install macOS Mojave” 将出现在 <code>/Applications</code>目录中。</p>
+<p><img src="http://note.youdao.com/yws/res/5735/1E4AF3B42DB942249D8385B2B1D964B9" alt=""></p>
+<h1><span id="step2">第二步：利用Unibeast创建可引导的USB启动盘</span></h1>
+<p>深吸一口气，慢慢来 - 这很简单，但如果你急于求成，很容易错过。 按照教程一步一步来。</p>
+<p>首先</p>
+<ol>
+<li>插入USB驱动器</li>
+<li>打开 <strong>/Applications/Utilities/Disk Utility</strong></li>
+<li>点击左列中的USB驱动器至其突出显示（注意：在Mojave版本的“磁盘工具”中，必须先选择“查看/显示所有设备”，然后才能看到USB驱动器）</li>
+</ol>
+<p><img src="http://note.youdao.com/yws/res/5764/30DD592EF9E54964AEDF00AD0B0C5C13" alt=""></p>
+<p>然后<br>
+4. 单击 <strong>Erase</strong> 按钮<br>
+5. 对于<strong>Name</strong>：键入 <strong>USB</strong>（可以稍后重命名）<br>
+6. 对于<strong>Format</strong>：选择 <strong>Mac OS Extended（Journaled）</strong></p>
+<p><img src="http://note.youdao.com/yws/res/5762/CF93562ED352450E834DBAE253212065" alt=""></p>
+<ol start="7">
+<li>单击<strong>Erase</strong>然后<strong>Done</strong></li>
+</ol>
+<p><img src="http://note.youdao.com/yws/res/5761/8EBCC1BBA5EA4A649C933416ACF672E3" alt=""></p>
+<ol start="8">
+<li>下载并运行<a href="https://www.tonymacx86.com/resources/categories8tonymacx86-downloads.3/" target="_blank" rel="noopener">UniBeast</a>（先确保系统语言为英语）</li>
+<li>单击<strong>Continue</strong>，<strong>Continue</strong>，<strong>Continue</strong>，<strong>Continue</strong>，<strong>Agree</strong></li>
+<li>在 Destination Select 中，选择<strong>USB</strong>并单击<strong>Continue</strong></li>
+</ol>
+<p><img src="http://note.youdao.com/yws/res/5767/3F97630529974D25BE859579D4B70415" alt=""></p>
+<ol start="11">
+<li>在<strong>Select OS Installation</strong>屏幕上，选择<strong>Mojave</strong>并单击<strong>Continue</strong></li>
+<li>在<strong>Bootloader Options</strong>屏幕中，选择<strong>UEFI Boot Mode</strong>或<strong>Legacy Boot Mode</strong>。建议7/8/9/100/200/300系列CustoMac台式机和所有支持UEFI的系统使用UEFI引导模式。 建议5/6系列CustoMac台式机和所有基于BIOS的系统使用<strong>Legacy Boot Mode</strong>。</li>
+</ol>
+<p><img src="http://note.youdao.com/yws/res/5770/116EC7BA41C84F06BF55691E545184BD" alt=""></p>
+<ol start="13">
+<li>（可选）在<strong>Graphics Configuration</strong>屏幕上，为系统选择适当的图形选项，然后单击<strong>Continue</strong>。</li>
+<li>验证安装选项，然后单击<strong>Continue</strong>，输入密码并单击<strong>Install</strong></li>
+</ol>
+<p><img src="http://note.youdao.com/yws/res/5720/73CF71C919784B749793D7F5809FEE65" alt=""></p>
+<p>现在UniBeast将创建可启动的USB驱动器。 该过程仅需10分钟左右，具体取决于系统和驱动器速度。 在此期间请勿拔下或停止。</p>
+<p><img src="http://note.youdao.com/yws/res/5772/612C8896136944D5B43FA2FCEA2E6BAB" alt=""></p>
+<ol start="15">
+<li>将<a href="https://www.tonymacx86.com/resources/categories/tonymacx86-downloads.3/" target="_blank" rel="noopener">MultiBeast</a>拖到已完成的USB驱动器中。</li>
+</ol>
+<p><strong>Clover注意</strong>：UniBeast基于我们对推荐的CustoMac系统的测试提供基本的引导加载程序支持。 要进一步引导加载程序自定义，请下载并运行<a href="http://sourceforge.net/projects/cloverefiboot/" target="_blank" rel="noopener">Clover官方程序包</a>。 高级用户也可以通过下载完整的源代码来编译Clover。</p>
+<p><img src="http://note.youdao.com/yws/res/5736/8FDF4A02D8B74AFEA6A4F7FE05B4C775" alt=""></p>
+<h1><span id="step3">第三步：推荐的BIOS设置</span></h1>
+<p>如果您使用AMI UEFI BIOS在推荐的CustoMac桌面上进行安装，则选项很简单。 对于其他系统，请确保将BIOS设置为Optimized Defaults，将硬盘驱动器设置为AHCI模式。 以下是标准的AMI UEFI BIOS设置.</p>
+<p><a href="https://www.tonymacx86.com/bios-uefi/130920-recommended-bios-uefi-settings-beginners.html" target="_blank" rel="noopener">Gigabyte AMI UEFI BIOS</a>，<a href="http://tonymacx86.blogspot.com/2010/04/iboot-multibeast-install-mac-os-x-on.html" target="_blank" rel="noopener">Gigabyte AWARD BIOS</a>，<a href="https://www.tonymacx86.com/user-builds/136796-tonymacx86s-asus-test-build-z97-i3-4340-hd4600-thunderbolt-ex-ii.html" target="_blank" rel="noopener">ASUS AMI UEFI BIOS</a>和<a href="https://www.tonymacx86.com/bios-uefi/143167-msi-9-series-motherboards-os-x-setup-configuration.html" target="_blank" rel="noopener">MSI AMI UEFI BIOS</a>。</p>
+<ol>
+<li>要访问BIOS / UEFI设置，请在系统启动时按住USB键盘上的<strong>Delete</strong>键</li>
+<li>加载<strong>Optimized Defaults(优化默认值)</strong></li>
+<li>如果您的CPU支持<strong>VT-d</strong>，请将其禁用</li>
+<li>如果您的系统具有<strong>CFG-Lock</strong>，请将其禁用</li>
+<li>如果您的系统具有<strong>Secure Boot Mode(安全启动模式)</strong>，请将其禁用</li>
+<li>将OS Type设置为<strong>Other OS</strong></li>
+<li>如果您的系统具有 <strong>IO Serial Port(IO串行端口)</strong>，请将其禁用</li>
+<li>将XHCI Handoff设置为<strong>Enabled</strong></li>
+<li>如果您有带有AWARD BIOS的6系列或x58系统，请禁用<strong>USB 3.0</strong></li>
+<li>保存并退出。</li>
+</ol>
+<p><img src="http://note.youdao.com/yws/res/5733/71C5E01FD7B7491FACB9B496D127524C" alt=""></p>
+<h1><span id="step4">第四步：安装 MacOS Mojave</span></h1>
+<p>至此几乎已经完成！ 接下来需要做的就是从USB驱动器启动并安装！ 为获得最佳效果，请将USB插入USB 2.0端口。</p>
+<ol>
+<li>打开电脑</li>
+<li>按热键选择启动设备（技嘉主板为F12，华硕主板为F8，ASrock主板为F11）</li>
+<li>选择<strong>USB</strong></li>
+</ol>
+<p><img src="http://note.youdao.com/yws/res/5732/DD185C16DEFD417082FAA63D8A7B2DCC" alt=""></p>
+<ol start="4">
+<li>在Clover引导屏幕上，选择<strong>Boot OS X Install from Install macOS Mojave</strong></li>
+<li>当您到达安装程序时，请选择语言。</li>
+</ol>
+<p><em>如果到达安装程序时遇到问题，可以使用引导屏幕上的空格键进入备用引导模式，例如详细和安全模式。 有关输入引导标志的更多说明，请参阅<a href="https://www.tonymacx86.com/basics/171680-clover-basics-switching-advice.html" target="_blank" rel="noopener">Clover Basics and Switching Advice</a>。</em></p>
+<ol start="6">
+<li>
+<p>对于新安装的macOS，必须先按照以下步骤擦除并格式化目标驱动器，然后再继续。</p>
+<ul>
+<li>在顶部菜单栏中选择<strong>Utilities</strong>，然后打开<strong>Disk Utility(磁盘工具)</strong>\</li>
+<li>在左列中突出显示Mojave安装的目标驱动器。\</li>
+<li>单击**Erase(擦除)**按钮\</li>
+<li>对于<strong>Name</strong>：键入<strong>Mojave</strong>（您可以稍后重命名）\</li>
+<li>对于<strong>Format</strong>：选择<strong>Mac OS Extended（Journaled）</strong>\</li>
+<li>单击<strong>Erase(擦除)</strong>\</li>
+<li>关闭<strong>磁盘工具</strong></li>
+</ul>
+<ol>
+<li>当安装程序询问您安装的位置时，请选择<strong>Mojave</strong></li>
+<li>完成后，系统将自动重启。</li>
+<li>按热键选择启动设备（技嘉主板为F12，华硕主板为F8，ASrock主板为F11）</li>
+<li>选择<strong>USB</strong></li>
+<li>在启动界面中，选择<strong>Mojave</strong></li>
+<li>完成macOS安装，系统将自动重启。</li>
+</ol>
+</li>
+</ol>
+<p><img src="http://note.youdao.com/yws/res/5776/A80D98C3A7BA4BC6802B134B95F9DCE2" alt=""></p>
+<h1><span id="step5">第五步：使用MultiBeast进行安装后相关设置</span></h1>
+<p>MultiBeast是一款一体化的post-installation工具，旨在实现从硬盘启动，并安装对音频，网络和图形的支持。 安装已完成，但驱动器尚未启动。 再次从USB启动，这次选择Mojave。</p>
+<ol>
+<li>按热键选择启动设备（技嘉主板为F12，华硕主板为F8，ASrock主板为F11）</li>
+<li>选择<strong>USB</strong></li>
+<li>在启动界面中，选择<strong>Mojave</strong></li>
+<li>完成macOS设置</li>
+<li>打开并运行<a href="https://www.tonymacx86.com/downloads" target="_blank" rel="noopener">MultiBeast</a></li>
+</ol>
+<p><img src="http://note.youdao.com/yws/res/5778/9640DF3C495F40F99D1996D8A0E99446" alt=""></p>
+<ol start="6">
+<li>如果这是全新安装，请单击<strong>Quick Start(快速启动)</strong>。 建议7/8/9/100/200/300系列CustoMac台式机和所有支持UEFI的系统使用<strong>UEFI Boot Mode(UEFI引导模式)</strong>。 建议将5/6 系列 CustoMac台式机和所有基于BIOS的系统使用<strong>Legacy Boot Mode(传统启动模式)</strong>。</li>
+</ol>
+<p><img src="http://note.youdao.com/yws/res/5725/71D429F41C74409AA1A1B7BCAAD9288E" alt=""></p>
+<ol start="7">
+<li>为您的系统选择适当的<strong>驱动程序</strong>选项。</li>
+<li>单击 <strong>Customize(自定义)</strong> 以获取更多选项</li>
+</ol>
+<p><img src="http://note.youdao.com/yws/res/5722/9187C21B6CAB42A49B6E9C28B0A93275" alt=""></p>
+<ol start="9">
+<li>单击<strong>Print</strong>或<strong>Save</strong>以备份配置</li>
+<li>单击<strong>Build</strong>然后<strong>Install</strong></li>
+</ol>
+<p><img src="http://note.youdao.com/yws/res/5721/9F32190A76F341259EF1187C46AE985E" alt=""></p>
+<p>如果使用GeForce GTX 1050,1050 Ti，1060,1070,1070 Ti，1080,1080 Ti，TITAN Pascal和TITAN Xp’Pascal’显卡或NVIDIA GeForce GTX 750,750 Ti，950,960,970,980， 980 Ti和TITAN X’Maxwell’显卡，则此机不支持macOS Mojave图形驱动程序。 则需要其他NVIDIA驱动程序。</p>
+<p><strong><center>Note: Alternate NVIDIA Graphics Drivers are not available yet- if you have a Maxwell or Pascal based NVIDIA card, stay on High Sierra for now.</center></strong></p>
+<ol start="11">
+<li>（可选）下载并安装其他NVIDIA图形驱动程序</li>
+<li>重启</li>
+</ol>
+<p><img src="http://note.youdao.com/yws/res/5743/ADED3B4BC7DE49ECB881B15EA55D36F7" alt=""></p>
+<p>棒棒棒！ 现在我们的 CustoMac上就装好了一个完全更新的 macOS Mojave可启动版本！ 还有一个超级方便的 USB-Rescue 驱动器。</p>
+<p>此过程很容易遭受挫败，但不要放弃！如果遇到困难，tonymacx86论坛中有许多具有类似硬件的用户提供支持。</p>
+<p>感谢全世界所有努力工作的开发人员，黑客和测试人员，没有他们就没有本安装指南。</p>
+<p><img src="http://note.youdao.com/yws/res/5731/3AA7BD4BDF4F49CB9CA557C754F83687" alt=""></p>
+<h1><span id="step6">故障排除和优化</span></h1>
+<p>完成指南后，HDMI音频和iMessage等内容可能无法自动运行。 以下列表应用于在初始设置后完全优化您的系统。</p>
+<p><a href="https://www.tonymacx86.com/threads/readme-common-problems-changes-fixes-on-mojave.255823/" target="_blank" rel="noopener">[README] Mojave上的常见问题/更改/修复</a></p>
+<p><a href="https://www.tonymacx86.com/threads/mojave-applehda-audio.260004/" target="_blank" rel="noopener">Mojave AppleHDA音频</a></p>
+<p><a href="https://www.tonymacx86.com/threads/update-directly-to-macos-mojave.260654/" target="_blank" rel="noopener">直接更新到MacOS Mojave</a></p>
+<p><a href="https://www.tonymacx86.com/threads/guide-intel-framebuffer-patching-using-whatevergreen.256490/" target="_blank" rel="noopener">[Guide]英特尔Framebuffer使用WhateverGreen进行修补</a></p>
+<p><a href="https://www.tonymacx86.com/threads/guide-installing-3rd-party-kexts-el-capitan-sierra-high-sierra-mojave.268964/" target="_blank" rel="noopener">[GUIDE]安装第三方Kexts  -  El Capitan，Sierra，High Sierra，Mojave +</a></p>
+<p><a href="https://www.tonymacx86.com/threads/solving-nvidia-driver-install-loading-problems.161256/" target="_blank" rel="noopener">解决NVIDIA驱动程序安装和加载问题</a></p>
+<p><a href="https://www.tonymacx86.com/threads/an-idiots-guide-to-lilu-and-its-plug-ins.260063/" target="_blank" rel="noopener">一个iDiot的Lilu及其插件指南</a></p>
+<p><a href="https://www.tonymacx86.com/threads/an-idiots-guide-to-imessage.196827/" target="_blank" rel="noopener">iDiot的iMessage指南</a></p>
+<p><a href="https://www.tonymacx86.com/threads/macos-native-cpu-igpu-power-management.222982/" target="_blank" rel="noopener">macOS Native CPU / IGPU电源管理</a></p>
+<p><a href="https://www.tonymacx86.com/threads/rough-guide-fix-for-finder-preview-not-working-on-mojave-10-14-1.264398/" target="_blank" rel="noopener">[粗略指南]修复Finder预览不适用于Mojave 10.14.1+</a></p>
+<p><a href="https://www.tonymacx86.com/threads/tool-generate-proper-problem-reporting-files.235953/" target="_blank" rel="noopener">[TOOL] [生成正确的问题报告文件]</a></p>
+<p><a href="https://www.tonymacx86.com/threads/faq-read-first-laptop-frequent-questions.164990/" target="_blank" rel="noopener">[FAQ]请先阅读！ 笔记本电脑常见问题</a></p>
+<p><a href="https://www.tonymacx86.com/threads/guide-booting-the-os-x-installer-on-laptops-with-clover.148093/" target="_blank" rel="noopener">[Guide]使用Clover在LAPTOPS上引导OS X安装程序</a></p>
+<p>此表将持续更新</p>
+<p><strong><font size=5>备用NVIDIA显卡驱动程序</font></strong></p>
+<p>NVIDIA针对每个macOS版本在Web上单独发布备用图形驱动程序。 这些与Apple标配的驱动程序不同，应该被认为是实验性的。 过去，众所周知，驱动程序可以解决某些应用程序的OpenCL问题，并为某些设备提供更好的本机GPU电源管理。 这些驱动程序是目前唯一获得GeForce GTX 1050,1050 Ti，1060,1070,1070 Ti，1080,1080 Ti，TITAN Pascal和TITAN Xp’Pascal’显卡和NVIDIA GeForce GTX 750,750 Ti全加速的方法 ，950,960,970,980,980 Ti和TITAN X’Maxwell’显卡。 目前没有配备这些卡的Mac，因此macOS本身不支持。</p>
+<p><strong><i>注意：备用NVIDIA显卡驱动程序尚不可用 - 如果您有基于Maxwell或Pascal的NVIDIA显卡，请立即停留在High Sierra。</i></strong></p>
+<p><strong>Clover Bootloader Credits</strong></p>
+<p>UniBeast包含并提供来自Clover EFI Bootloader项目的文件。 有关使用的更多信息和来源，请参阅<a href="http://sourceforge.net/projects/cloverefiboot/" target="_blank" rel="noopener">Clover EFI bootloader</a>。 Clover v2是基于不同项目的开源：Clover，rEFIt，XNU，VirtualBox。 主要是EDK2的最新版本。</p>
+<p><strong>Clover Notes：</strong></p>
+<p>UniBeast基于我们对推荐的CustoMac系统的测试提供基本的引导加载程序支持。 要进一步引导加载程序自定义，请下载并运行<a href="http://sourceforge.net/projects/cloverefiboot/" target="_blank" rel="noopener">Clover官方程序包</a>。 高级用户也可以通过下载完整的源代码来编译Clover。</p>
+<p><strong>Colver Developers</strong>：</p>
+<p>Slice, with help of Kabyl, usr-sse2, jadran, Blackosx, dmazar, STLVNUB, pcj, apianti, JrCs, pene, FrodoKenny, skoczy, <a href="http://ycr.ru" target="_blank" rel="noopener">ycr.ru</a>, Oscar09, xsmile, SoThOr, rehabman…</p>
+<p><strong>Source code credits:</strong><br>
+Intel, Apple, Oracle, Chameleon, rEFIt and Xom.</p>
+<p><strong>Clover Source and Downloads:</strong>：<br>
+Sourceforge： Clover</p>
+]]></content>
+      <categories>
+        <category>系统</category>
+      </categories>
+      <tags>
+        <tag>mac</tag>
+      </tags>
+  </entry>
 </search>
