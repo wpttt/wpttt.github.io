@@ -398,7 +398,7 @@ Notepad++在关闭之间，仅第一次点击“Direct Execute Previous”工具
   <entry>
     <title>在支持Intel的PC上安装macOS Mojave</title>
     <url>/2020/04/19/%E5%9C%A8%E6%94%AF%E6%8C%81Intel%E7%9A%84PC%E4%B8%8A%E5%AE%89%E8%A3%85macOS-Mojave/</url>
-    <content><![CDATA[<p><img src="https://wpttt.github.io/images/mogave_install/mojave_install1.png" alt="mojave"></p>
+    <content><![CDATA[<p><img src="https://wpttt.github.io/images/mojave_install/mojave_install1.png" alt="mojave"></p>
 <p>本文转自 <a href="http://tonymacx86.com" target="_blank" rel="noopener">tonymacx86.com</a>，是更新或安装新版macOS Mojave的完整教程。所有基本安装和安装后工具都可以在 <a href="http://tonymacx86.com" target="_blank" rel="noopener">tonymacx86.com</a> 上找到。</p>
 <a id="more"></a>
 <h1>准备工作</h1>
@@ -411,7 +411,7 @@ Notepad++在关闭之间，仅第一次点击“Direct Execute Previous”工具
 <p>UniBeast是一个从我们下载的macOS版本中创建可启动安装程序的工具。 为了重新开始，您需要访问运行OS X Lion 10.7.5或更高版本的Mac计算机。 这是一项要求，因为我们需要访问Mac App Store才能下载macOS并创建安装驱动器。 要从头开始，直接启动10.6 Snow Leopard Retail DVD，请查看<a href="http://tonymacx86.blogspot.com/2010/04/iboot-multibeast-install-mac-os-x-on.html" target="_blank" rel="noopener">iBoot + MultiBeast</a>。</p>
 <p>现有的Clover用户可以像普通Mac用户那样只运行Install macOS Mojave应用程序直接更新macOS Mojave。 请按照下列步骤操作：<a href="https://www.tonymacx86.com/threads/update-directly-to-macos-mojave.260654/" target="_blank" rel="noopener">直接更新到macOS Mojave</a>。</p>
 <hr>
-<p><img src="https://wpttt.github.io/images/mojave_install/mojave_install2.png" alt="mojave_download"></p>
+<p><img src="https://wpttt.github.io/images/mojave_install/Mojave_install2.png" alt="mojave_download"></p>
 <h1>第一步：下载 macOS Mojave</h1>
 <p>对于购买了Mac OS X Snow Leopard，Lion或Mountain Lion或者预装了OS X Mavericks，Yosemite，El Capitan，macOS Sierra或macOS High Sierra的Mac，可以免费下载完整的操作系统。当然也可以用虚拟机实现。</p>
 <p>在任何这些特定的Mac上使用Apple ID从Mac App Store下载应用程序：</p>
@@ -515,7 +515,7 @@ UniBeast基于我们对推荐的CustoMac系统的测试提供基本的引导加�
 </ol>
 </li>
 </ol>
-<p><img src="https://wpttt.github.io/images/mojage_install/multibeast0.png" alt="multibeast"></p>
+<p><img src="https://wpttt.github.io/images/mojage_install/multibeast-0.png" alt="multibeast"></p>
 <h1>第五步：使用MultiBeast进行安装后相关设置</h1>
 <p>MultiBeast是一款一体化的post-installation工具，旨在实现从硬盘启动，并安装对音频，网络和图形的支持。 安装已完成，但驱动器尚未启动。 再次从USB启动，这次选择Mojave。</p>
 <ol>
@@ -525,21 +525,21 @@ UniBeast基于我们对推荐的CustoMac系统的测试提供基本的引导加�
 <li>完成macOS设置</li>
 <li>打开并运行<a href="https://www.tonymacx86.com/downloads" target="_blank" rel="noopener">MultiBeast</a></li>
 </ol>
-<p><img src="https://wpttt.github.io/images/mojage_install/multibeast1.png" alt="multibeast1"></p>
+<p><img src="https://wpttt.github.io/images/mojage_install/multibeast-1.png" alt="multibeast1"></p>
 <ol start="6">
 <li>如果这是全新安装，请单击<strong>Quick Start(快速启动)</strong>。 建议7/8/9/100/200/300系列CustoMac台式机和所有支持UEFI的系统使用<strong>UEFI Boot Mode(UEFI引导模式)</strong>。 建议将5/6 系列 CustoMac台式机和所有基于BIOS的系统使用<strong>Legacy Boot Mode(传统启动模式)</strong>。</li>
 </ol>
-<p><img src="https://wpttt.github.io/images/mojage_install/multibeast2.png" alt="multibeast2"></p>
+<p><img src="https://wpttt.github.io/images/mojage_install/multibeast-2.png" alt="multibeast2"></p>
 <ol start="7">
 <li>为您的系统选择适当的<strong>驱动程序</strong>选项。</li>
 <li>单击 <strong>Customize(自定义)</strong> 以获取更多选项</li>
 </ol>
-<p><img src="https://wpttt.github.io/images/mojage_install/multibeast3.png" alt="multibeast3"></p>
+<p><img src="https://wpttt.github.io/images/mojage_install/multibeast-3.png" alt="multibeast3"></p>
 <ol start="9">
 <li>单击<strong>Print</strong>或<strong>Save</strong>以备份配置</li>
 <li>单击<strong>Build</strong>然后<strong>Install</strong></li>
 </ol>
-<p><img src="https://wpttt.github.io/images/mojage_install/multibeast4.png" alt="multibeast4"></p>
+<p><img src="https://wpttt.github.io/images/mojage_install/multibeast-4.png" alt="multibeast4"></p>
 <p>如果使用GeForce GTX 1050,1050 Ti，1060,1070,1070 Ti，1080,1080 Ti，TITAN Pascal和TITAN Xp’Pascal’显卡或NVIDIA GeForce GTX 750,750 Ti，950,960,970,980， 980 Ti和TITAN X’Maxwell’显卡，则此机不支持macOS Mojave图形驱动程序。 则需要其他NVIDIA驱动程序。</p>
 <blockquote>
 <p><img class="emoji" draggable="false" alt="⚠️" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/26a0.png"/><strong>注意:<br>
@@ -553,9 +553,9 @@ UniBeast基于我们对推荐的CustoMac系统的测试提供基本的引导加�
 <p>棒棒棒！ 现在我们的 CustoMac上就装好了一个完全更新的 macOS Mojave可启动版本！ 还有一个超级方便的 USB-Rescue 驱动器。</p>
 <p>此过程很容易遭受挫败，但不要放弃！如果遇到困难，tonymacx86论坛中有许多具有类似硬件的用户提供支持。</p>
 <p>感谢全世界所有努力工作的开发人员，黑客和测试人员，没有他们就没有本安装指南。</p>
-<p><img src="https://wpttt.github.io/images/mojage_install/troubleshooting.png" alt="troubleshooting"></p>
+<p><img src="https://wpttt.github.io/images/mojave_install/troubleshooting.png" alt="troubleshooting"></p>
 <h1>故障排除和优化</h1>
-<p>完成指南后，HDMI音频和iMessage等内容可能无法自动运行。 以下列表应用于在初始设置后完全优化您的系统。</p>
+<p>完成安装后，HDMI音频和iMessage等内容可能无法自动运行。 以下列表应用于在初始设置后完全优化您的系统。</p>
 <p><a href="https://www.tonymacx86.com/threads/readme-common-problems-changes-fixes-on-mojave.255823/" target="_blank" rel="noopener">[README] Mojave上的常见问题/更改/修复</a></p>
 <p><a href="https://www.tonymacx86.com/threads/mojave-applehda-audio.260004/" target="_blank" rel="noopener">Mojave AppleHDA音频</a></p>
 <p><a href="https://www.tonymacx86.com/threads/update-directly-to-macos-mojave.260654/" target="_blank" rel="noopener">直接更新到MacOS Mojave</a></p>
