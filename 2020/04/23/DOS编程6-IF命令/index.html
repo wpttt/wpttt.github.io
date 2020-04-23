@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-mac-osx.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"wpttt.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null,"activeClass":"disqus"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="本章介绍IF命令的用法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DOS编程6-IF命令">
+<meta property="og:url" content="http://wpttt.github.io/2020/04/23/DOS%E7%BC%96%E7%A8%8B6-IF%E5%91%BD%E4%BB%A4/index.html">
+<meta property="og:site_name" content="GSEASRX">
+<meta property="og:description" content="本章介绍IF命令的用法。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://twemoji.maxcdn.com/v/12.1.5/72x72/261d.png">
+<meta property="og:image" content="https://twemoji.maxcdn.com/v/12.1.5/72x72/261d.png">
+<meta property="og:image" content="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f447.png">
+<meta property="og:image" content="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f447.png">
+<meta property="og:image" content="https://twemoji.maxcdn.com/v/12.1.5/72x72/26a0.png">
+<meta property="article:published_time" content="2020-04-23T02:33:30.000Z">
+<meta property="article:modified_time" content="2020-04-23T05:43:36.960Z">
+<meta property="article:author" content="Wang PT">
+<meta property="article:tag" content="批处理">
+<meta property="article:tag" content="DOS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://twemoji.maxcdn.com/v/12.1.5/72x72/261d.png">
+
+<link rel="canonical" href="http://wpttt.github.io/2020/04/23/DOS%E7%BC%96%E7%A8%8B6-IF%E5%91%BD%E4%BB%A4/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>DOS编程6-IF命令 | GSEASRX</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">GSEASRX</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">For Earthquake Science</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://wpttt.github.io/2020/04/23/DOS%E7%BC%96%E7%A8%8B6-IF%E5%91%BD%E4%BB%A4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Wang PT">
+      <meta itemprop="description" content="A Rookie Working for Earthquake Science">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GSEASRX">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          DOS编程6-IF命令
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-23 10:33:30 / 修改时间：13:43:36" itemprop="dateCreated datePublished" datetime="2020-04-23T10:33:30+08:00">2020-04-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%90%8E%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">后端</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/04/23/DOS%E7%BC%96%E7%A8%8B6-IF%E5%91%BD%E4%BB%A4/" class="post-meta-item leancloud_visitors" data-flag-title="DOS编程6-IF命令" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2020/04/23/DOS%E7%BC%96%E7%A8%8B6-IF%E5%91%BD%E4%BB%A4/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/04/23/DOS编程6-IF命令/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>本章介绍<code>IF</code>命令的用法。</p>
+<a id="more"></a>
+<h1>基本语法</h1>
+<p>在CMD使用<code>IF /?</code>打开<code>IF</code>的系统帮助，会发现<code>IF</code>有3种基本的用法，来执行批处理程序中的条件处理。</p>
+<pre><code>IF [NOT] ERRORLEVEL number command
+IF [NOT] string1==string2 command
+IF [NOT] EXIST filename command
+</code></pre>
+<h1>用法详解</h1>
+<p><code>NOT</code>：指定只有条件为 false 的情况下， Windows才应该执行该命令。<br>
+<code>ERRORLEVEL number</code>：如果最后运行的程序返回一个等于或大于指定数字的退出编码，指定条件为 true。<br>
+<code>string1==string2</code>：如果指定的文字字符串匹配，指定条件为 true。<br>
+<code>EXIST filename</code>： 如果指定的文件名存在，指定条件为 true。<br>
+<code>command</code>：如果前面的条件为True时，指定要执行的命令。如果指定的条件为 FALSE，命令后可跟一个执行 <code>ELSE</code> 关键字后的命令的 <code>ELSE</code> 命令。</p>
+<p><code>ELSE</code> 子句必须在 <code>IF</code> 之后出现在同一行上。例如:</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">IF</span> <span class="keyword">EXIST</span> filename (</span><br><span class="line"><span class="built_in">del</span> filename</span><br><span class="line">) <span class="keyword">ELSE</span> (</span><br><span class="line"><span class="built_in">echo</span> filename missing</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h2 id="用法1：IF-NOT-ERRORLEVEL-number-command"><a class="header-anchor" href="#用法1：IF-NOT-ERRORLEVEL-number-command">¶</a>用法1：<code>IF [NOT] ERRORLEVEL number command</code></h2>
+<p>这个用法的基本做用是判断上一条命令执行结果，以决定下一个步骤。一般上一条命令的执行结果只有两个，&quot;成功&quot;用0表示  &quot;失败&quot;用1表示。<br>
+举个例子:</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">net</span> user</span><br><span class="line"><span class="keyword">IF</span> <span class="variable">%ERRORLEVEL%</span> == <span class="number">0</span> <span class="built_in">echo</span> <span class="built_in">net</span> user 执行成功了!</span><br><span class="line"><span class="built_in">pause</span></span><br></pre></td></tr></table></figure>
+<p>这是个简单判断上条命令是否执行成功。细心的朋友可能会发现，这个用法和帮助里的用法不太一样，按照帮助里的写法<code>IF %ERRORLEVEL% == 0 echo net user 执行成功了!</code>这一句代码应该写成:<code>IF ERRORLEVEL 0 echo net user 执行成功了!</code>，那为什么我要写成这样呢？各位自己把代码改掉执行后，就会发现错误了！用这种语法，不管你的上面的命令是否执行成功，他都会认为命令成功了，不知道是BUG还是本人理解错误…</p>
+<blockquote>
+<p><strong>补充：</strong><br>
+  这不是bug，而是 <code>if errorlevel</code> 语句的特点：当使用 <code>if errorlevel 0 ……</code> 的句式时，它的含义是：如果错误码的值大于或等于<code>0</code>的时候，将执行某个操作；当使用 <code>if %errorlevel%==0 ……</code> 的句式时，它的含义是：如果错误码的值等于<code>0</code>的时候，将执行某操作。因为这两种句式含义的差别，如果使用前一种句式的时候，错误码语句的排列顺序是从大到小排列。</p>
+<p>  一般上一条命令的执行结果代码只有两结果，&quot;成功&quot;用<code>0</code>表示  &quot;失败&quot;用<code>1</code>表  示。这只是一般的情况，实际上，<code>errorlevel</code>返回值可以在<code>0~255</code>之间，比如，<code>xcopy</code>  默认的<code>errorlevel</code>值就有5个，分别表示5种执行状态：</p>
+<p>退出码说明：</p>
+<ol start="0">
+<li>文件复制没有错误。</li>
+<li>if errorlevel 2 echo。</li>
+<li>用户按 CTRL+C 终止了 xcopy。</li>
+<li>出现了初始化错误。没有足够的内存或磁盘空间，或命令行上输入了无效的驱动器名称或语 法。</li>
+<li>出现了磁盘写入错误。</li>
+</ol>
+<p>要判断上面xcopy命令的5种退出情况，应写成：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="keyword">if</span> <span class="keyword">errorlevel</span> <span class="number">5</span> <span class="built_in">echo</span>出现了磁盘写入错误</span><br><span class="line">&gt;<span class="keyword">if</span> <span class="keyword">errorlevel</span> <span class="number">4</span> <span class="built_in">echo</span>出现了初始化错误</span><br><span class="line">&gt;<span class="keyword">if</span> <span class="keyword">errorlevel</span> <span class="number">2</span> <span class="built_in">echo</span>用户按 CTRL+C 终止了 <span class="built_in">xcopy</span></span><br><span class="line">&gt;<span class="keyword">if</span> <span class="keyword">errorlevel</span> <span class="number">1</span> <span class="built_in">echo</span> <span class="keyword">if</span> <span class="keyword">errorlevel</span> <span class="number">2</span> <span class="built_in">echo</span></span><br><span class="line">&gt;<span class="keyword">if</span> <span class="keyword">errorlevel</span> <span class="number">0</span> <span class="built_in">echo</span>文件复制没有错误。</span><br></pre></td></tr></table></figure>
+<p>才能正确执行。</p>
+</blockquote>
+<p>再举几个例子:</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">net</span> usertest</span><br><span class="line"><span class="keyword">IF</span> <span class="variable">%ERRORLEVEL%</span> == <span class="number">1</span> <span class="built_in">echo</span> <span class="built_in">net</span> user 执行失败了!</span><br><span class="line"><span class="built_in">pause</span></span><br></pre></td></tr></table></figure>
+<p><img class="emoji" draggable="false" alt="☝️" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/261d.png"/> 这个是判断上一条命令是否执行失败的</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">set</span> /p var=随便输入个命令:</span><br><span class="line"><span class="variable">%var%</span></span><br><span class="line"><span class="keyword">if</span> <span class="variable">%ERRORLEVEL%</span> == <span class="number">0</span> <span class="keyword">goto</span> yes</span><br><span class="line"><span class="keyword">goto</span> no</span><br><span class="line">:yes</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">!var!</span> 执行成功了</span><br><span class="line"><span class="built_in">pause</span></span><br><span class="line"><span class="keyword">exit</span></span><br><span class="line">:no</span><br><span class="line"><span class="built_in">echo</span> 基本上执行失败了..</span><br><span class="line"><span class="built_in">pause</span></span><br></pre></td></tr></table></figure>
+<p><img class="emoji" draggable="false" alt="☝️" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/261d.png"/> 这个是根据你输入的命令，自动判断是成功还是失败了!</p>
+<p><img class="emoji" draggable="false" alt="👇" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f447.png"/> 再举一个简化版的例子：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">set</span> /p var=随便输入个命令:</span><br><span class="line"><span class="variable">%var%</span></span><br><span class="line"><span class="keyword">if</span> <span class="variable">%ERRORLEVEL%</span> == <span class="number">0</span> (<span class="built_in">echo</span> <span class="variable">%var%</span>执行成功了) <span class="keyword">ELSE</span> <span class="built_in">echo</span> <span class="variable">%var%</span>执行失败了!</span><br><span class="line"><span class="built_in">pause</span></span><br></pre></td></tr></table></figure>
+<p><code>else</code>后面写上执行失败后的操作。<br>
+当然我门还可以把<code>if else</code>这样的语句分成几行写出来，使他看上去好看点…，看这个例子<img class="emoji" draggable="false" alt="👇" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f447.png"/></p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">set</span> /p var=随便输入个命令:</span><br><span class="line"><span class="variable">%var%</span></span><br><span class="line"><span class="keyword">if</span> <span class="variable">%ERRORLEVEL%</span> == <span class="number">0</span>  (</span><br><span class="line">   <span class="built_in">echo</span> <span class="variable">!var!</span> 执行成功了</span><br><span class="line">   ) <span class="keyword">ELSE</span> (</span><br><span class="line">   <span class="built_in">echo</span> 基本上执行失败了..</span><br><span class="line">   )</span><br><span class="line"><span class="built_in">pause</span></span><br></pre></td></tr></table></figure>
+<p>这里介绍的两种简写对<code>IF</code>的三种语法都可以套用，不单单是在<code>IF [NOT] ERRORLEVEL number command</code><br>
+这种法上才能用</p>
+<h2 id="用法2：IF-NOT-string1-string2-command"><a class="header-anchor" href="#用法2：IF-NOT-string1-string2-command">¶</a>用法2：<code>IF [NOT] string1==string2 command</code></h2>
+<p>这个是用来比较变量或者字符的值是不是相等的。</p>
+<p>例如：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">set</span> /p var=请输入第一个比较字符:</span><br><span class="line"><span class="built_in">set</span> /p var2=请输入第二个比较字符:</span><br><span class="line"><span class="keyword">if</span> <span class="variable">%var%</span> == <span class="variable">%var2%</span> (<span class="built_in">echo</span> 我们相等) <span class="keyword">ELSE</span> <span class="built_in">echo</span> 我们不相等</span><br><span class="line"><span class="built_in">pause</span></span><br></pre></td></tr></table></figure>
+<p>上面这个例子可以判断你输入的值是不是相等，如果输入相同的字符，而其中一个后面多了一个空格，这个例子还是会认为相等，如何让有空格的输入不相等呢？我们在比较字符上加个双引号（如下）就可以了。</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">set</span> /p var=请输入第一个比较字符:</span><br><span class="line"><span class="built_in">set</span> /p var2=请输入第二个比较字符(多输入个空格试试):</span><br><span class="line"><span class="keyword">if</span> "<span class="variable">%var%</span>" == "<span class="variable">%var2%</span>" (<span class="built_in">echo</span> 我们相等) <span class="keyword">ELSE</span> <span class="built_in">echo</span> 我们不相等</span><br><span class="line"><span class="built_in">pause</span></span><br></pre></td></tr></table></figure>
+<h2 id="用法3：IF-NOT-EXIST-filename-command"><a class="header-anchor" href="#用法3：IF-NOT-EXIST-filename-command">¶</a>用法3：<code>IF [NOT] EXIST filename command</code></h2>
+<p>这个用来判断某个文件或者文件夹是否存在。</p>
+<p>例子：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">exist</span> "c:\test" (<span class="built_in">echo</span> 存在文件) <span class="keyword">ELSE</span> <span class="built_in">echo</span> 不存在文件</span><br><span class="line"><span class="built_in">pause</span></span><br></pre></td></tr></table></figure>
+<p>判断的文件路径加引号是为了防止路径有空格，如果路径有空格加个双引号就不会出现判断出错了。</p>
+<p>另外，我们看到每条IF用法后都有个<code>[NOT]</code>语句，加上<code>NOT</code>的话，就表示判断条件是否不成立，没加<code>NOT</code>默认是判断条件是否成立。比如上面的例子，加个<code>NOT</code>就表示要判断C:\test文件是否不存在，如果你的C盘下没c:\test，条件成立，则会执行<code>echo 文件不存在</code>的命令，结果正好与实际相反，因此要加入<code>not</code>，应将命令写成下面这样：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> <span class="keyword">exist</span> "c:\test" (<span class="built_in">echo</span> 不存在文件) <span class="keyword">ELSE</span> <span class="built_in">echo</span> 存在文件</span><br><span class="line"><span class="built_in">pause</span></span><br></pre></td></tr></table></figure>
+<h2 id="用法4：IF增强的用法"><a class="header-anchor" href="#用法4：IF增强的用法">¶</a>用法4：<code>IF</code>增强的用法</h2>
+<pre><code>IF [/I] string1 compare-op string2 command  #参数/I表示不区分大小写
+IF CMDEXTVERSION number command
+IF DEFINED variable command  #判断变量是否存在，很有用
+</code></pre>
+<p><code>CMDEXTVERSION</code> 条件的作用跟 <code>ERRORLEVEL</code> 的类似，它是在跟与命令扩展名有关联的内部版本号比较。第一个版本是 1。每次对命令扩展名有相当大的增强时，版本号会增加一个。命令扩展名被停用时，<code>CMDEXTVERSION</code> 条件不是真的。</p>
+<p>如果已定义环境变量，<code>DEFINED</code> 条件的作用跟 <code>EXISTS</code> 的一样</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">IF</span> <span class="keyword">DEFINED</span> variable command</span><br><span class="line"><span class="keyword">IF</span> <span class="keyword">NOT</span> "variable"=="" command</span><br></pre></td></tr></table></figure>
+<p>上面两条命令效果一样。</p>
+<p>用<code>set variable=</code>命令使变量<code>variable</code>变成未定义，即空值（变量值为空，则为未定义；变量值不为空，则为已定义）。</p>
+<blockquote>
+<p><img class="emoji" draggable="false" alt="⚠️" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/26a0.png"/><strong>注意：</strong><br>
+用语句<code>IF DEFINED variable command</code>判断变量是否存在时，请注意<code>variable</code>为不使用引导符号<code>%</code>的变量名，因此不能用写为<code>%variable%</code>，否则出错。</p>
+</blockquote>
+<p>例：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="keyword">defined</span> aa (<span class="built_in">echo</span> 变量aa存在) <span class="keyword">else</span> (<span class="built_in">echo</span> 变量aa不存在)</span><br></pre></td></tr></table></figure>
+<p>运行显示：</p>
+<pre><code>变量aa不存在
+</code></pre>
+<p>例</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> aa=<span class="number">123</span></span><br><span class="line"><span class="built_in">set</span> aa=</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">defined</span> aa (<span class="built_in">echo</span> 变量aa存在) <span class="keyword">else</span> (<span class="built_in">echo</span> 变量aa不存在)</span><br></pre></td></tr></table></figure>
+<p>运行显示：</p>
+<pre><code>变量aa不存在
+</code></pre>
+<p>例：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="keyword">if</span> a == A (<span class="built_in">echo</span> 我们相等) <span class="keyword">ELSE</span> <span class="built_in">echo</span> 我们不相等</span><br><span class="line"><span class="built_in">pause</span></span><br></pre></td></tr></table></figure>
+<p>执行后会显示：</p>
+<pre><code>我们不相等
+</code></pre>
+<p>例</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="keyword">if</span> /i a == A (<span class="built_in">echo</span> 我们相等) <span class="keyword">ELSE</span> <span class="built_in">echo</span> 我们不相等</span><br><span class="line"><span class="built_in">pause</span></span><br></pre></td></tr></table></figure>
+<p>加上<code>/I</code>不区分大小写，因此直接结果为：<code>我们相等</code>。</p>
+<p>最后面还有一些用来判断数字的符号</p>
+<pre><code>EQU - 等于
+NEQ - 不等于
+LSS - 小于
+LEQ - 小于或等于
+GTR - 大于
+</code></pre>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.JPG" alt="Wang PT 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.JPG" alt="Wang PT 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E6%89%B9%E5%A4%84%E7%90%86/" rel="tag"><i class="fa fa-tag"></i> 批处理</a>
+              <a href="/tags/DOS/" rel="tag"><i class="fa fa-tag"></i> DOS</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/04/22/DOS%E7%BC%96%E7%A8%8B5-set%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/" rel="prev" title="DOS编程5-set命令详解">
+      <i class="fa fa-chevron-left"></i> DOS编程5-set命令详解
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/04/23/DOS%E7%BC%96%E7%A8%8B7-%E9%AB%98%E7%BA%A7%E6%8A%80%E5%B7%A7/" rel="next" title="DOS编程7-高级技巧">
+      DOS编程7-高级技巧 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">1.</span> <span class="nav-text">基本语法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">2.</span> <span class="nav-text">用法详解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#用法1：IF-NOT-ERRORLEVEL-number-command"><span class="nav-number">2.1.</span> <span class="nav-text">用法1：IF [NOT] ERRORLEVEL number command</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用法2：IF-NOT-string1-string2-command"><span class="nav-number">2.2.</span> <span class="nav-text">用法2：IF [NOT] string1&#x3D;&#x3D;string2 command</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用法3：IF-NOT-EXIST-filename-command"><span class="nav-number">2.3.</span> <span class="nav-text">用法3：IF [NOT] EXIST filename command</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用法4：IF增强的用法"><span class="nav-number">2.4.</span> <span class="nav-text">用法4：IF增强的用法</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Wang PT"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Wang PT</p>
+  <div class="site-description" itemprop="description">A Rookie Working for Earthquake Science</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yourname" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-github-alt fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yourname@gmail.com" title="E-Mail → mailto:yourname@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/yourname" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://zhihu.com/people/your-user-name" title="zhihu → http:&#x2F;&#x2F;zhihu.com&#x2F;people&#x2F;your-user-name" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://aganr.com/about/" title="wechat → https:&#x2F;&#x2F;aganr.com&#x2F;about&#x2F;" rel="noopener" target="_blank"><i class="fab fa-weixin fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://aganr.com/about/" title="qq → https:&#x2F;&#x2F;aganr.com&#x2F;about&#x2F;" rel="noopener" target="_blank"><i class="fab fa-qq fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Related Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://www.gsdzj.gov.cn/" title="http:&#x2F;&#x2F;www.gsdzj.gov.cn&#x2F;" rel="noopener" target="_blank">GSEA</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.cea.gov.cn/" title="https:&#x2F;&#x2F;www.cea.gov.cn&#x2F;" rel="noopener" target="_blank">CEA</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.usgs.gov/" title="https:&#x2F;&#x2F;www.usgs.gov&#x2F;" rel="noopener" target="_blank">USGS</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://www.csi.ac.cn/" title="http:&#x2F;&#x2F;www.csi.ac.cn&#x2F;" rel="noopener" target="_blank">CEIN</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://gmt-china.org/" title="https:&#x2F;&#x2F;gmt-china.org&#x2F;" rel="noopener" target="_blank">GMT-China</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.globalcmt.org/CMTsearch.html" title="https:&#x2F;&#x2F;www.globalcmt.org&#x2F;CMTsearch.html" rel="noopener" target="_blank">Global CMT</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://seisman.info/" title="https:&#x2F;&#x2F;seisman.info&#x2F;" rel="noopener" target="_blank">SeisMan Blog</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hexo.io/" title="https:&#x2F;&#x2F;hexo.io&#x2F;" rel="noopener" target="_blank">Hexo</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.csdn.net/" title="https:&#x2F;&#x2F;www.csdn.net&#x2F;" rel="noopener" target="_blank">CSDN</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.matplotlib.org.cn/" title="https:&#x2F;&#x2F;www.matplotlib.org.cn&#x2F;" rel="noopener" target="_blank">Matplotlib-CN</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.pypandas.cn/" title="https:&#x2F;&#x2F;www.pypandas.cn&#x2F;" rel="noopener" target="_blank">Pandas-CN</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fas fa-arrow-alt-circle-right"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wang PT</span>
+</div>
+
+<span class="post-meta-item-icon">
+  <span id="busuanzi_container_site_pv">
+	  <i class="fa fa-eye"></i>
+	</span>
+	访问量:<span id="busuanzi_value_site_pv"></span> 次数
+</span>
+
+<span class="post-meta-divider">|</span>
+	<span id="busuanzi_container_site_uv">
+  	<i class="fas fa-users"></i>
+	访问数:<span id="busuanzi_value_site_uv"></span> 人次
+</span>
+
+<span class="post-meta-divider">|</span>
+	<span id="busuanzi_container_page_pv">
+    <i class="fas fa-book-open"></i>
+	阅读数:<span id="busuanzi_value_page_pv"></span> 次
+</span>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"lGnGKKDnV1HwUIE9JkDf5wWy-gzGzoHsz","app_key":"w0rKKvnjIJH639RrjhX73QL7","server_url":"https://lgngkkdn.lc-cn-n1-shared.com","security":true};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://wangpt.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://wpttt.github.io/2020/04/23/DOS%E7%BC%96%E7%A8%8B6-IF%E5%91%BD%E4%BB%A4/";
+    this.page.identifier = "2020/04/23/DOS编程6-IF命令/";
+    this.page.title = "DOS编程6-IF命令";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://wangpt.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-mac-osx.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"wpttt.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null,"activeClass":"disqus"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="本章介绍FOR命令中有一些变量的用法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DOS编程3-FOR命令中的变量">
+<meta property="og:url" content="http://wpttt.github.io/2020/04/22/DOS%E7%BC%96%E7%A8%8B3-FOR%E5%91%BD%E4%BB%A4%E4%B8%AD%E7%9A%84%E5%8F%98%E9%87%8F/index.html">
+<meta property="og:site_name" content="GSEASRX">
+<meta property="og:description" content="本章介绍FOR命令中有一些变量的用法">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f449.png">
+<meta property="article:published_time" content="2020-04-22T07:34:17.000Z">
+<meta property="article:modified_time" content="2020-04-23T05:43:36.960Z">
+<meta property="article:author" content="Wang PT">
+<meta property="article:tag" content="批处理">
+<meta property="article:tag" content="DOS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f449.png">
+
+<link rel="canonical" href="http://wpttt.github.io/2020/04/22/DOS%E7%BC%96%E7%A8%8B3-FOR%E5%91%BD%E4%BB%A4%E4%B8%AD%E7%9A%84%E5%8F%98%E9%87%8F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>DOS编程3-FOR命令中的变量 | GSEASRX</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">GSEASRX</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">For Earthquake Science</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://wpttt.github.io/2020/04/22/DOS%E7%BC%96%E7%A8%8B3-FOR%E5%91%BD%E4%BB%A4%E4%B8%AD%E7%9A%84%E5%8F%98%E9%87%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Wang PT">
+      <meta itemprop="description" content="A Rookie Working for Earthquake Science">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GSEASRX">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          DOS编程3-FOR命令中的变量
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-22 15:34:17" itemprop="dateCreated datePublished" datetime="2020-04-22T15:34:17+08:00">2020-04-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-23 13:43:36" itemprop="dateModified" datetime="2020-04-23T13:43:36+08:00">2020-04-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%90%8E%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">后端</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/04/22/DOS%E7%BC%96%E7%A8%8B3-FOR%E5%91%BD%E4%BB%A4%E4%B8%AD%E7%9A%84%E5%8F%98%E9%87%8F/" class="post-meta-item leancloud_visitors" data-flag-title="DOS编程3-FOR命令中的变量" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2020/04/22/DOS%E7%BC%96%E7%A8%8B3-FOR%E5%91%BD%E4%BB%A4%E4%B8%AD%E7%9A%84%E5%8F%98%E9%87%8F/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/04/22/DOS编程3-FOR命令中的变量/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>本章介绍<code>FOR</code>命令中有一些变量的用法</p>
+<a id="more"></a>
+<p>先把<code>FOR</code>的变量全部列出来:</p>
+<pre><code>~I          - 删除任何引号(&quot;)，扩展 %I
+%~fI        - 将 %I 扩展到一个完全合格的路径名
+%~dI        - 仅将 %I 扩展到一个驱动器号
+%~pI        - 仅将 %I 扩展到一个路径
+%~nI        - 仅将 %I 扩展到一个文件名
+%~xI        - 仅将 %I 扩展到一个文件扩展名
+%~sI        - 扩展的路径只含有短名
+%~aI        - 将 %I 扩展到文件的文件属性
+%~tI        - 将 %I 扩展到文件的日期/时间
+%~zI        - 将 %I 扩展到文件的大小
+%~$PATH:I   - 查找列在路径环境变量的目录，并将 %I 扩展
+              到找到的第一个完全合格的名称。如果环境变量名
+              未被定义，或者没有找到文件，此组合键会扩展到
+              空字符串
+</code></pre>
+<p>可以看到每行都有一个大写字母<code>&quot;I&quot;</code>，这个<code>I</code>其实就是我们在<code>FOR</code>带入的变量，我们<code>FOR</code>语句代入的变量名是什么，这里就写什么。<br>
+比如:<code>FOR /F  %%z IN ('set') DO @echo %%z</code><br>
+这里我们代入的变量名是<code>z</code>那么我们就要把那个<code>I</code>改成<code>z</code>，例如<code>%~fI</code>改为<code>%~fz</code><br>
+至于前面的<code>%~p</code>这样的内容就是语法了!<br>
+好开始讲解:</p>
+<h1><code>~I</code></h1>
+<p>删除任何引号(&quot;)，扩展 <code>%I</code>。这个变量的作用就如他的说明——删除引号!</p>
+<p>例子:</p>
+<p>首先建立临时文件temp.txt，内容如下：</p>
+<pre><code>&quot;1111
+&quot;2222&quot;
+3333&quot;
+&quot;4444&quot;44
+&quot;55&quot;55&quot;55
+</code></pre>
+<p>可建立个BAT文件代码如下:</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">echo</span> ^"<span class="number">1111</span>&gt;temp.txt</span><br><span class="line"><span class="built_in">echo</span> "<span class="number">2222</span>"&gt;&gt;temp.txt</span><br><span class="line"><span class="built_in">echo</span> <span class="number">3333</span>^"&gt;&gt;temp.txt</span><br><span class="line"><span class="built_in">echo</span> "<span class="number">4444</span>"<span class="number">44</span>&gt;&gt;temp.txt</span><br><span class="line"><span class="built_in">echo</span> ^"<span class="number">55</span>"<span class="number">55</span>"<span class="number">55</span>&gt;&gt;temp.txt</span><br><span class="line"><span class="comment">rem 上面建立临时文件，注意不成对的引号要加转义字符^，重定向符号前不要留空格</span></span><br><span class="line"><span class="keyword">FOR</span> /F "delims=" <span class="variable">%%i</span> <span class="keyword">IN</span> (temp.txt) <span class="keyword">DO</span> <span class="built_in">echo</span>  <span class="variable">%%~</span>i</span><br><span class="line"><span class="built_in">pause</span></span><br><span class="line"><span class="built_in">del</span> temp.txt</span><br></pre></td></tr></table></figure>
+<p>执行后，我们看CMD的回显如下:</p>
+<pre><code>1111           #字符串前的引号被删除了
+2222           #字符串首尾的引号都被删除了
+3333&quot;          #字符串前无引号，后面的引号保留
+4444&quot;44        #字符串前面的引号删除了，而中间的引号保留
+55&quot;55&quot;55       #字符串前面的引号删除了，而中间的引号保留
+请按任意键继续. . .
+</code></pre>
+<p>和之前temp.txt中的内容对比一下，我们会发现第1、2、5行的引号都消失了，这就是删除引号<code>~i</code>的作用了!<br>
+删除引号规则如下：</p>
+<ol>
+<li>若字符串首尾同时存在引号，则删除首尾的引号；</li>
+<li>若字符串尾不存在引号，则删除字符串首的引号；</li>
+<li>如果字符串中间存在引号，或者只在尾部存在引号，则不删除。</li>
+</ol>
+<p><img class="emoji" draggable="false" alt="👉" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f449.png"/> <strong>Tips</strong>：无头不删，有头连尾删。</p>
+<h1><code>%~fI</code></h1>
+<p>将 <code>%I</code> 扩展到一个完全合格的路径名。</p>
+<p>例子:</p>
+<p>把代码保存放在随便哪个地方，我这里就放桌面吧.</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FOR</span> /F "delims==" <span class="variable">%%i</span> <span class="keyword">IN</span> ('<span class="built_in">dir</span> /b') <span class="keyword">DO</span> @<span class="built_in">echo</span>  <span class="variable">%%~</span>fi</span><br><span class="line"><span class="built_in">pause</span></span><br></pre></td></tr></table></figure>
+<p>执行后显示内容如下</p>
+<pre><code>C:\Documents and Settings\Administrator\桌面\test.bat
+C:\Documents and Settings\Administrator\桌面\test.vbs
+</code></pre>
+<p>当我把代码中的 <code>%%~fi</code>直接改成<code>%%i</code></p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FOR</span> /F "delims==" <span class="variable">%%i</span> <span class="keyword">IN</span> ('<span class="built_in">dir</span> /b') <span class="keyword">DO</span> @<span class="built_in">echo</span>  <span class="variable">%%i</span></span><br><span class="line"><span class="built_in">pause</span></span><br></pre></td></tr></table></figure>
+<p>执行后就会显示以下内容：</p>
+<pre><code>test.bat
+test.vbs
+</code></pre>
+<p>通过对比，我们很容易就看出没有路径了，这就是&quot;将 <code>%I</code> 扩展到一个完全合格的路径名&quot;的作用<br>
+也就是如果<code>%i</code>变量的内容是一个文件名的话，他就会把这个文件所在的绝对路径打印出来，而不只单单打印一个文件名，自己动手动实验下就知道了!</p>
+<h1><code>%~dI</code></h1>
+<p>仅将 <code>%I</code> 扩展到一个驱动器号。</p>
+<p>例子:</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FOR</span> /F "delims==" <span class="variable">%%i</span> <span class="keyword">IN</span> ('<span class="built_in">dir</span> /b') <span class="keyword">DO</span> @<span class="built_in">echo</span>  <span class="variable">%%~</span>di</span><br><span class="line"><span class="built_in">pause</span></span><br></pre></td></tr></table></figure>
+<p>执行后显示如下</p>
+<pre><code>C:
+C:
+</code></pre>
+<p>我桌面就两个文件test.bat，test.vbs，<code>%%~di</code>作用是，如果变量<code>%%i</code>的内容是一个文件或者目录名，他就会把他这文件或者目录所在的盘符号打印出来!</p>
+<h1><code>%~pI</code></h1>
+<p>仅将 <code>%I</code> 扩展到一个路径。这个用法和上面一样，只打印路径不打印文件名</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FOR</span> /F "delims==" <span class="variable">%%i</span> <span class="keyword">IN</span> ('<span class="built_in">dir</span> /b') <span class="keyword">DO</span> @<span class="built_in">echo</span>  <span class="variable">%%~</span>pi</span><br><span class="line"><span class="built_in">pause</span></span><br></pre></td></tr></table></figure>
+<p>自己复制代码看看结果吧，下面几个都是这么个用法，代码给出来，大家自己看结果吧!</p>
+<h1><code>%~nI</code></h1>
+<p>仅将 %I 扩展到一个文件名。</p>
+<p>只打印文件名字。</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FOR</span> /F "delims==" <span class="variable">%%i</span> <span class="keyword">IN</span> ('<span class="built_in">dir</span> /b') <span class="keyword">DO</span> @<span class="built_in">echo</span>  <span class="variable">%%~</span>ni</span><br><span class="line"><span class="built_in">pause</span></span><br></pre></td></tr></table></figure>
+<h1><code>%~xI</code></h1>
+<p>仅将 <code>%I</code> 扩展到一个文件扩展名。</p>
+<p>只打印文件的扩展名</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FOR</span> /F "delims==" <span class="variable">%%i</span> <span class="keyword">IN</span> ('<span class="built_in">dir</span> /b') <span class="keyword">DO</span> @<span class="built_in">echo</span>  <span class="variable">%%~</span>xi</span><br><span class="line"><span class="built_in">pause</span></span><br></pre></td></tr></table></figure>
+<h1><code>%~sI</code></h1>
+<p>扩展的路径只含有短名。</p>
+<p>打印绝对短文件名</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FOR</span> /F "delims==" <span class="variable">%%i</span> <span class="keyword">IN</span> ('<span class="built_in">dir</span> /b') <span class="keyword">DO</span> @<span class="built_in">echo</span>  <span class="variable">%%~</span>si</span><br><span class="line"><span class="built_in">pause</span></span><br></pre></td></tr></table></figure>
+<h1><code>%~aI</code></h1>
+<p>将 <code>%I</code> 扩展到文件的文件属性。</p>
+<p>打印文件的属性</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FOR</span> /F "delims==" <span class="variable">%%i</span> <span class="keyword">IN</span> ('<span class="built_in">dir</span> /b') <span class="keyword">DO</span> @<span class="built_in">echo</span>  <span class="variable">%%~</span>ai</span><br><span class="line"><span class="built_in">pause</span></span><br></pre></td></tr></table></figure>
+<h1><code>%~tI</code></h1>
+<p>将 <code>%I</code> 扩展到文件的日期/时间。</p>
+<p>打印文件建立的日期</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FOR</span> /F "delims==" <span class="variable">%%i</span> <span class="keyword">IN</span> ('<span class="built_in">dir</span> /b') <span class="keyword">DO</span> @<span class="built_in">echo</span>  <span class="variable">%%~</span>ti</span><br><span class="line"><span class="built_in">pause</span></span><br></pre></td></tr></table></figure>
+<h1><code>%~zI </code></h1>
+<p>将 <code>%I</code> 扩展到文件的大小。</p>
+<p>打印文件的大小</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FOR</span> /F "delims==" <span class="variable">%%i</span> <span class="keyword">IN</span> ('<span class="built_in">dir</span> /b') <span class="keyword">DO</span> @<span class="built_in">echo</span>  <span class="variable">%%~</span>zi</span><br><span class="line"><span class="built_in">pause</span></span><br></pre></td></tr></table></figure>
+<p>上面例子中的<code>&quot;delims==&quot;</code>可以改为<code>&quot;delims=&quot;</code>，即不要分隔符</p>
+<h1><code>%~$PATH:I</code></h1>
+<p>查找列在路径环境变量的目录，并将<code>%I</code>扩展到找到的第一个完全合格的名称。<br>
+<em>如果环境变量名未被定义，或者没有找到文件，此组合键会扩展到空字符串</em>。<br>
+这个上面几个都不一样，因此单独介绍</p>
+<p>将下面代码保存为batch文件，然后运行，查看运行结果</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="keyword">FOR</span> /F "delims=" <span class="variable">%%i</span> <span class="keyword">IN</span> (“notepad.exe”) <span class="keyword">DO</span> <span class="built_in">echo</span>  <span class="variable">%%~</span>$<span class="built_in">PATH</span>:i</span><br><span class="line"><span class="built_in">pause</span></span><br></pre></td></tr></table></figure>
+<p>上面代码显示结果为 <code>C:\WINDOWS\system32\notepad.exe</code>，其意思就在PATH变量里指定的路径里搜索notepad.exe文件，如果有notepad.exe则会把他所在绝对路径打印出来，没有就打印一个错误！</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.JPG" alt="Wang PT 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.JPG" alt="Wang PT 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E6%89%B9%E5%A4%84%E7%90%86/" rel="tag"><i class="fa fa-tag"></i> 批处理</a>
+              <a href="/tags/DOS/" rel="tag"><i class="fa fa-tag"></i> DOS</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/04/22/DOS%E7%BC%96%E7%A8%8B2-%E5%BE%AA%E7%8E%AF/" rel="prev" title="DOS编程2-循环">
+      <i class="fa fa-chevron-left"></i> DOS编程2-循环
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/04/22/DOS%E7%BC%96%E7%A8%8B4-%E6%89%B9%E5%A4%84%E7%90%86%E4%B8%AD%E7%9A%84%E5%8F%98%E9%87%8F/" rel="next" title="DOS编程4-批处理中的变量">
+      DOS编程4-批处理中的变量 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">1.</span> <span class="nav-text">~I</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">2.</span> <span class="nav-text">%~fI</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">3.</span> <span class="nav-text">%~dI</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">4.</span> <span class="nav-text">%~pI</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">5.</span> <span class="nav-text">%~nI</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">6.</span> <span class="nav-text">%~xI</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">7.</span> <span class="nav-text">%~sI</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">8.</span> <span class="nav-text">%~aI</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">9.</span> <span class="nav-text">%~tI</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">10.</span> <span class="nav-text">%~zI </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">11.</span> <span class="nav-text">%~$PATH:I</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Wang PT"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Wang PT</p>
+  <div class="site-description" itemprop="description">A Rookie Working for Earthquake Science</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yourname" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-github-alt fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yourname@gmail.com" title="E-Mail → mailto:yourname@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/yourname" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://zhihu.com/people/your-user-name" title="zhihu → http:&#x2F;&#x2F;zhihu.com&#x2F;people&#x2F;your-user-name" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://aganr.com/about/" title="wechat → https:&#x2F;&#x2F;aganr.com&#x2F;about&#x2F;" rel="noopener" target="_blank"><i class="fab fa-weixin fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://aganr.com/about/" title="qq → https:&#x2F;&#x2F;aganr.com&#x2F;about&#x2F;" rel="noopener" target="_blank"><i class="fab fa-qq fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Related Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://www.gsdzj.gov.cn/" title="http:&#x2F;&#x2F;www.gsdzj.gov.cn&#x2F;" rel="noopener" target="_blank">GSEA</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.cea.gov.cn/" title="https:&#x2F;&#x2F;www.cea.gov.cn&#x2F;" rel="noopener" target="_blank">CEA</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.usgs.gov/" title="https:&#x2F;&#x2F;www.usgs.gov&#x2F;" rel="noopener" target="_blank">USGS</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://www.csi.ac.cn/" title="http:&#x2F;&#x2F;www.csi.ac.cn&#x2F;" rel="noopener" target="_blank">CEIN</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://gmt-china.org/" title="https:&#x2F;&#x2F;gmt-china.org&#x2F;" rel="noopener" target="_blank">GMT-China</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.globalcmt.org/CMTsearch.html" title="https:&#x2F;&#x2F;www.globalcmt.org&#x2F;CMTsearch.html" rel="noopener" target="_blank">Global CMT</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://seisman.info/" title="https:&#x2F;&#x2F;seisman.info&#x2F;" rel="noopener" target="_blank">SeisMan Blog</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hexo.io/" title="https:&#x2F;&#x2F;hexo.io&#x2F;" rel="noopener" target="_blank">Hexo</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.csdn.net/" title="https:&#x2F;&#x2F;www.csdn.net&#x2F;" rel="noopener" target="_blank">CSDN</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.matplotlib.org.cn/" title="https:&#x2F;&#x2F;www.matplotlib.org.cn&#x2F;" rel="noopener" target="_blank">Matplotlib-CN</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.pypandas.cn/" title="https:&#x2F;&#x2F;www.pypandas.cn&#x2F;" rel="noopener" target="_blank">Pandas-CN</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fas fa-arrow-alt-circle-right"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wang PT</span>
+</div>
+
+<span class="post-meta-item-icon">
+  <span id="busuanzi_container_site_pv">
+	  <i class="fa fa-eye"></i>
+	</span>
+	访问量:<span id="busuanzi_value_site_pv"></span> 次数
+</span>
+
+<span class="post-meta-divider">|</span>
+	<span id="busuanzi_container_site_uv">
+  	<i class="fas fa-users"></i>
+	访问数:<span id="busuanzi_value_site_uv"></span> 人次
+</span>
+
+<span class="post-meta-divider">|</span>
+	<span id="busuanzi_container_page_pv">
+    <i class="fas fa-book-open"></i>
+	阅读数:<span id="busuanzi_value_page_pv"></span> 次
+</span>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"lGnGKKDnV1HwUIE9JkDf5wWy-gzGzoHsz","app_key":"w0rKKvnjIJH639RrjhX73QL7","server_url":"https://lgngkkdn.lc-cn-n1-shared.com","security":true};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://wangpt.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://wpttt.github.io/2020/04/22/DOS%E7%BC%96%E7%A8%8B3-FOR%E5%91%BD%E4%BB%A4%E4%B8%AD%E7%9A%84%E5%8F%98%E9%87%8F/";
+    this.page.identifier = "2020/04/22/DOS编程3-FOR命令中的变量/";
+    this.page.title = "DOS编程3-FOR命令中的变量";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://wangpt.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

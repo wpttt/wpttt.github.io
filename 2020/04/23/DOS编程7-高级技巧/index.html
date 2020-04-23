@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-mac-osx.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"wpttt.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null,"activeClass":"disqus"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="随便延伸一下，学习一下高手们都是怎么用的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DOS编程7-高级技巧">
+<meta property="og:url" content="http://wpttt.github.io/2020/04/23/DOS%E7%BC%96%E7%A8%8B7-%E9%AB%98%E7%BA%A7%E6%8A%80%E5%B7%A7/index.html">
+<meta property="og:site_name" content="GSEASRX">
+<meta property="og:description" content="随便延伸一下，学习一下高手们都是怎么用的。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f449.png">
+<meta property="og:image" content="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f449.png">
+<meta property="og:image" content="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f449.png">
+<meta property="og:image" content="https://twemoji.maxcdn.com/v/12.1.5/72x72/270a.png">
+<meta property="article:published_time" content="2020-04-23T05:47:36.000Z">
+<meta property="article:modified_time" content="2020-04-23T08:04:59.550Z">
+<meta property="article:author" content="Wang PT">
+<meta property="article:tag" content="批处理">
+<meta property="article:tag" content="DOS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f449.png">
+
+<link rel="canonical" href="http://wpttt.github.io/2020/04/23/DOS%E7%BC%96%E7%A8%8B7-%E9%AB%98%E7%BA%A7%E6%8A%80%E5%B7%A7/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>DOS编程7-高级技巧 | GSEASRX</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">GSEASRX</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">For Earthquake Science</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://wpttt.github.io/2020/04/23/DOS%E7%BC%96%E7%A8%8B7-%E9%AB%98%E7%BA%A7%E6%8A%80%E5%B7%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Wang PT">
+      <meta itemprop="description" content="A Rookie Working for Earthquake Science">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GSEASRX">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          DOS编程7-高级技巧
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-23 13:47:36 / 修改时间：16:04:59" itemprop="dateCreated datePublished" datetime="2020-04-23T13:47:36+08:00">2020-04-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%90%8E%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">后端</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/04/23/DOS%E7%BC%96%E7%A8%8B7-%E9%AB%98%E7%BA%A7%E6%8A%80%E5%B7%A7/" class="post-meta-item leancloud_visitors" data-flag-title="DOS编程7-高级技巧" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2020/04/23/DOS%E7%BC%96%E7%A8%8B7-%E9%AB%98%E7%BA%A7%E6%8A%80%E5%B7%A7/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/04/23/DOS编程7-高级技巧/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>随便延伸一下，学习一下高手们都是怎么用的。</p>
+<a id="more"></a>
+<h1>交互界面设计</h1>
+<p>没啥说的，看看高手设计的菜单界面吧：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">cls</span></span><br><span class="line"><span class="built_in">title</span> 终极多功能修复</span><br><span class="line">:menu</span><br><span class="line"><span class="built_in">cls</span></span><br><span class="line"><span class="built_in">color</span> <span class="number">0</span>A</span><br><span class="line"><span class="built_in">echo</span>.</span><br><span class="line"><span class="built_in">echo</span>                 ==============================</span><br><span class="line"><span class="built_in">echo</span>                 请选择要进行的操作，然后按回车</span><br><span class="line"><span class="built_in">echo</span>                 ==============================</span><br><span class="line"><span class="built_in">echo</span>.</span><br><span class="line"><span class="built_in">echo</span>              <span class="number">1</span>.网络修复及上网相关设置,修复IE,自定义屏蔽网站</span><br><span class="line"><span class="built_in">echo</span>.</span><br><span class="line"><span class="built_in">echo</span>              <span class="number">2</span>.病毒专杀工具，端口关闭工具,关闭自动播放</span><br><span class="line"><span class="built_in">echo</span>.</span><br><span class="line"><span class="built_in">echo</span>              <span class="number">3</span>.清除所有多余的自启动项目，修复系统错误</span><br><span class="line"><span class="built_in">echo</span>.</span><br><span class="line"><span class="built_in">echo</span>              <span class="number">4</span>.清理系统垃圾,提高启动速度</span><br><span class="line"><span class="built_in">echo</span>.</span><br><span class="line"><span class="built_in">echo</span>              Q.退出</span><br><span class="line"><span class="built_in">echo</span>.</span><br><span class="line"><span class="built_in">echo</span>.</span><br><span class="line">:cho</span><br><span class="line"><span class="built_in">set</span> choice=</span><br><span class="line"><span class="built_in">set</span> /p choice=          请选择:</span><br><span class="line"><span class="keyword">IF</span> <span class="keyword">NOT</span> "<span class="variable">%choice%</span>"=="" <span class="built_in">SET</span> choice=<span class="variable">%choice:~0,1%</span></span><br><span class="line"><span class="keyword">if</span> /i "<span class="variable">%choice%</span>"=="<span class="number">1</span>" <span class="keyword">goto</span> ip</span><br><span class="line"><span class="keyword">if</span> /i "<span class="variable">%choice%</span>"=="<span class="number">2</span>" <span class="keyword">goto</span> setsave</span><br><span class="line"><span class="keyword">if</span> /i "<span class="variable">%choice%</span>"=="<span class="number">3</span>" <span class="keyword">goto</span> kaiji</span><br><span class="line"><span class="keyword">if</span> /i "<span class="variable">%choice%</span>"=="<span class="number">4</span>" <span class="keyword">goto</span> clean</span><br><span class="line"><span class="keyword">if</span> /i "<span class="variable">%choice%</span>"=="Q" <span class="keyword">goto</span> endd</span><br><span class="line"><span class="built_in">echo</span> 选择无效，请重新输入</span><br><span class="line"><span class="built_in">echo</span>.</span><br><span class="line"><span class="keyword">goto</span> cho</span><br></pre></td></tr></table></figure>
+<p>只要学完本教程前面的章节，上面的程序应该能看懂了。</p>
+<h1><code>if…else…</code>条件语句</h1>
+<p>前面已经谈到，DOS条件语句主要有以下形式</p>
+<pre><code>IF [NOT] ERRORLEVEL number command
+IF [NOT] string1==string2 command
+IF [NOT] EXIST filename command
+</code></pre>
+<p>增强用法：<code>IF [/I] string1 compare-op string2 command</code><br>
+增强用法中加上<code>/I</code>不区分大小写了，增强用法中还有一些用来判断数字的符号：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">符号</th>
+<th style="text-align:center">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">EQU</td>
+<td style="text-align:center">等于</td>
+</tr>
+<tr>
+<td style="text-align:center">NEQ</td>
+<td style="text-align:center">不等于</td>
+</tr>
+<tr>
+<td style="text-align:center">LSS</td>
+<td style="text-align:center">小于</td>
+</tr>
+<tr>
+<td style="text-align:center">LEQ</td>
+<td style="text-align:center">小于或等于</td>
+</tr>
+<tr>
+<td style="text-align:center">GTR</td>
+<td style="text-align:center">大于</td>
+</tr>
+<tr>
+<td style="text-align:center">GEQ</td>
+<td style="text-align:center">大于或等于</td>
+</tr>
+</tbody>
+</table>
+<p>上面的<code>command</code>命令都可以用小括号来使用多条命令的组合，包括<code>else</code>子句，组合命令中可以嵌套使用条件或循环命令。例如:</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">IF</span> <span class="keyword">EXIST</span> filename (</span><br><span class="line"> <span class="built_in">del</span> filename</span><br><span class="line">) <span class="keyword">ELSE</span> (</span><br><span class="line"> <span class="built_in">echo</span> filename missing</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>也可写成：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="keyword">exist</span> filename (<span class="built_in">del</span> filename) <span class="keyword">else</span> (<span class="built_in">echo</span> filename missing)</span><br></pre></td></tr></table></figure>
+<p>但这种写法不适合命令太多或嵌套命令的使用。</p>
+<h1>循环语句</h1>
+<h2 id="指定次数循环"><a class="header-anchor" href="#指定次数循环">¶</a>指定次数循环</h2>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FOR</span> /L %variable <span class="keyword">IN</span> (<span class="built_in">start</span>,step,end) <span class="keyword">DO</span> command [command-parameters]</span><br></pre></td></tr></table></figure>
+<p>组合命令：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FOR</span> /L %variable <span class="keyword">IN</span> (<span class="built_in">start</span>,step,end) <span class="keyword">DO</span> (</span><br><span class="line">Command1</span><br><span class="line">Command2</span><br><span class="line">……</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h2 id="对某集合执行循环语句。"><a class="header-anchor" href="#对某集合执行循环语句。">¶</a>对某集合执行循环语句。</h2>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FOR</span> <span class="variable">%%v</span>ariable <span class="keyword">IN</span> (<span class="built_in">set</span>) <span class="keyword">DO</span> command [command-parameters]</span><br></pre></td></tr></table></figure>
+<p><code>%%variable</code>  指定一个单一字母可替换的参数。<br>
+<code>(set)</code>       指定一个或一组文件。可以使用通配符。<br>
+<code>command</code>     对每个文件执行的命令，可用小括号使用多条命令组合。</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FOR</span> /R [[drive:]<span class="built_in">path</span>] %variable <span class="keyword">IN</span> (<span class="built_in">set</span>) <span class="keyword">DO</span> command [command-parameters]</span><br></pre></td></tr></table></figure>
+<p>检查以 <code>[drive:]path</code> 为根的目录树，指向每个目录中的<code>FOR</code> 语句。<br>
+如果在 <code>/R</code> 后没有指定目录，则使用当前目录。<br>
+如果集仅为一个单点<code>.</code>字符，则枚举该目录树。<br>
+同前面一样，<code>command</code>可以用括号来组合：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FOR</span> /R [[drive:]<span class="built_in">path</span>] %variable <span class="keyword">IN</span> (<span class="built_in">set</span>) <span class="keyword">DO</span> (</span><br><span class="line">Command1</span><br><span class="line">Command2</span><br><span class="line">……</span><br><span class="line">commandn</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h1>条件循环</h1>
+<p>上面的循环结构是用<code>for</code>命令来实现的，<code>for</code>命令循环有一个缺点，就是整个循环被当作一条命令语句，涉及到变量延迟的问题。</p>
+<p>利用<code>goto</code>语句和条件判断，dos可以实现条件循环，很简单啦，看例子:</p>
+<p>例：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">set</span> var=<span class="number">0</span></span><br><span class="line"><span class="comment">rem ************循环开始了</span></span><br><span class="line">:continue</span><br><span class="line"><span class="built_in">set</span> /a var+=<span class="number">1</span></span><br><span class="line"><span class="built_in">echo</span> 第<span class="variable">%var%</span>次循环</span><br><span class="line"><span class="keyword">if</span> <span class="variable">%var%</span> <span class="keyword">lss</span> <span class="number">100</span> <span class="keyword">goto</span> continue</span><br><span class="line"><span class="comment">rem ************循环结束了</span></span><br><span class="line"><span class="built_in">echo</span> 循环执行完毕</span><br><span class="line"><span class="built_in">pause</span></span><br></pre></td></tr></table></figure>
+<p>例：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">set</span> var=<span class="number">100</span></span><br><span class="line"><span class="comment">rem ************循环开始了</span></span><br><span class="line">:continue</span><br><span class="line"><span class="built_in">echo</span> 第<span class="variable">%var%</span>次循环</span><br><span class="line"><span class="built_in">set</span> /a var-=<span class="number">1</span></span><br><span class="line"><span class="keyword">if</span> <span class="variable">%var%</span> <span class="keyword">gtr</span> <span class="number">0</span> <span class="keyword">goto</span> continue</span><br><span class="line"><span class="comment">rem ************循环结束了</span></span><br><span class="line"><span class="built_in">echo</span> 循环执行完毕</span><br><span class="line"><span class="built_in">pause</span></span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line"># 子程序</span><br><span class="line"></span><br><span class="line">在批处理程序中可以调用外部可运行程序，比如exe程序，也可调用其他批处理程序，这些也可以看作子程序，但是不够方便，如果被调用的程序很多，就显得不够简明了，很繁琐。</span><br><span class="line"></span><br><span class="line">在windows中，批处理可以调用本程序中的一个程序段，相当于子程序，这些子程序一般放在主程序后面。</span><br><span class="line"></span><br><span class="line">子程序调用格式：</span><br><span class="line"></span><br><span class="line">    <span class="keyword">CALL</span> :<span class="built_in">label</span> arguments</span><br><span class="line"></span><br><span class="line">子程序语法：</span><br><span class="line"></span><br><span class="line">    :<span class="built_in">label</span></span><br><span class="line">    command1</span><br><span class="line">    command2</span><br><span class="line">    ......</span><br><span class="line">    commandn</span><br><span class="line">    <span class="keyword">goto</span> :eof</span><br><span class="line"></span><br><span class="line">在子程序段中，参数`%<span class="number">0</span>`指标签:`<span class="built_in">label</span>`，子过程一般放在最后，并且注意在主程序最后要加上`<span class="keyword">exit</span>`或跳转语句，避免错误的进入子过程。</span><br><span class="line">子程序和主程序中的变量都是全局变量，其作用范围都是整个批处理程序。</span><br><span class="line">传至子程序的参数在`<span class="keyword">call</span>`语句中指定，在子程序中用`<span class="variable">%1`、`%</span><span class="number">2</span>`至`%<span class="number">9</span>`的形式调用，而子程序返回主程序的数据只需在调用结束后直接引用就可以了，当然也可以指定返回变量，请看下面的例子。</span><br><span class="line"></span><br><span class="line">子程序例<span class="number">1</span>：</span><br><span class="line">```<span class="built_in">cmd</span></span><br><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="keyword">call</span> :sub return 你好</span><br><span class="line"><span class="built_in">echo</span> 子程序返回值：<span class="variable">%return%</span></span><br><span class="line"><span class="built_in">pause</span></span><br><span class="line">:sub</span><br><span class="line"><span class="built_in">set</span> <span class="variable">%1=%</span><span class="number">2</span></span><br><span class="line"><span class="keyword">goto</span> :eof</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<pre><code>你好
+</code></pre>
+<p>子程序例2：设计一个求多个整数相加的子程序</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">set</span> sum=<span class="number">0</span></span><br><span class="line"><span class="keyword">call</span> :sub sum <span class="number">10</span> <span class="number">20</span> <span class="number">35</span></span><br><span class="line"><span class="built_in">echo</span> 数据求和结果：<span class="variable">%sum%</span></span><br><span class="line"><span class="built_in">pause</span></span><br><span class="line">:sub</span><br><span class="line"><span class="comment">rem 参数1为返回变量名称</span></span><br><span class="line"><span class="built_in">set</span> /a <span class="variable">%1=%</span><span class="number">1</span>+%<span class="number">2</span></span><br><span class="line"><span class="built_in">shift</span> /<span class="number">2</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> "%<span class="number">2</span>"=="" <span class="keyword">goto</span> sub</span><br><span class="line"><span class="keyword">goto</span> :eof</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<pre><code>65
+</code></pre>
+<h1>用ftp命令实现自动下载</h1>
+<p>ftp是常用的下载工具，ftp界面中有40多个常用命令。这里介绍如何用dos命令行调用ftp命令，实现ftp自动登录，并上传下载，并自动退出ftp程序。<br>
+其实可以将ftp命令组合保存为一个文本文件，然后用以下命令调用即可。</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ftp  -n -s:[[drive:]<span class="built_in">path</span>]filename</span><br></pre></td></tr></table></figure>
+<p>上面的<code>filename</code>为ftp命令文件，包括登录IP地址，用户名、密码、操作命令等</p>
+<p>例：</p>
+<pre><code>open 90.52.8.3    ＃打开ip
+user iware        ＃用户为iware
+password8848      ＃密码
+bin               ＃二进制传输模式
+prompt
+cd tmp1           ＃切换至iware用户下的tmp1目录
+pwd
+lcd d:\download   ＃本地目录
+mget *            ＃下载tmp1目录下的所有文件
+bye               ＃退出ftp
+</code></pre>
+<h1>用7-ZIP实现命令行压缩和解压功能</h1>
+<p>语法格式：（详细情况见7-zip帮助文件）</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">7</span>z &lt;command&gt; [&lt;switch&gt;...] &lt;base_archive_name&gt; [&lt;arguments&gt;...]</span><br></pre></td></tr></table></figure>
+<p>7z.exe的每个命令都有不同的参数<code>&lt;switch&gt;</code>,请看帮助文件</p>
+<p><code>&lt;base_archive_name&gt;</code>为压缩包名称<br>
+<code>&lt;arguments&gt;</code>为文件名称，支持通配符或文件列表</p>
+<p>其中，7z是至命令行压缩解压程序7z.exe，<code>&lt;command&gt;</code>是7z.exe包含的命令，列举如下：</p>
+<p>a: Adds files to archive. 添加至压缩包</p>
+<pre><code>a命令可用参数：
+  -i (Include)
+  -m (Method)
+  -p (Set Password)
+  -r (Recurse)
+  -sfx (create SFX)
+  -si (use StdIn)
+  -so (use StdOut)
+  -ssw (Compress shared files)
+  -t (Type of archive)
+  -u (Update)
+  -v (Volumes)
+  -w (Working Dir)
+  -x (Exclude)
+b： Benchmark
+d： Deletes files from archive. 从压缩包中删除文件
+d命令可用参数：
+  -i (Include)
+  -m (Method)
+  -p (Set Password)
+  -r (Recurse)
+  -u (Update)
+  -w (Working Dir)
+  -x (Exclude)
+e： Extract解压文件至当前目录或指定目录
+e命令可用参数：
+  -ai (Include archives)
+  -an (Disable parsing of archive_name)
+  -ao (Overwrite mode)
+  -ax (Exclude archives)
+  -i (Include)
+  -o (Set Output Directory)
+  -p (Set Password)
+  -r (Recurse)
+  -so (use StdOut)
+  -x (Exclude)
+  -y (Assume Yes on all queries)
+l： Lists contents of archive.
+t： Test 
+u： Update
+x： eXtract with full paths用文件的完整路径解压至当前目录或指定目录
+x命令可用参数：
+  -ai (Include archives)
+  -an (Disable parsing of archive_name)
+  -ao (Overwrite mode)
+  -ax (Exclude archives)
+  -i (Include)
+  -o (Set Output Directory)
+  -p (Set Password)
+  -r (Recurse)
+  -so (use StdOut)
+  -x (Exclude)
+  -y (Assume Yes on all queries)
+</code></pre>
+<h1>调用VBScript程序</h1>
+<p>使用 Windows脚本宿主，可以在命令提示符下运行脚本。CScript.exe提供了用于设置脚本属性的命令行开关。</p>
+<p>用法：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CScript 脚本名称 [脚本选项...] [脚本参数...]</span><br></pre></td></tr></table></figure>
+<p>选项：</p>
+<pre><code>//B         批模式：不显示脚本错误及提示信息
+//D         启用 Active Debugging
+//E:engine  使用执行脚本的引擎
+//H:CScript 将默认的脚本宿主改为 CScript.exe
+//H:WScript 将默认的脚本宿主改为 WScript.exe （默认）
+//I         交互模式（默认，与 //B 相对)
+//Job:xxxx  执行一个 WSF 工作
+//Logo      显示徽标（默认）
+//Nologo    不显示徽标：执行时不显示标志
+//S         为该用户保存当前命令行选项
+//T:nn      超时设定秒：允许脚本运行的最长时间
+//X         在调试器中执行脚本
+//U         用 Unicode 表示来自控制台的重定向 I/O
+</code></pre>
+<p>“脚本名称”是带有扩展名和必需的路径信息的脚本文件名称，如<code>d:\admin\vbscripts\chart.vbs</code>。<br>
+“脚本选项和参数”将传递给脚本。脚本参数前面有一个斜杠<code>/</code>。每个参数都是可选的；但不能在未指定脚本名称的情况下指定脚本选项。如果未指定参数，则 CScript 将显示 CScript 语法和有效的宿主参数。</p>
+<h1>将批处理转化为可执行文件：</h1>
+<p>由于批处理文件是一种文本文件，任何人都可以对其进行随便编辑，不小心就会把里面的命令破坏掉，所以如果将其转换成.com格式的可执行文件，不仅执行效率会大大提高，而且不会破坏原来的功能，更能将优先级提到最高。<code>Bat2Com</code>就可以完成这个转换工作。</p>
+<blockquote>
+<p><strong>小知识</strong>：<br>
+在DOS环境下，可执行文件的优先级由高到低依次为<code>.com</code>&gt;<code>.exe</code>&gt;<code>.bat</code>&gt;<code>.cmd</code>，即如果在同一目录下存在文件名相同的这四类文件，当只键入文件名时，DOS执行的是 <a href="http://name.com" target="_blank" rel="noopener">name.com</a>，如果需要执行其他三个文件，则必须指定文件的全名，如name.bat。</p>
+</blockquote>
+<p>这是一个只有5.43K大小的免费绿色工具，可以运行在纯DOS或DOS窗口的命令行中，用法：</p>
+<pre><code>Bat2Com FileName
+</code></pre>
+<p>这样就会在同一目录下生成一个名为FileNme.com的可执行文件，执行的效果和原来的.bat文件一样。</p>
+<h1>时间延迟</h1>
+<p>本条参考引用[英雄]教程</p>
+<p>什么是时间延迟？顾名思义，就是执行一条命令后延迟一段时间再进行下一条命令。<br>
+延迟的应用见下节：“模拟进度条”。</p>
+<h2 id="利用ping命令延时"><a class="header-anchor" href="#利用ping命令延时">¶</a>利用ping命令延时</h2>
+<p>例：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line">  <span class="built_in">echo</span> 延时前：<span class="variable">%time%</span></span><br><span class="line">  <span class="built_in">ping</span> /n <span class="number">3</span> <span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span> &gt;<span class="built_in">nul</span></span><br><span class="line">  <span class="built_in">echo</span> 延时后：<span class="variable">%time%</span></span><br><span class="line">  <span class="built_in">pause</span></span><br></pre></td></tr></table></figure>
+<p>解说：用到了<code>ping</code>命令的<code>/n”</code>参数，表示要发送多少次请求到指定的ip。本例中要发送3次请求到本机的<code>ip（127.0.0.1）</code>。<code>127.0.0.1</code>可简写为<code>127.1</code>。<code>&gt;nul</code>就是屏蔽掉<code>ping</code>命令所显示的内容。</p>
+<h2 id="利用for命令延时"><a class="header-anchor" href="#利用for命令延时">¶</a>利用for命令延时</h2>
+<p>例：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line">  <span class="built_in">echo</span> 延时前：<span class="variable">%time%</span></span><br><span class="line">  <span class="keyword">for</span> /l <span class="variable">%%i</span> <span class="keyword">in</span> (<span class="number">1</span>,<span class="number">1</span>,<span class="number">5000</span>) <span class="keyword">do</span> <span class="built_in">echo</span> <span class="variable">%%i</span>&gt;<span class="built_in">nul</span></span><br><span class="line">  <span class="built_in">echo</span> 延时后：<span class="variable">%time%</span></span><br><span class="line">  <span class="built_in">pause</span></span><br></pre></td></tr></table></figure>
+<p>解说：原理很简单，就是利用一个计次循环并屏蔽它所显示的内容来达到延时的目的。</p>
+<h2 id="利用vbs延迟函数，精确度毫秒，误差1000毫秒内"><a class="header-anchor" href="#利用vbs延迟函数，精确度毫秒，误差1000毫秒内">¶</a>利用vbs延迟函数，精确度毫秒，误差1000毫秒内</h2>
+<p>例：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line">    <span class="built_in">echo</span> <span class="variable">%time%</span></span><br><span class="line">    <span class="keyword">call</span> :delay <span class="number">5000</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="variable">%time%</span></span><br><span class="line">    <span class="built_in">pause</span></span><br><span class="line">    <span class="keyword">exit</span></span><br><span class="line">    :delay</span><br><span class="line">    <span class="built_in">echo</span> WScript.Sleep %<span class="number">1</span>&gt;delay.vbs</span><br><span class="line">    CScript //B delay.vbs</span><br><span class="line">    <span class="built_in">del</span> delay.vbs</span><br><span class="line">    <span class="keyword">goto</span> :eof</span><br></pre></td></tr></table></figure>
+<p>运行显示：</p>
+<pre><code>10:44:06.45
+10:44:11.95
+请按任意键继续. . .
+</code></pre>
+<p>上面的运行结果显示实际延时了5500毫秒，多出来的500毫秒时建立和删除临时文件所耗费的时间。误差在一秒之内。</p>
+<h2 id="仅用批处理命令实现任意时间延迟"><a class="header-anchor" href="#仅用批处理命令实现任意时间延迟">¶</a>仅用批处理命令实现任意时间延迟</h2>
+<p>仅用批处理命令就可以实现延迟操作，精确度10毫秒，误差50毫秒内。<br>
+例：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">set</span> /p delay=请输入需延迟的毫秒数：</span><br><span class="line"><span class="built_in">set</span> TotalTime=<span class="number">0</span></span><br><span class="line"><span class="built_in">set</span> NowTime=<span class="variable">%time%</span></span><br><span class="line">::读取起始时间，时间格式为：<span class="number">13</span>:<span class="number">01</span>:<span class="number">05</span>.<span class="number">95</span></span><br><span class="line"><span class="built_in">echo</span> 程序开始时间：<span class="variable">%NowTime%</span></span><br><span class="line">:delay_continue</span><br><span class="line"><span class="built_in">set</span> /a minute1=<span class="number">1</span><span class="variable">%NowTime:~3,2%</span>-<span class="number">100</span></span><br><span class="line">::读取起始时间的分钟数</span><br><span class="line"><span class="built_in">set</span> /a second1=<span class="number">1</span><span class="variable">%NowTime:~-5,2%</span><span class="variable">%NowTime:~-2%</span><span class="number">0</span>-<span class="number">100000</span></span><br><span class="line">::将起始时间的秒数转为毫秒</span><br><span class="line"><span class="built_in">set</span> NowTime=<span class="variable">%time%</span></span><br><span class="line"><span class="built_in">set</span> /a minute2=<span class="number">1</span><span class="variable">%NowTime:~3,2%</span>-<span class="number">100</span></span><br><span class="line">:: 读取现在时间的分钟数</span><br><span class="line"><span class="built_in">set</span> /a second2=<span class="number">1</span><span class="variable">%NowTime:~-5,2%</span><span class="variable">%NowTime:~-2%</span><span class="number">0</span>-<span class="number">100000</span></span><br><span class="line">::将现在时间的秒数转为毫秒</span><br><span class="line"><span class="built_in">set</span> /a TotalTime+=(<span class="variable">%minute2%</span>-<span class="variable">%minute1%</span>+<span class="number">60</span>)<span class="variable">%%6</span>0*<span class="number">60000</span>+<span class="variable">%second2%</span>-<span class="variable">%second1%</span></span><br><span class="line"><span class="keyword">if</span> <span class="variable">%TotalTime%</span> <span class="keyword">lss</span> <span class="variable">%delay%</span> <span class="keyword">goto</span> delay_continue</span><br><span class="line"><span class="built_in">echo</span> 程序结束时间：<span class="variable">%time%</span></span><br><span class="line"><span class="built_in">echo</span> 设定延迟时间：<span class="variable">%delay%</span>毫秒</span><br><span class="line"><span class="built_in">echo</span> 实际延迟时间：<span class="variable">%TotalTime%</span>毫秒</span><br><span class="line"><span class="built_in">pause</span></span><br></pre></td></tr></table></figure>
+<p>运行显示：</p>
+<pre><code>请输入需延迟的毫秒数：6000
+程序开始时间：15:32:16.37
+程序结束时间：15:32:22.37
+设定延迟时间：6000毫秒
+实际延迟时间：6000毫秒
+请按任意键继续. . .
+</code></pre>
+<p><img class="emoji" draggable="false" alt="👉" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f449.png"/> 实现原理：首先设定要延迟的毫秒数，然后用循环累加时间，直到累加时间大于等于延迟时间。</p>
+<p><img class="emoji" draggable="false" alt="👉" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f449.png"/> 误差：windows系统时间只能精确到10毫秒，所以理论上有可能存在10毫秒误差。经测试，当延迟时间大于500毫秒时，上面的延迟程序一般不存在误差。当延迟时间小于500毫秒时，可能有几十毫秒误差，为什么？因为延迟程序本身也是有运行时间的，同时系统时间只能精确到10毫秒。</p>
+<p>为了方便引用，可将上面的例子改为子程序调用形式：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">echo</span> 程序开始时间：<span class="variable">%Time%</span></span><br><span class="line"><span class="keyword">call</span> :delay <span class="number">10</span></span><br><span class="line"><span class="built_in">echo</span> 实际延迟时间：<span class="variable">%totaltime%</span>毫秒</span><br><span class="line"><span class="built_in">echo</span> 程序结束时间：<span class="variable">%time%</span></span><br><span class="line"><span class="built_in">pause</span></span><br><span class="line"><span class="keyword">exit</span></span><br><span class="line">::-----------以下为延时子程序--------------------</span><br><span class="line">:delay</span><br><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="keyword">if</span> "%<span class="number">1</span>"=="" <span class="keyword">goto</span> :eof</span><br><span class="line"><span class="built_in">set</span> DelayTime=%<span class="number">1</span></span><br><span class="line"><span class="built_in">set</span> TotalTime=<span class="number">0</span></span><br><span class="line"><span class="built_in">set</span> NowTime=<span class="variable">%time%</span></span><br><span class="line">::读取起始时间，时间格式为：<span class="number">13</span>:<span class="number">01</span>:<span class="number">05</span>.<span class="number">95</span></span><br><span class="line">:delay_continue</span><br><span class="line"><span class="built_in">set</span> /a minute1=<span class="number">1</span><span class="variable">%NowTime:~3,2%</span>-<span class="number">100</span></span><br><span class="line"><span class="built_in">set</span> /a second1=<span class="number">1</span><span class="variable">%NowTime:~-5,2%</span><span class="variable">%NowTime:~-2%</span><span class="number">0</span>-<span class="number">100000</span></span><br><span class="line"><span class="built_in">set</span> NowTime=<span class="variable">%time%</span></span><br><span class="line"><span class="built_in">set</span> /a minute2=<span class="number">1</span><span class="variable">%NowTime:~3,2%</span>-<span class="number">100</span></span><br><span class="line"><span class="built_in">set</span> /a second2=<span class="number">1</span><span class="variable">%NowTime:~-5,2%</span><span class="variable">%NowTime:~-2%</span><span class="number">0</span>-<span class="number">100000</span></span><br><span class="line"><span class="built_in">set</span> /a TotalTime+=(<span class="variable">%minute2%</span>-<span class="variable">%minute1%</span>+<span class="number">60</span>)<span class="variable">%%6</span>0*<span class="number">60000</span>+<span class="variable">%second2%</span>-<span class="variable">%second1%</span></span><br><span class="line"><span class="keyword">if</span> <span class="variable">%TotalTime%</span> <span class="keyword">lss</span> <span class="variable">%DelayTime%</span> <span class="keyword">goto</span> delay_continue</span><br><span class="line"><span class="keyword">goto</span> :eof</span><br></pre></td></tr></table></figure>
+<h1>模拟进度条</h1>
+<p>下面给出一个模拟进度条的程序。如果将它运用在你自己的程序中，可以使你的程序更漂亮。</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">mode</span> <span class="built_in">con</span> cols=<span class="number">113</span> lines=<span class="number">15</span> &amp;<span class="built_in">color</span> <span class="number">9</span>f</span><br><span class="line"><span class="built_in">cls</span></span><br><span class="line"><span class="built_in">echo</span>.</span><br><span class="line"><span class="built_in">echo</span>  程序正在初始化. . . </span><br><span class="line"><span class="built_in">echo</span>.</span><br><span class="line"><span class="built_in">echo</span>  ┌──────────────────────────────────────┐</span><br><span class="line"><span class="built_in">set</span>/p=  ■ &lt;<span class="built_in">nul</span></span><br><span class="line"><span class="keyword">for</span> /L <span class="variable">%%i</span> <span class="keyword">in</span> (<span class="number">1</span> <span class="number">1</span> <span class="number">38</span>) <span class="keyword">do</span> <span class="built_in">set</span> /p a=■&lt;<span class="built_in">nul</span>&amp;<span class="built_in">ping</span> /n <span class="number">1</span> <span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span>&gt;<span class="built_in">nul</span></span><br><span class="line"><span class="built_in">echo</span>   <span class="number">100</span>%%</span><br><span class="line"><span class="built_in">echo</span>  └──────────────────────────────────────┘</span><br><span class="line"><span class="built_in">pause</span></span><br></pre></td></tr></table></figure>
+<p><img class="emoji" draggable="false" alt="👉" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f449.png"/> 解说：<br>
+<code>set /p a=■&lt;nul</code>的意思是：只显示提示信息<code>■</code>不换行，也不需手工输入任何信息，这样可以使每个<code>■</code>在同一行逐个输出。<code>ping /n 0 127.1&gt;nul</code>是输出每个<code>■</code>的时间间隔，即每隔多少时间输出一个<code>■</code>。</p>
+<h1>特殊字符的输入及应用</h1>
+<p><code>开始</code> -&gt; <code>运行</code> -&gt; <code>输入cmd</code> -&gt; <code>edit</code> -&gt; <code>ctrl+p</code>（意思是允许输入特殊字符）-&gt; 按<code>ctrl+a</code>将会显示笑脸图案。（如果要继续输入特殊字符请再次按ctrl+p，然后ctrl+某个字母）。<strong>以上是特殊字符的输入方法，还挺管用。</strong> 也就是用编辑程序<code>edit</code>输入特殊字符，然后保存为一文本文件，再在windows下打开此文件，复制其中的特殊符号即可。</p>
+<p>一些简单的特殊符号可以在dos命令窗口直接输入，并用重定向保存为文本文件。</p>
+<p>例：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">C:&gt;<span class="title">ECHO</span> ^<span class="title">G</span>&gt;<span class="title">temp.txt</span></span></span><br></pre></td></tr></table></figure>
+<p><code>^G</code>是用Ctrl＋G或Alt＋007输入，输入多个<code>^G</code>可以产生多声鸣响。</p>
+<blockquote>
+<p><img class="emoji" draggable="false" alt="✊" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/270a.png"/><br>
+特殊字符的应用也很有意思，这里仅举一例：退格键，表示删除左边的字符，此键不能在文档中正常输入，但可以通过edit编辑程序录入并复制出来。即“”。利用退格键，可以设计闪烁文字效果</p>
+</blockquote>
+<p>例：<strong>文字闪烁</strong></p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line">:<span class="built_in">start</span></span><br><span class="line"><span class="built_in">set</span>/p=床前明月光&lt;<span class="built_in">nul</span></span><br><span class="line">::显示文字，光标停于行尾</span><br><span class="line"><span class="built_in">ping</span> -n <span class="number">0</span> <span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span>&gt;<span class="built_in">nul</span></span><br><span class="line">::设置延迟时间</span><br><span class="line"><span class="built_in">set</span> /p a=&lt;<span class="built_in">nul</span></span><br><span class="line">:: 输出一些退格符将光标置于该行的最左端（退格符的数量可以自己调整）。</span><br><span class="line"><span class="built_in">set</span> /p a=                               &lt;<span class="built_in">nul</span></span><br><span class="line">::输出空格将之前输出的文字覆盖掉。</span><br><span class="line"><span class="built_in">set</span> /p a=&lt;<span class="built_in">nul</span></span><br><span class="line">::再次输出退格符将光标置于该行的最左端，这里的退格符数量一定不能比前面的空格数少。</span><br><span class="line">::否则光标不能退到最左端。</span><br><span class="line"><span class="keyword">goto</span> <span class="built_in">start</span></span><br><span class="line">例：输出唐诗一首，每行闪动多次</span><br><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">setlocal</span> enabledelayedexpansion</span><br><span class="line"><span class="built_in">set</span> str=床前明月光 疑是地上霜 举头望明月 低头思故乡</span><br><span class="line">::定义字符串str</span><br><span class="line"><span class="keyword">for</span> <span class="variable">%%i</span> <span class="keyword">in</span> (<span class="variable">%str%</span>) <span class="keyword">do</span> (</span><br><span class="line"><span class="comment">  rem 由于str中含有空格，则以空格为分隔符将str中的每一个部分依次赋给变量%%i。</span></span><br><span class="line">        <span class="built_in">set</span> char=<span class="variable">%%i</span></span><br><span class="line">        <span class="built_in">echo</span>.</span><br><span class="line">        <span class="built_in">echo</span>.</span><br><span class="line">        <span class="keyword">for</span> /l <span class="variable">%%j</span> <span class="keyword">in</span> (<span class="number">0</span>,<span class="number">1</span>,<span class="number">5</span>) <span class="keyword">do</span> (</span><br><span class="line">                <span class="built_in">set</span>/p=<span class="variable">!char:~%%j,1!</span>&lt;<span class="built_in">nul</span></span><br><span class="line"><span class="comment">  rem 依次取出变量char中的每一个字符，并显示。</span></span><br><span class="line">                <span class="built_in">ping</span> -n <span class="number">0</span> <span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span>&gt;<span class="built_in">nul</span></span><br><span class="line"><span class="comment">  rem 设置输出每个字符的时间延迟。</span></span><br><span class="line">        )</span><br><span class="line"> <span class="keyword">call</span> :hero <span class="variable">%%i</span></span><br><span class="line">)</span><br><span class="line"><span class="built_in">pause</span>&gt;<span class="built_in">nul</span></span><br><span class="line"><span class="keyword">exit</span></span><br><span class="line">:hero</span><br><span class="line"><span class="keyword">for</span> /l <span class="variable">%%k</span> <span class="keyword">in</span> (<span class="number">1</span>,<span class="number">1</span>,<span class="number">10</span>) <span class="keyword">do</span> (</span><br><span class="line"> <span class="built_in">ping</span> /n <span class="number">0</span> <span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span>&gt;<span class="built_in">nul</span></span><br><span class="line"> <span class="built_in">set</span> /p a=&lt;<span class="built_in">nul</span></span><br><span class="line"> <span class="built_in">set</span> /p a=                               &lt;<span class="built_in">nul</span></span><br><span class="line"> <span class="built_in">set</span> /p a=&lt;<span class="built_in">nul</span></span><br><span class="line"> <span class="built_in">ping</span> /n <span class="number">0</span> <span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span>&gt;<span class="built_in">nul</span></span><br><span class="line"> <span class="built_in">set</span> /p a=%<span class="number">1</span>&lt;<span class="built_in">nul</span></span><br><span class="line">)</span><br><span class="line">::文字闪动</span><br><span class="line"><span class="keyword">goto</span> :eof</span><br></pre></td></tr></table></figure>
+<h1>随机数（%random%）的应用技巧</h1>
+<p><code>%RANDOM%</code> 系统变量 返回 <code>0</code> 到 <code>32767</code> 之间的任意十进制数字。由 Cmd.exe 生成。2的15次方等于32768，上面的0～32767实际就是15位二进制数的范围。<br>
+那么，如何获取100以内的随机数呢？很简单，将<code>%RANDOM%</code>按100进行求余运算即可，见例子。</p>
+<p>例：生成5个100以内的随机数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">setlocal enabledelayedexpansion</span><br><span class="line">for &#x2F;L %%i in (1 1 5) do (</span><br><span class="line">   set &#x2F;a randomNum&#x3D;!random!%%100</span><br><span class="line">   echo 随机数：!randomNum!</span><br><span class="line">)</span><br><span class="line">pause</span><br></pre></td></tr></table></figure>
+<p>运行结果：（每次运行不一样）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">随机数：91</span><br><span class="line">随机数：67</span><br><span class="line">随机数：58</span><br><span class="line">随机数：26</span><br><span class="line">随机数：20</span><br><span class="line">请按任意键继续. . .</span><br></pre></td></tr></table></figure>
+<p>求余数运算<code>set /a randomNum=!random!%%100中</code>的<code>100</code>可以是1～32768之间的任意整数。</p>
+<blockquote>
+<p><strong>总结：</strong><br>
+利用系统变量<code>%random%</code>，求余数运算<code>%%</code>，字符串处理等，可以实现很多随机处理。</p>
+</blockquote>
+<p><strong>思考题目：</strong> 生成给定位数的随机密码</p>
+<p><strong>解答思路：</strong> 将26个英文字母或10数字以及其它特殊字符组成一个字符串，随机抽取其中的若干字符。</p>
+<details>
+<summary><b>参考答案1：</b></summary>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="keyword">call</span> :randomPassword <span class="number">5</span> pass1 pass2</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">%pass1%</span> <span class="variable">%pass2%</span> </span><br><span class="line"><span class="built_in">pause</span></span><br><span class="line"><span class="keyword">exit</span></span><br><span class="line">:randomPassword</span><br><span class="line">::---------生成随机密码</span><br><span class="line">::---------<span class="variable">%1为密码长度，%</span><span class="number">2</span>及以后为返回变量名称</span><br><span class="line">::---------<span class="keyword">for</span>命令最多只能区分<span class="number">31</span>个字段</span><br><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">set</span> password_len=%<span class="number">1</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> <span class="keyword">defined</span> password_len <span class="keyword">goto</span> :eof</span><br><span class="line"><span class="keyword">if</span> <span class="variable">%password_len%</span> <span class="keyword">lss</span> <span class="number">1</span> <span class="keyword">goto</span> :eof</span><br><span class="line"><span class="built_in">set</span> wordset=a b c d e f g h i j k l m n o p q r s t u v w x y z</span><br><span class="line"><span class="built_in">set</span> return=</span><br><span class="line"><span class="built_in">set</span> num=<span class="number">0</span></span><br><span class="line">:randomPassword1</span><br><span class="line"><span class="built_in">set</span> /a num+=<span class="number">1</span></span><br><span class="line"><span class="built_in">set</span> /a numof=<span class="variable">%random%</span><span class="variable">%%2</span>6+<span class="number">1</span></span><br><span class="line"><span class="keyword">for</span> /f "tokens=<span class="variable">%numof%</span> delims= " <span class="variable">%%i</span> <span class="keyword">in</span> ("<span class="variable">%wordset%</span>") <span class="keyword">do</span> <span class="built_in">set</span> return=<span class="variable">%return%</span><span class="variable">%%i</span></span><br><span class="line"><span class="keyword">if</span> <span class="variable">%num%</span> <span class="keyword">lss</span> <span class="variable">%password_len%</span> <span class="keyword">goto</span> randomPassword1</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> "%<span class="number">2</span>"=="" <span class="built_in">set</span> <span class="variable">%2=%</span>return%</span><br><span class="line"><span class="built_in">shift</span> /<span class="number">2</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> "%<span class="number">2</span>"=="" <span class="keyword">goto</span> randomPassword</span><br><span class="line"><span class="keyword">goto</span> :eof</span><br></pre></td></tr></table></figure>
+</details> 
+<details>
+<summary><strong>参考答案2：</strong></summary>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="keyword">call</span> :randomPassword <span class="number">6</span> pass1 pass2 pass3</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">%pass1%</span> <span class="variable">%pass2%</span> <span class="variable">%pass3%</span></span><br><span class="line"><span class="built_in">pause</span></span><br><span class="line"><span class="keyword">exit</span></span><br><span class="line">:randomPassword</span><br><span class="line">::---------生成随机密码</span><br><span class="line">::---------<span class="variable">%1为密码长度，%</span><span class="number">2</span>及以后为返回变量名称</span><br><span class="line">::---------<span class="keyword">goto</span>循环、变量嵌套、命令嵌套</span><br><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="keyword">if</span> "%<span class="number">1</span>"=="" <span class="keyword">goto</span> :eof</span><br><span class="line"><span class="keyword">if</span> %<span class="number">1</span> <span class="keyword">lss</span> <span class="number">1</span> <span class="keyword">goto</span> :eof</span><br><span class="line"><span class="built_in">set</span> password_len=%<span class="number">1</span></span><br><span class="line"><span class="built_in">set</span> return=</span><br><span class="line"><span class="built_in">set</span> wordset=abcdefghijklmnopqrstuvwxyz023456789_</span><br><span class="line">::---------------------------循环</span><br><span class="line">:randomPassword1</span><br><span class="line"><span class="built_in">set</span> /a numof=<span class="variable">%random%</span><span class="variable">%%3</span>6</span><br><span class="line"><span class="keyword">call</span> <span class="built_in">set</span> return=<span class="variable">%return%</span><span class="variable">%%w</span>ordset:~<span class="variable">%numof%</span>,<span class="number">1</span>%%</span><br><span class="line"><span class="built_in">set</span> /a password_len-=<span class="number">1</span></span><br><span class="line"><span class="keyword">if</span> <span class="variable">%password_len%</span> <span class="keyword">gtr</span> <span class="number">0</span> <span class="keyword">goto</span> randomPassword1</span><br><span class="line">::---------------------------循环</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> "%<span class="number">2</span>"=="" <span class="built_in">set</span> <span class="variable">%2=%</span>return%</span><br><span class="line"><span class="built_in">shift</span> /<span class="number">2</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> "%<span class="number">2</span>"=="" <span class="keyword">goto</span> randomPassword</span><br><span class="line"><span class="keyword">goto</span> :eof</span><br></pre></td></tr></table></figure>
+<p>说明：本例涉及到变量嵌套和命令嵌套的应用，见后。</p>
+</details>  
+<h1>变量嵌套与命令嵌套</h1>
+<p>和其它编程语言相比，dos功能显得相对简单，要实现比较复杂的功能，需要充分运用各种技巧，变量嵌套与命令嵌套就是此类技巧之一。<br>
+先复习一下前面的“字符串截取”的关键内容：</p>
+<p>截取功能统一语法格式为：<code>%a:~[m[,n]]%</code></p>
+<p>方括号表示可选，<code>%</code>为变量标识符，<code>a</code>为变量名，不可少，冒号用于分隔变量名和说明部分，符号<code>～</code>可以简单理解为“偏移”即可，<code>m</code>为偏移量（缺省为0），<code>n</code>为截取长度（缺省为全部）。百分号如果需要当成单一字符，必须写成<code>%%</code>。</p>
+<p>以上是dos变量处理的通用格式，如果其中的<code>m</code>、<code>n</code>为变量，那么这种情况就是变量嵌套了。比如设变量<code>word</code>为<code>“abcdefghij”</code>，变量<code>num</code>为<code>“eee4eeeee”</code>，<code>%word:~4,1%</code>为<code>e</code>，其中<code>4</code>可以从变量<code>num</code>中取值，即<code>%num:~3,1%</code>，写成组合形式：<code>%word:~%num:~3,1%,1%</code>，经测试这种写法不能正确执行。</p>
+<p>那么，怎么实现这种变量嵌套呢？首先，我们将其中的<code>%num:~3,1%</code>作为正常的字符处理命令，其它部分当成一般字符串，这样首尾的%就必须写成<code>%%</code>了，即<code>%%word:~%num:~3,1%,1%%</code>。但是上面的写法同样不能直接当成命令执行，必须运用命令嵌套才能执行。</p>
+<p>那么什么是命令嵌套呢？简单的说，首先用一条dos命令生成一个字符串，而这个字符串是另一条dos命令，用<code>call</code>语句调用字符串将其执行，从而得到最终结果。</p>
+<p>例：用<code>call</code>语句实现命令嵌套</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">set</span> str1=aaa <span class="built_in">echo</span> ok bbb</span><br><span class="line"><span class="built_in">echo</span> 初始字符串：<span class="variable">%str1%</span></span><br><span class="line"><span class="built_in">echo</span> 生成命令字符串如下：</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">%str1:~4,7%</span></span><br><span class="line"><span class="built_in">echo</span> 运行命令字符串生成最终结果为：</span><br><span class="line"><span class="keyword">call</span> <span class="variable">%str1:~4,7%</span></span><br><span class="line"><span class="built_in">pause</span></span><br></pre></td></tr></table></figure>
+<p>运行显示：</p>
+<pre><code>初始字符串：aaa echo ok bbb
+生成命令字符串如下：
+echo ok
+运行命令字符串生成最终结果为：
+ok
+请按任意键继续. . .
+</code></pre>
+<p>变量嵌套与命令嵌套结合运用，见下例。</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">set</span> num=Redtek <span class="number">2006</span> bbs.cn-dos.<span class="built_in">net</span></span><br><span class="line"><span class="built_in">set</span> a=<span class="number">123245</span></span><br><span class="line"><span class="built_in">set</span> b=<span class="number">87754321</span></span><br><span class="line"><span class="built_in">echo</span>.</span><br><span class="line"><span class="built_in">echo</span> a=<span class="variable">%a%</span>  b=<span class="variable">%b%</span>  num=<span class="variable">%num%</span></span><br><span class="line"><span class="built_in">set</span> result=<span class="variable">%%%</span><span class="variable">%%%</span><span class="variable">%%n</span>um:~<span class="variable">%%%</span><span class="variable">%b:~%</span>a:~<span class="number">3</span>,<span class="number">1</span><span class="variable">%,1%</span><span class="variable">%%%</span>,<span class="number">4</span><span class="variable">%%%</span><span class="variable">%%%</span>%%</span><br><span class="line"><span class="built_in">echo</span> 直接运行命令，只解析第一层变量，其余的当作字符串：<span class="variable">%result%</span></span><br><span class="line"><span class="keyword">call</span> <span class="built_in">set</span> result=<span class="variable">%%%</span><span class="variable">%%%</span><span class="variable">%%n</span>um:~<span class="variable">%%%</span><span class="variable">%b:~%</span>a:~<span class="number">3</span>,<span class="number">1</span><span class="variable">%,1%</span><span class="variable">%%%</span>,<span class="number">4</span><span class="variable">%%%</span><span class="variable">%%%</span>%%</span><br><span class="line"><span class="built_in">echo</span> 一层命令嵌套，可解析两层变量，其余的当作字符串：<span class="variable">%result%</span></span><br><span class="line"><span class="keyword">call</span> <span class="keyword">call</span> <span class="built_in">set</span> result=<span class="variable">%%%</span><span class="variable">%%%</span><span class="variable">%%n</span>um:~<span class="variable">%%%</span><span class="variable">%b:~%</span>a:~<span class="number">3</span>,<span class="number">1</span><span class="variable">%,1%</span><span class="variable">%%%</span>,<span class="number">4</span><span class="variable">%%%</span><span class="variable">%%%</span>%%</span><br><span class="line"><span class="built_in">echo</span> 两层命令嵌套，可解析三层变量，其余的当作字符串：<span class="variable">%result%</span></span><br><span class="line"><span class="keyword">call</span> <span class="keyword">call</span> <span class="keyword">call</span> <span class="built_in">set</span> result=<span class="variable">%%%</span><span class="variable">%%%</span><span class="variable">%%n</span>um:~<span class="variable">%%%</span><span class="variable">%b:~%</span>a:~<span class="number">3</span>,<span class="number">1</span><span class="variable">%,1%</span><span class="variable">%%%</span>,<span class="number">4</span><span class="variable">%%%</span><span class="variable">%%%</span>%%</span><br><span class="line"><span class="built_in">echo</span> 三层命令嵌套，运行变量解析完后的字符串：<span class="variable">%result%</span></span><br><span class="line"><span class="built_in">pause</span></span><br></pre></td></tr></table></figure>
+<h1>文件内容筛选（type和findstr命令结合使用）</h1>
+<p>Find常和type命令结合使用</p>
+<pre><code>Type [drive:][path]filename | find &quot;string&quot; [&gt;tmpfile] #挑选包含string的行
+Type [drive:][path]filename | find /v &quot;string&quot;   #剔除文件中包含string的行
+Type [drive:][path]filename | find /c   #显示文件行数 
+</code></pre>
+<p>以上用法将去除find命令自带的提示语（文件名提示）：</p>
+<pre><code>FIND [/V] [/C] [/N] [/I] [/OFF[LINE]] &quot;string&quot; [[drive:][path]filename[ ...]]
+
+  /V                      显示所有未包含指定字符串的行。
+  /C                      仅显示包含字符串的行数。
+  /N                      显示行号。
+  /I                      搜索字符串时忽略大小写。
+  /OFF[LINE]              不要跳过具有脱机属性集的文件。
+  &quot;string&quot;                指定要搜索的文字串，
+  [drive:][path]filename  指定要搜索的文件。
+</code></pre>
+<p>如果没有指定路径，FIND 将搜索键入的或者由另一命令产生的文字。</p>
+<p>find命令不能处理文件中超过1024个字符的数据行，此时可用findstr命令。（见前面介绍）</p>
+<pre><code>FINDSTR [/B] [/E] [/L] [/R] [/S] [/I] [/X] [/V] [/N] [/M] [/O] [/F:file]
+        [/C:string] [/G:file] [/D:dir list] [/A:color attributes] [/OFF[LINE]]
+        strings [[drive:][path]filename[ ...]]
+
+  /B                      在一行的开始配对模式。
+  /E                      在一行的结尾配对模式。
+  /L                      按字使用搜索字符串。
+  /R                      将搜索字符串作为一般表达式使用。
+  /S                      在当前目录和所有子目录中搜索匹配文件。
+  /I                      指定搜索不分大小写。
+  /X                      打印完全匹配的行。
+  /V                      只打印不包含匹配的行。
+  /N                      在匹配的每行前打印行数。
+  /M                      如果文件含有匹配项，只打印其文件名。
+  /O                      在每个匹配行前打印字符偏移量。
+  /P                      忽略有不可打印字符的文件。
+  /OFF[LINE]              不跳过带有脱机属性集的文件。
+  /A:attr                 指定有十六进位数字的颜色属性。请见 &quot;color /?&quot;
+  /F:file                 从指定文件读文件列表 (/ 代表控制台)。
+  /C:string               使用指定字符串作为文字搜索字符串。
+  /G:file                 从指定的文件获得搜索字符串。 (/ 代表控制台)。
+  /D:dir                  查找以分号为分隔符的目录列表
+  strings                 要查找的文字。
+  [drive:][path]filename  指定要查找的文件。
+</code></pre>
+<p>除非参数有 <code>/C</code> 前缀，请使用空格隔开搜索字符串。</p>
+<p>例如:</p>
+<p><code>FINDSTR &quot;hello there&quot; x.y</code> 在文件 x.y 中寻找 “hello” 或<br>
+“there” 。<br>
+<code>FINDSTR /C:&quot;hello there&quot; x.y</code> 文件 x.y  寻找 “hello there”。</p>
+<p>一般表达式的快速参考:</p>
+<pre><code>.        通配符: 任何字符
+*        重复: 以前字符或类别出现零或零以上次数
+^        行位置: 行的开始
+$        行位置: 行的终点
+[class]  字符类别: 任何在字符集中的字符
+[^class] 补字符类别: 任何不在字符集中的字符
+[x-y]    范围: 在指定范围内的任何字符
+\x       Escape: 元字符 x 的文字用法
+\&lt;xyz    字位置: 字的开始
+xyz\&gt;    字位置: 字的结束</code></pre>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.JPG" alt="Wang PT 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.JPG" alt="Wang PT 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E6%89%B9%E5%A4%84%E7%90%86/" rel="tag"><i class="fa fa-tag"></i> 批处理</a>
+              <a href="/tags/DOS/" rel="tag"><i class="fa fa-tag"></i> DOS</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/04/23/DOS%E7%BC%96%E7%A8%8B6-IF%E5%91%BD%E4%BB%A4/" rel="prev" title="DOS编程6-IF命令">
+      <i class="fa fa-chevron-left"></i> DOS编程6-IF命令
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">1.</span> <span class="nav-text">交互界面设计</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">2.</span> <span class="nav-text">if…else…条件语句</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">3.</span> <span class="nav-text">循环语句</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#指定次数循环"><span class="nav-number">3.1.</span> <span class="nav-text">指定次数循环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对某集合执行循环语句。"><span class="nav-number">3.2.</span> <span class="nav-text">对某集合执行循环语句。</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">4.</span> <span class="nav-text">条件循环</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">5.</span> <span class="nav-text">用ftp命令实现自动下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">6.</span> <span class="nav-text">用7-ZIP实现命令行压缩和解压功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">7.</span> <span class="nav-text">调用VBScript程序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">8.</span> <span class="nav-text">将批处理转化为可执行文件：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">9.</span> <span class="nav-text">时间延迟</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#利用ping命令延时"><span class="nav-number">9.1.</span> <span class="nav-text">利用ping命令延时</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#利用for命令延时"><span class="nav-number">9.2.</span> <span class="nav-text">利用for命令延时</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#利用vbs延迟函数，精确度毫秒，误差1000毫秒内"><span class="nav-number">9.3.</span> <span class="nav-text">利用vbs延迟函数，精确度毫秒，误差1000毫秒内</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#仅用批处理命令实现任意时间延迟"><span class="nav-number">9.4.</span> <span class="nav-text">仅用批处理命令实现任意时间延迟</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">10.</span> <span class="nav-text">模拟进度条</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">11.</span> <span class="nav-text">特殊字符的输入及应用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">12.</span> <span class="nav-text">随机数（%random%）的应用技巧</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">13.</span> <span class="nav-text">变量嵌套与命令嵌套</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">14.</span> <span class="nav-text">文件内容筛选（type和findstr命令结合使用）</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Wang PT"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Wang PT</p>
+  <div class="site-description" itemprop="description">A Rookie Working for Earthquake Science</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yourname" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-github-alt fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yourname@gmail.com" title="E-Mail → mailto:yourname@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/yourname" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://zhihu.com/people/your-user-name" title="zhihu → http:&#x2F;&#x2F;zhihu.com&#x2F;people&#x2F;your-user-name" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://aganr.com/about/" title="wechat → https:&#x2F;&#x2F;aganr.com&#x2F;about&#x2F;" rel="noopener" target="_blank"><i class="fab fa-weixin fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://aganr.com/about/" title="qq → https:&#x2F;&#x2F;aganr.com&#x2F;about&#x2F;" rel="noopener" target="_blank"><i class="fab fa-qq fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Related Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://www.gsdzj.gov.cn/" title="http:&#x2F;&#x2F;www.gsdzj.gov.cn&#x2F;" rel="noopener" target="_blank">GSEA</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.cea.gov.cn/" title="https:&#x2F;&#x2F;www.cea.gov.cn&#x2F;" rel="noopener" target="_blank">CEA</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.usgs.gov/" title="https:&#x2F;&#x2F;www.usgs.gov&#x2F;" rel="noopener" target="_blank">USGS</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://www.csi.ac.cn/" title="http:&#x2F;&#x2F;www.csi.ac.cn&#x2F;" rel="noopener" target="_blank">CEIN</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://gmt-china.org/" title="https:&#x2F;&#x2F;gmt-china.org&#x2F;" rel="noopener" target="_blank">GMT-China</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.globalcmt.org/CMTsearch.html" title="https:&#x2F;&#x2F;www.globalcmt.org&#x2F;CMTsearch.html" rel="noopener" target="_blank">Global CMT</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://seisman.info/" title="https:&#x2F;&#x2F;seisman.info&#x2F;" rel="noopener" target="_blank">SeisMan Blog</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hexo.io/" title="https:&#x2F;&#x2F;hexo.io&#x2F;" rel="noopener" target="_blank">Hexo</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.csdn.net/" title="https:&#x2F;&#x2F;www.csdn.net&#x2F;" rel="noopener" target="_blank">CSDN</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.matplotlib.org.cn/" title="https:&#x2F;&#x2F;www.matplotlib.org.cn&#x2F;" rel="noopener" target="_blank">Matplotlib-CN</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.pypandas.cn/" title="https:&#x2F;&#x2F;www.pypandas.cn&#x2F;" rel="noopener" target="_blank">Pandas-CN</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fas fa-arrow-alt-circle-right"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wang PT</span>
+</div>
+
+<span class="post-meta-item-icon">
+  <span id="busuanzi_container_site_pv">
+	  <i class="fa fa-eye"></i>
+	</span>
+	访问量:<span id="busuanzi_value_site_pv"></span> 次数
+</span>
+
+<span class="post-meta-divider">|</span>
+	<span id="busuanzi_container_site_uv">
+  	<i class="fas fa-users"></i>
+	访问数:<span id="busuanzi_value_site_uv"></span> 人次
+</span>
+
+<span class="post-meta-divider">|</span>
+	<span id="busuanzi_container_page_pv">
+    <i class="fas fa-book-open"></i>
+	阅读数:<span id="busuanzi_value_page_pv"></span> 次
+</span>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"lGnGKKDnV1HwUIE9JkDf5wWy-gzGzoHsz","app_key":"w0rKKvnjIJH639RrjhX73QL7","server_url":"https://lgngkkdn.lc-cn-n1-shared.com","security":true};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://wangpt.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://wpttt.github.io/2020/04/23/DOS%E7%BC%96%E7%A8%8B7-%E9%AB%98%E7%BA%A7%E6%8A%80%E5%B7%A7/";
+    this.page.identifier = "2020/04/23/DOS编程7-高级技巧/";
+    this.page.title = "DOS编程7-高级技巧";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://wangpt.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

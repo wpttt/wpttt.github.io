@@ -1,0 +1,1504 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-mac-osx.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"wpttt.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null,"activeClass":"disqus"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="本教程来源网络，如有问题请自行鉴别 批处理定义：   批处理文件是将一系列命令按一定的顺序集合为一个可执行的文本文件，其扩展名为BAT或者CMD。这些命令统称批处理命令。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DOS编程1-批处理基础">
+<meta property="og:url" content="http://wpttt.github.io/2020/04/22/DOS%E7%BC%96%E7%A8%8B1-%E6%89%B9%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="GSEASRX">
+<meta property="og:description" content="本教程来源网络，如有问题请自行鉴别 批处理定义：   批处理文件是将一系列命令按一定的顺序集合为一个可执行的文本文件，其扩展名为BAT或者CMD。这些命令统称批处理命令。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f4a1.png">
+<meta property="og:image" content="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f449.png">
+<meta property="article:published_time" content="2020-04-22T05:23:26.000Z">
+<meta property="article:modified_time" content="2020-04-23T05:43:36.959Z">
+<meta property="article:author" content="Wang PT">
+<meta property="article:tag" content="批处理">
+<meta property="article:tag" content="DOS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f4a1.png">
+
+<link rel="canonical" href="http://wpttt.github.io/2020/04/22/DOS%E7%BC%96%E7%A8%8B1-%E6%89%B9%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>DOS编程1-批处理基础 | GSEASRX</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">GSEASRX</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">For Earthquake Science</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://wpttt.github.io/2020/04/22/DOS%E7%BC%96%E7%A8%8B1-%E6%89%B9%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Wang PT">
+      <meta itemprop="description" content="A Rookie Working for Earthquake Science">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GSEASRX">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          DOS编程1-批处理基础
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-22 13:23:26" itemprop="dateCreated datePublished" datetime="2020-04-22T13:23:26+08:00">2020-04-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-23 13:43:36" itemprop="dateModified" datetime="2020-04-23T13:43:36+08:00">2020-04-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%90%8E%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">后端</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/04/22/DOS%E7%BC%96%E7%A8%8B1-%E6%89%B9%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80/" class="post-meta-item leancloud_visitors" data-flag-title="DOS编程1-批处理基础" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2020/04/22/DOS%E7%BC%96%E7%A8%8B1-%E6%89%B9%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/04/22/DOS编程1-批处理基础/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><em>本教程来源网络，如有问题请自行鉴别</em></p>
+<p>批处理定义：<br>
+  批处理文件是将一系列命令按一定的顺序集合为一个可执行的文本文件，其扩展名为BAT或者CMD。这些命令统称批处理命令。</p>
+<a id="more"></a>
+<blockquote>
+<p><img class="emoji" draggable="false" alt="💡" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f4a1.png"/> <strong>小知识：</strong><br>
+可以在键盘上按下Ctrl+C组合键来强行终止一个批处理的执行过程。</p>
+</blockquote>
+<p>了解了大概意思后，我们正式开始学习.先看一个简单的例子!</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">echo</span> "欢迎来到非常BAT!"</span><br><span class="line"><span class="built_in">pause</span></span><br></pre></td></tr></table></figure>
+<p>把上面的3条命令保存为文件test.bat或者test.cmd然后执行，他就会在屏幕上显示以下二行话:</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">欢迎来到非常BAT!</span><br><span class="line">请按任意键继续. . .</span><br></pre></td></tr></table></figure>
+<p>这就是一个简单批处理文件了，这个批处理文件一共就用了2条命令 <code>echo</code> 和<code>pause</code> 还有一个特殊符号<code>@</code></p>
+<p>  从上面这个简单的批处理中，我们可以发现其实批处理就是运用一些含有特殊意义的符号和一些完成指定功能的命令组合而成，那么在批处理中有多少这样的特殊符号和功能命令呢？我们现在就来仔细了解一下一些最常用的!</p>
+<p>(以下内容来源网络，请各位仔细阅读，好进入下节的实例说明)</p>
+<hr>
+<h1>第一节 常用批处理内部命令简介</h1>
+<pre><code>1. REM 和 ::
+2. ECHO 和 @
+3. PAUSE 暂停
+4. ERRORLEVEL
+5. TITLE 设置cmd窗口的标题
+6. COLOR 设置cmd窗口前景和背景颜色
+7. mode 配置系统设备
+8. GOTO 和 :
+9. FIND 在文件中搜索字符串
+10. START 调用外部程序并任其在新窗口自行运行
+11. assoc 和 ftype
+12. pushd 和 popd
+13. CALL 调用批处理程序或命令并等待其执行完毕
+14. shift
+15. IF
+16. setlocal 与 变量延迟
+17. ATTRIB  显示或更改文件属性
+18. findstr 在文件中搜索字符串（find增强版）
+19. date /t 和 time /t
+</code></pre>
+<h2 id="介绍命令"><a class="header-anchor" href="#介绍命令">¶</a>介绍命令</h2>
+<h3 id="REM-和"><a class="header-anchor" href="#REM-和">¶</a><code>REM</code> 和 <code>::</code></h3>
+<p><strong><code>REM</code></strong> 为注释命令，一般用来给程序加上注解，该命令后的内容不被执行，但能回显。<strong><code>::</code></strong> 也可以起注释作用， 而且更简洁有效; 但有两点需要注意：</p>
+<ul>
+<li>
+<p>1 任何以冒号 <strong><code>:</code></strong> 开头的字符行，在批处理中都被视作标号，而直接忽略其后的所有内容。而标号分为有效和无效两种。有效标号 <strong><code>:</code></strong> 冒号后紧跟一个以字母数字开头的字符串，<em><code>goto</code></em> 语句可以识别。无效标号 <strong><code>:</code></strong> 冒号后紧跟一个非字母数字的一个特殊符号，<em><code>goto</code></em> 无法别的标号。无效可以起到注释作用，所以 <strong><code>::</code></strong> 常被用作注释符号，其实 <strong><code>:+</code></strong> 也可起注释作用。</p>
+</li>
+<li>
+<p>2 与 <strong><code>rem</code></strong> 不同的是， <strong><code>::</code></strong> 后的字符行在执行时不会回显， 无论是否用 <em><code>echo on</code></em> 打开命令行回显状态， 因为命令解释器不认为他是一个有效的命令行， 就此点来看， <strong><code>rem</code></strong> 在某些场合下将比 <strong><code>::</code></strong> 更为适用; 另外， <strong><code>rem</code></strong> 可以用于 <em><code>config.sys</code></em> 文件中。</p>
+</li>
+</ul>
+<p>行内注释格式：%注释内容%  （不常用，容易引起语法错误，慎用少用）</p>
+<h3 id="ECHO-和"><a class="header-anchor" href="#ECHO-和">¶</a><code>ECHO</code> 和 <code>@</code></h3>
+<p><strong><code>@*</code></strong> 字符放在命令前将关闭该命令回显，无论此时<code>echo</code>是否为打开状态。<br>
+<code>echo</code>命令的作用列举如下：</p>
+<ul>
+<li>（1）打开回显或关闭回显功能</li>
+</ul>
+<p>格式:</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> [&#123; on|off &#125;]</span><br></pre></td></tr></table></figure>
+<p>如果想关闭<code>ECHO OFF</code>命令行自身的显示，则需要在该命令行前加上“<strong><code>@</code></strong>”。</p>
+<ul>
+<li>（2）显示当前<code>ECHO</code>设置状态</li>
+</ul>
+<p>格式:</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>（3）输出提示信息</li>
+</ul>
+<p>格式：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ECHO</span> 信息内容</span><br></pre></td></tr></table></figure>
+<p><strong>上述是<code>ECHO</code>命令常见的三种用法，也是大家熟悉和会用的，但作为DOS命令淘金者你还应该知道下面的技巧：</strong></p>
+<ul>
+<li>（4）关闭DOS命令提示符</li>
+</ul>
+<p>在DOS提示符状态下键入<code>ECHO OFF</code>，能够关闭DOS提示符的显示使屏幕只留下光标，直至键入<code>ECHO ON</code>，提示符才会重新出现。</p>
+<ul>
+<li>（5）输出空行，即相当于输入一个回车</li>
+</ul>
+<p>格式：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ECHO</span>.</span><br></pre></td></tr></table></figure>
+<p>==值得注意的是： 命令行中的“．”要紧跟在<code>ECHO</code>后面中间不能有空格，否则“．”将被当作提示信息输出到屏幕。==<br>
+另外<code>．</code>可以用<code>，</code>、<code>：</code>、<code>；</code>、<code>”</code>、<code>／</code>、<code>[</code>、<code>]</code>、<code>\</code>、<code>＋</code>等任一符号替代。</p>
+<p>命令<code>ECHO．</code>输出的回车，经DOS管道转向可以作为其它命令的输入，比如<code>echo.|time</code>即相当于在<code>TIME</code>命令执行后给出一个回车。所以执行时系统会在显示当前时间后，自动返回到DOS提示符状态</p>
+<ul>
+<li>（6）答复命令中的提问<br>
+格式：</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ECHO</span> 答复语|命令文件名</span><br></pre></td></tr></table></figure>
+<p>上述格式可以用于简化一些需要人机对话的命令（如：<code>CHKDSK／F</code>；<code>FORMAT Drive:</code>；<code>del *.*</code>）的操作，它是通过DOS管道命令把<code>ECHO</code>命令输出的预置答复语作为人机对话命令的输入。下面的例子就相当于在调用的命令出现人机对话时输入<code>Y</code>回车：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">C:&gt;<span class="title">ECHO</span> <span class="title">Y</span>|<span class="title">CHKDSK</span>/<span class="title">F</span></span></span><br><span class="line"><span class="function"><span class="title">C</span>:&gt;<span class="title">ECHO</span> <span class="title">Y</span>|<span class="title">DEL</span> <span class="title">A</span> :*.*</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>（7）建立新文件或增加文件内容<br>
+格式：</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ECHO</span> 文件内容&gt;文件名</span><br><span class="line"><span class="built_in">ECHO</span> 文件内容&gt;&gt;文件名</span><br></pre></td></tr></table></figure>
+<p>例如：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">C:&gt;<span class="title">ECHO</span> @<span class="title">ECHO</span> <span class="title">OFF</span>&gt;<span class="title">AUTOEXEC.BAT</span> 建立自动批处理文件</span></span><br><span class="line"><span class="function"><span class="title">C</span>:&gt;<span class="title">ECHO</span> <span class="title">C</span>:\<span class="title">CPAV</span>\<span class="title">BOOTSAFE</span>&gt;&gt;<span class="title">AUTOEXEC.BAT</span> 向自动批处理文件中追加内容</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>（8）向打印机输出打印内容或打印控制码</li>
+</ul>
+<p>格式：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ECHO</span> 打印机控制码&gt;<span class="built_in">PRN</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ECHO</span> 打印内容&gt;<span class="built_in">PRN</span></span><br></pre></td></tr></table></figure>
+<p>用得很少，了解就可以了</p>
+<p>下面的例子是向M-1724打印机输入打印控制码。</p>
+<p><strong>＜Alt＞156</strong>是按住Alt键在小键盘键入156，类似情况依此类推：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">C:&gt;<span class="title">ECHO</span> +156+42+116&gt;<span class="title">PRN</span>（输入下划线命令<span class="title">FS</span>＊<span class="title">t</span>）</span></span><br><span class="line"><span class="function"><span class="title">C</span>:&gt;<span class="title">ECHO</span> <span class="title">PRN</span>"&gt;+155@&gt;<span class="title">PRN</span>（输入初始化命令<span class="title">ESC</span>@）</span></span><br><span class="line"><span class="function"><span class="title">C</span>:&gt;<span class="title">ECHO</span>.&gt;<span class="title">PRN</span>（换行）</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>（9）使喇叭鸣响</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">C:&gt;<span class="title">ECHO</span> ^<span class="title">G</span></span></span><br></pre></td></tr></table></figure>
+<p>“<strong><code>^G</code></strong>”是在dos窗口中用Ctrl＋G或Alt＋007输入，输入多个<code>^G</code>可以产生多声鸣响。使用方法是直接将其加入批处理文件中或做成批处理文件调用。<br>
+这里的<code>^G</code>属于特殊符号的使用，请看本文后面的章节</p>
+<h3 id="PAUSE-暂停"><a class="header-anchor" href="#PAUSE-暂停">¶</a><code>PAUSE</code> 暂停</h3>
+<p><strong><code>PAUSE</code></strong>，玩游戏的人都知道，暂停的意思在这里就是停止系统命令的执行并显示下面的内容。</p>
+<p>例：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">PAUSE</span></span><br></pre></td></tr></table></figure>
+<p>运行显示：</p>
+<pre><code>请按任意键继续. . .
+</code></pre>
+<p>要显示其他提示语，可以这样用：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Echo</span> 其他提示语 &amp; <span class="built_in">pause</span> &gt; <span class="built_in">nul</span></span><br></pre></td></tr></table></figure>
+<h3 id="errorlevel-程序返回码"><a class="header-anchor" href="#errorlevel-程序返回码">¶</a><code>errorlevel</code> 程序返回码</h3>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="variable">%errorlevel%</span></span><br></pre></td></tr></table></figure>
+<p>每个命令运行结束，可以用这个命令行格式查看返回码<br>
+用于判断刚才的命令是否执行成功<br>
+<br>
+默认值为0，一般命令执行出错会设 <code>errorlevel</code> 为1</p>
+<h3 id="title-设置cmd窗口的标题"><a class="header-anchor" href="#title-设置cmd窗口的标题">¶</a>title 设置cmd窗口的标题</h3>
+<p>设置cmd窗口的标题，批处理编程常用。</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">title</span> 新标题</span><br></pre></td></tr></table></figure>
+<p>可以看到cmd窗口的标题栏变了</p>
+<h3 id="COLOR-设置cmd窗口前景和背景颜色"><a class="header-anchor" href="#COLOR-设置cmd窗口前景和背景颜色">¶</a>COLOR 设置cmd窗口前景和背景颜色</h3>
+<p>设置默认的控制台前景和背景颜色。批处理编程常用。</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">COLOR</span> [attr]</span><br></pre></td></tr></table></figure>
+<p><strong><code>attr</code></strong>   指定控制台输出的颜色属性</p>
+<p>颜色属性由两个十六进制数字指定 – 第一个为背景，第二个则为<br>
+前景。每个数字可以为以下任何值之一:</p>
+<pre><code>0 = 黑色       8 = 灰色
+1 = 蓝色       9 = 淡蓝色
+2 = 绿色       A = 淡绿色
+3 = 湖蓝色     B = 淡浅绿色
+4 = 红色       C = 淡红色
+5 = 紫色       D = 淡紫色
+6 = 黄色       E = 淡黄色
+7 = 白色       F = 亮白色
+</code></pre>
+<p>如果没有给定任何参数，该命令会将颜色还原到 CMD.EXE 启动时<br>
+的颜色。这个值来自当前控制台窗口、/T开关或<br>
+DefaultColor 注册表值。<br>
+如果用相同的前景和背景颜色来执行 <code>COLOR</code> 命令，<code>COLOR</code> 命令<br>
+会将 <code>ERRORLEVEL</code> 设置为 1。<br>
+<br>
+例如:<code>COLOR fc</code> 在亮白色上产生亮红色</p>
+<h3 id="mode-配置系统设备"><a class="header-anchor" href="#mode-配置系统设备">¶</a>mode 配置系统设备</h3>
+<p>配置系统设备。<br>
+串行口:</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">MODE</span> COMm[:] [BAUD=b] [PARITY=p] [DATA=d] [STOP=s]</span><br><span class="line">[to=on|off] [xon=on|off] [odsr=on|off</span><br><span class="line">[octs=on|off] [dtr=on|off|hs]</span><br><span class="line">[rts=on|off|hs|tg] [idsr=on|off]</span><br><span class="line">```  </span><br><span class="line">设备状态: </span><br><span class="line">```<span class="built_in">cmd</span></span><br><span class="line"><span class="built_in">MODE</span> [device] [/STATUS]</span><br></pre></td></tr></table></figure>
+<p>打印重定向:</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">MODE</span> LPTn[:]=COMm[:]</span><br></pre></td></tr></table></figure>
+<p>选定代码页:</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">MODE</span> <span class="built_in">CON</span>[:] CP SELECT=yyy</span><br></pre></td></tr></table></figure>
+<p>代码页状态:</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">MODE</span> <span class="built_in">CON</span>[:] CP [/STATUS]</span><br></pre></td></tr></table></figure>
+<p>显示模式:</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">MODE</span> <span class="built_in">CON</span>[:] [COLS=c] [LINES=n]</span><br></pre></td></tr></table></figure>
+<p>击键率:</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">MODE</span> <span class="built_in">CON</span>[:] [RATE=r DELAY=d]</span><br></pre></td></tr></table></figure>
+<p>例：设置dos窗口和颜色</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mode</span> <span class="built_in">con</span> cols=<span class="number">113</span> lines=<span class="number">15</span> &amp; <span class="built_in">color</span> <span class="number">9</span>f</span><br></pre></td></tr></table></figure>
+<p>此命令设置DOS窗口大小：15行，113列</p>
+<h3 id="GOTO-和"><a class="header-anchor" href="#GOTO-和">¶</a><code>GOTO</code> 和 <code>:</code></h3>
+<p><strong><code>GOTO</code></strong> 会点编程的朋友就会知道这是跳转的意思。</p>
+<p>在批处理中允许以“:XXX”来构建一个标号，然后用<code>GOTO XXX</code>跳转到标号 :<code>XXX</code> 处，然后执行标号后的命令。例：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> &#123;%<span class="number">1</span>&#125;==&#123;&#125; <span class="keyword">goto</span> noparms</span><br><span class="line"><span class="keyword">if</span> "%<span class="number">2</span>"=="" <span class="keyword">goto</span> noparms</span><br></pre></td></tr></table></figure>
+<p>标签的名字可以随便起，但是最好是有意义的字符串，前加个冒号用来表示这个字符串是标签，<code>goto</code>命令就是根据这个冒号<code>:</code>来寻找下一步跳到到那里。最好有一些说明这样你别人看起来才会理解你的意图啊。例：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line">:<span class="built_in">start</span></span><br><span class="line"><span class="built_in">set</span> /a var+=<span class="number">1</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">%var%</span></span><br><span class="line"><span class="keyword">if</span> <span class="variable">%var%</span> <span class="keyword">leq</span> <span class="number">3</span> <span class="keyword">GOTO</span> <span class="built_in">start</span></span><br><span class="line"><span class="built_in">pause</span></span><br></pre></td></tr></table></figure>
+<p>运行显示：</p>
+<pre><code>1
+2
+3
+4
+</code></pre>
+<h3 id="FIND-在文件中搜索字符串"><a class="header-anchor" href="#FIND-在文件中搜索字符串">¶</a><code>FIND</code> 在文件中搜索字符串</h3>
+<p>在文件中搜索字符串。</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">FIND</span> [/V] [/C] [/N] [/I] [/OFF[LINE]] "string" [[drive:][<span class="built_in">path</span>]filename[ ...]]</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">option</th>
+<th style="text-align:left">means</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">/V</td>
+<td style="text-align:left">显示所有未包含指定字符串的行。</td>
+</tr>
+<tr>
+<td style="text-align:left">/C</td>
+<td style="text-align:left">仅显示包含字符串的行数。</td>
+</tr>
+<tr>
+<td style="text-align:left">/N</td>
+<td style="text-align:left">显示行号。</td>
+</tr>
+<tr>
+<td style="text-align:left">/I</td>
+<td style="text-align:left">搜索字符串时忽略大小写。</td>
+</tr>
+<tr>
+<td style="text-align:left">/OFF[LINE]</td>
+<td style="text-align:left">不要跳过具有脱机属性集的文件。</td>
+</tr>
+<tr>
+<td style="text-align:left">“string”</td>
+<td style="text-align:left">指定要搜索的文字串，</td>
+</tr>
+<tr>
+<td style="text-align:left">[drive:][path]filename</td>
+<td style="text-align:left">指定要搜索的文件。</td>
+</tr>
+</tbody>
+</table>
+<p>如果没有指定路径，<code>FIND</code> 将搜索键入的或者由另一命令产生的文字。<br>
+Find常和type命令结合使用</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Type</span> [drive:][<span class="built_in">path</span>]filename | <span class="built_in">find</span> "string" [&gt;tmpfile]    #挑选包含string的行</span><br><span class="line"><span class="built_in">Type</span> [drive:][<span class="built_in">path</span>]filename | <span class="built_in">find</span> /v "string"            #剔除文件中包含string的行</span><br><span class="line"><span class="built_in">Type</span> [drive:][<span class="built_in">path</span>]filename | <span class="built_in">find</span> /c                     #显示文件行数</span><br></pre></td></tr></table></figure>
+<p>以上用法将去除find命令自带的提示语（文件名提示）。</p>
+<p>例：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">echo</span> <span class="number">111</span> &gt;test.txt</span><br><span class="line"><span class="built_in">echo</span> <span class="number">222</span> &gt;&gt;test.txt</span><br><span class="line"><span class="built_in">find</span> "<span class="number">111</span>" test.txt</span><br><span class="line"><span class="built_in">pause</span></span><br></pre></td></tr></table></figure>
+<p>运行显示如下：</p>
+<pre><code>---------- TEST.TXT
+111
+请按任意键继续. . .
+</code></pre>
+<p>例：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">echo</span> <span class="number">111</span> &gt;test.txt</span><br><span class="line"><span class="built_in">echo</span> <span class="number">222</span> &gt;&gt;test.txt</span><br><span class="line"><span class="built_in">type</span> test.txt|<span class="built_in">find</span> "<span class="number">111</span>" </span><br><span class="line"><span class="built_in">pause</span></span><br></pre></td></tr></table></figure>
+<p>运行显示如下：</p>
+<pre><code>111
+请按任意键继续. . .
+</code></pre>
+<h3 id="start-调用外部程序并任其在新窗口自行运行"><a class="header-anchor" href="#start-调用外部程序并任其在新窗口自行运行">¶</a><code>start</code> 调用外部程序并任其在新窗口自行运行</h3>
+<p>批处理中调用外部程序的命令（该外部程序在新窗口中运行，批处理程序继续往下执行，不理会外部程序的运行状况），如果直接运行外部程序则必须等外部程序完成后才继续执行剩下的指令</p>
+<p>例：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">start</span> explorer d:\</span><br></pre></td></tr></table></figure>
+<p>调用图形界面打开D盘</p>
+<h3 id="assoc-和-ftype"><a class="header-anchor" href="#assoc-和-ftype">¶</a><code>assoc</code> 和 <code>ftype</code></h3>
+<p><strong>文件关联，不常用。</strong></p>
+<p><strong><code>assoc</code></strong>  设置’文件扩展名’关联，关联到’文件类型’</p>
+<p><strong><code>ftype</code></strong>  设置’文件类型’关联，关联到’执行程序和参数’</p>
+<p>当你双击一个.txt文件时，windows并不是根据.txt直接判断用 notepad.exe 打开<br>
+而是先判断.txt属于 txtfile ‘文件类型’<br>
+再调用 txtfile 关联的命令行 <code>txtfile=%SystemRoot%\system32\NOTEPAD.EXE %1</code><br>
+可以在&quot;文件夹选项&quot;→&quot;文件类型&quot;里修改这2种关联</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">assoc</span>           #显示所有'文件扩展名'关联</span><br><span class="line"><span class="built_in">assoc</span> .txt      #显示.txt代表的'文件类型'，结果显示 .txt=txtfile</span><br><span class="line"><span class="built_in">assoc</span> .doc      #显示.doc代表的'文件类型'，结果显示 .doc=Word.Document.<span class="number">8</span></span><br><span class="line"><span class="built_in">assoc</span> .exe      #显示.exe代表的'文件类型'，结果显示 .exe=exefile</span><br><span class="line"><span class="built_in">ftype</span>           #显示所有'文件类型'关联</span><br><span class="line"><span class="built_in">ftype</span> exefile   #显示exefile类型关联的命令行，结果显示 exefile="%<span class="number">1</span>" %*</span><br></pre></td></tr></table></figure>
+<p><code>assoc .txt=Word.Document.8</code><br>
+设置.txt为word类型的文档，可以看到.txt文件的图标都变了<br>
+<br>
+<code>assoc .txt=txtfile</code><br>
+恢复.txt的正确关联<br>
+<br>
+<code>ftype exefile=&quot;%1&quot; %*</code><br>
+恢复 exefile 的正确关联</p>
+<p>如果该关联已经被破坏，可以运行 <code>command.com</code> ，再输入这条命令</p>
+<h3 id="pushd-和-popd"><a class="header-anchor" href="#pushd-和-popd">¶</a><code>pushd</code> 和 <code>popd</code></h3>
+<p><code>PUSHD [path | ..] </code>保存当前目录，然后切换到另一个指定的目录path。</p>
+<p><code>popd</code>  将当前目录恢复为pushd命令保存的目录</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="function">c: &amp; <span class="title">cd</span>\ &amp; <span class="title">md</span> <span class="title">mp3</span>       # 在 <span class="title">C</span>:\ 建立 <span class="title">mp3</span> 文件夹</span></span><br><span class="line"><span class="function"><span class="title">md</span> <span class="title">d</span>:\<span class="title">mp4</span>               # 在 <span class="title">D</span>:\ 建立 <span class="title">mp4</span> 文件夹</span></span><br><span class="line"><span class="function"><span class="title">cd</span> /<span class="title">d</span> <span class="title">d</span>:\<span class="title">mp4</span>            # 更改当前目录为 <span class="title">d</span>:\<span class="title">mp4</span>，<span class="title">cd</span>命令的/<span class="title">d</span>参数可改变盘符。</span></span><br><span class="line"><span class="function"><span class="title">pushd</span> <span class="title">c</span>:\<span class="title">mp3</span>            # 保存当前目录，并切换当前目录为 <span class="title">c</span>:\<span class="title">mp3</span></span></span><br><span class="line"><span class="function"><span class="title">popd</span>                    # 恢复当前目录为刚才保存的 <span class="title">d</span>:\<span class="title">mp4</span></span></span><br></pre></td></tr></table></figure>
+<p>一般用处不大，在当前目录名不确定时，会有点帮助。（dos编程中很有用）</p>
+<h3 id="CALL-调用批处理程序或命令并等待其执行完毕"><a class="header-anchor" href="#CALL-调用批处理程序或命令并等待其执行完毕">¶</a><code>CALL</code> 调用批处理程序或命令并等待其执行完毕</h3>
+<p><strong><code>CALL</code></strong> 命令可以在批处理执行过程中调用另一个批处理，当另一个批处理执行完后，再继续执行原来的批处理</p>
+<p><strong><code>CALL command</code></strong> 调用一条批处理命令，和直接执行命令效果一样，==特殊情况下很有用，比如变量的多级嵌套==，见教程后面。在批处理编程中，可以根据一定条件生成命令字符串，用<code>call</code>可以执行该字符串，见例子。</p>
+<p><strong><code>CALL [drive:][path]filename [batch-parameters]</code></strong><br>
+调用的其它批处理程序。</p>
+<p><strong><code>filename</code></strong> 参数必须具有 .bat 或 .cmd 扩展名。<br>
+<code>CALL :label arguments</code><br>
+调用本文件内命令段，相当于子程序。被调用的命令段以标签:<code>label</code>开头<br>
+以命令<code>goto :eof</code>结尾。</p>
+<p>另外，批脚本文本参数参照(<code>%0</code>、<code>%1</code>等等)已如下改变:</p>
+<p>批脚本里的 <code>%*</code> 指出所有的参数(如 <code>%1 %2 %3 %4 %5 ...</code>)<br>
+批参数<code>%n</code>的替代已被增强。您可以使用以下语法:（看不明白的直接运行后面的例子）</p>
+<pre><code>%~1           - 删除引号(&quot;)，扩充 %1
+%~f1          - 将 %1 扩充到一个完全合格的路径名
+%~d1          - 仅将 %1 扩充到一个驱动器号
+%~p1          - 仅将 %1 扩充到一个路径
+%~n1          - 仅将 %1 扩充到一个文件名
+%~x1          - 仅将 %1 扩充到一个文件扩展名
+%~s1          - 扩充的路径指含有短名
+%~a1          - 将 %1 扩充到文件属性
+%~t1          - 将 %1 扩充到文件的日期/时间
+%~z1          - 将 %1 扩充到文件的大小
+%~$PATH : 1   - 查找列在 PATH 环境变量的目录，并将 %1扩充到找到的第一个完全合格的名称。
+                如果环境变量名未被定义，或者没有找到文件，此组合键会扩充到空字符串
+</code></pre>
+<p>可以组合修定符来取得多重结果:</p>
+<pre><code>%~dp1          - 只将 %1 扩展到驱动器号和路径
+%~nx1          - 只将 %1 扩展到文件名和扩展名
+%~dp$PATH:1    - 在列在 PATH 环境变量中的目录里查找 %1，并扩展到  找到的第一个文件的驱动器号和路径。
+%~ftza1        - 将 %1 扩展到类似 DIR 的输出行。
+</code></pre>
+<p>在上面的例子中，<code>%1</code> 和 <code>PATH</code> 可以被其他有效数值替换。<br>
+<br>
+<code>%~</code> 语法被一个有效参数号码终止。<br>
+<br>
+<code>%~</code> 修定符不能跟 <code>%*</code> 使用</p>
+<p><strong>注意: 参数扩充时不理会参数所代表的文件是否真实存在，均以当前目录进行扩展</strong></p>
+<p>要理解上面的知识，下面的例子很关键。<br>
+<br>
+例：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">Echo</span> 产生一个临时文件 &gt; tmp.txt</span><br><span class="line"><span class="comment">Rem 下行先保存当前目录，再将c:\windows设为当前目录</span></span><br><span class="line"><span class="built_in">pushd</span> c:\windows</span><br><span class="line"><span class="keyword">Call</span> :sub tmp.txt</span><br><span class="line"><span class="comment">Rem 下行恢复前次的当前目录</span></span><br><span class="line"><span class="built_in">Popd</span></span><br><span class="line"><span class="keyword">Call</span> :sub tmp.txt</span><br><span class="line"><span class="built_in">pause</span></span><br><span class="line"><span class="built_in">Del</span> tmp.txt</span><br><span class="line"><span class="keyword">exit</span></span><br><span class="line">:sub</span><br><span class="line"><span class="built_in">Echo</span> 删除引号： %~<span class="number">1</span></span><br><span class="line"><span class="built_in">Echo</span> 扩充到路径： %~f1</span><br><span class="line"><span class="built_in">Echo</span> 扩充到一个驱动器号： %~d1</span><br><span class="line"><span class="built_in">Echo</span> 扩充到一个路径： %~p1 </span><br><span class="line"><span class="built_in">Echo</span> 扩充到一个文件名： %~n1</span><br><span class="line"><span class="built_in">Echo</span> 扩充到一个文件扩展名： %~x1</span><br><span class="line"><span class="built_in">Echo</span> 扩充的路径指含有短名： %~s1 </span><br><span class="line"><span class="built_in">Echo</span> 扩充到文件属性： %~a1 </span><br><span class="line"><span class="built_in">Echo</span> 扩充到文件的日期/时间： %~t1 </span><br><span class="line"><span class="built_in">Echo</span> 扩充到文件的大小： %~z1 </span><br><span class="line"><span class="built_in">Echo</span> 扩展到驱动器号和路径：%~dp1</span><br><span class="line"><span class="built_in">Echo</span> 扩展到文件名和扩展名：%~nx1</span><br><span class="line"><span class="built_in">Echo</span> 扩展到类似 <span class="built_in">DIR</span> 的输出行：%~ftza1</span><br><span class="line"><span class="built_in">Echo</span>.</span><br><span class="line"><span class="keyword">Goto</span> :eof</span><br></pre></td></tr></table></figure>
+<p>例:</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> aa=<span class="number">123456</span></span><br><span class="line"><span class="built_in">set</span> cmdstr=<span class="built_in">echo</span> <span class="variable">%aa%</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">%cmdstr%</span></span><br><span class="line"><span class="keyword">call</span> <span class="variable">%cmdstr%</span></span><br><span class="line"><span class="built_in">pause</span></span><br></pre></td></tr></table></figure>
+<p>本例中如果不用<code>call</code>，而直接运行<code>%cmdstr%</code>，将显示结果<code>%aa%</code>，而不是<code>123456</code></p>
+<h3 id="SHIFT"><a class="header-anchor" href="#SHIFT">¶</a><code>SHIFT</code></h3>
+<p><em>更改批处理文件中可替换参数的位置。</em></p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">SHIFT</span> [/n]</span><br></pre></td></tr></table></figure>
+<p>如果命令扩展名被启用，<code>SHIFT</code> 命令支持<code>/n</code> 命令行开关；该命令行开关告诉<br>
+命令从第 n 个参数开始移位；n 介于零和八之间。例如:<br>
+<code>SHIFT /2</code><br>
+会将 <code>%3</code> 移位到 <code>%2</code>，将 <code>%4</code> 移位到 <code>%3</code>，等等；并且不影响 <code>%0</code> 和 <code>%1</code>。</p>
+<h3 id="IF"><a class="header-anchor" href="#IF">¶</a><code>IF</code></h3>
+<p><code>IF</code> 条件判断语句，语法格式如下：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">IF</span> [<span class="keyword">NOT</span>] <span class="keyword">ERRORLEVEL</span> number command</span><br><span class="line"><span class="keyword">IF</span> [<span class="keyword">NOT</span>] string1==string2 command</span><br><span class="line"><span class="keyword">IF</span> [<span class="keyword">NOT</span>] <span class="keyword">EXIST</span> filename command</span><br></pre></td></tr></table></figure>
+<p>下面逐一介绍，更详细的分析请看后面章节。</p>
+<p>(1) <code>IF [NOT] ERRORLEVEL number command</code></p>
+<p><code>IF ERRORLEVEL</code>这个句子必须放在某一个命令的后面，执行命令后由<code>IF ERRORLEVEL</code> 来判断命令的返回值。<br>
+<br>
+<code>Number</code>的数字取值范围0~255，判断时值的排列顺序应该由大到小。返回的值大于等于指定的值时，条件成立<br>
+<br>
+例：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">dir</span> c:</span><br><span class="line"><span class="comment">rem退出代码为&gt;=1就跳至标题1处执行，&gt;=0就跳至标题0处执行</span></span><br><span class="line"><span class="keyword">IF</span> <span class="keyword">ERRORLEVEL</span> <span class="number">1</span> <span class="keyword">goto</span> <span class="number">1</span></span><br><span class="line"><span class="keyword">IF</span> <span class="keyword">ERRORLEVEL</span> <span class="number">0</span> <span class="keyword">goto</span> <span class="number">0</span></span><br><span class="line"><span class="comment">Rem 上面的两行不可交换位置，否则失败了也显示成功。</span></span><br><span class="line">:<span class="number">0</span></span><br><span class="line"><span class="built_in">echo</span> 命令执行成功！</span><br><span class="line"><span class="comment">Rem 程序执行完毕跳至标题exit处退出</span></span><br><span class="line"><span class="keyword">goto</span> <span class="keyword">exit</span></span><br><span class="line">:<span class="number">1</span></span><br><span class="line"><span class="built_in">echo</span> 命令执行失败！</span><br><span class="line"><span class="comment">Rem 程序执行完毕跳至标题exit处退出</span></span><br><span class="line"><span class="keyword">goto</span> <span class="keyword">exit</span></span><br><span class="line">:<span class="keyword">exit</span></span><br><span class="line"><span class="built_in">pause</span></span><br></pre></td></tr></table></figure>
+<p>运行显示：<code>命令执行成功！</code></p>
+<p>(2) <code>IF [NOT] string1==string2 command</code></p>
+<p><code>string1</code>和<code>string2</code>都为字符的数据，英文内字符的大小写将看作不同，这个条件中的等于号必须是两个（绝对相等的意思），条件成立即执行后面的<code>command</code><br>
+检测当前变量的值做出判断，为了防止字符串中含有空格，可用以下格式</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> [<span class="keyword">NOT</span>] &#123;string1&#125;==&#123;string2&#125; command</span><br><span class="line"><span class="keyword">if</span> [<span class="keyword">NOT</span>] [string1]==[string2] command</span><br><span class="line"><span class="keyword">if</span> [<span class="keyword">NOT</span>] "string1"=="string2" command</span><br></pre></td></tr></table></figure>
+<p>这种写法实际上将括号或引号当成字符串的一部分了，只要等号左右两边一致就行了，比如下面的写法就不行：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> &#123;string1&#125;==[string2] command</span><br></pre></td></tr></table></figure>
+<p>(3) <code>IF [NOT] EXIST filename command</code><br>
+<code>EXIST filename</code>为文件或目录存在的意思</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> off</span><br><span class="line"><span class="keyword">IF</span> <span class="keyword">EXIST</span> autoexec.bat <span class="built_in">echo</span> 文件存在！</span><br><span class="line"><span class="keyword">IF</span> <span class="keyword">not</span> <span class="keyword">EXIST</span> autoexec.bat <span class="built_in">echo</span> 文件不存在！</span><br></pre></td></tr></table></figure>
+<p>这个批处理大家可以放在C盘和D盘分别执行，看看效果</p>
+<h3 id="setlocal-与-变量延迟"><a class="header-anchor" href="#setlocal-与-变量延迟">¶</a><code>setlocal</code> 与 变量延迟</h3>
+<p>要想进阶，变量延迟是必过的一关！所以这一部分希望你能认真看。<br>
+<br>
+为了更好的说明问题，我们先引入一个例子。<br>
+<br>
+<em>例1:</em></p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">set</span> a=<span class="number">4</span></span><br><span class="line"><span class="built_in">set</span> a=<span class="number">5</span> &amp; <span class="built_in">echo</span> <span class="variable">%a%</span></span><br><span class="line"><span class="built_in">pause</span></span><br></pre></td></tr></table></figure>
+<p><em>结果：</em><code>4</code></p>
+<p><em>解说：</em></p>
+<blockquote>
+<p>为什么是<code>4</code>而不是<code>5</code>呢？在<code>echo</code>之前明明已经把变量<code>a</code>的值改成<code>5</code>了？<br>
+<br>
+让我们先了解一下批处理运行命令的机制：<br>
+<br>
+批处理读取命令时是按行读取的（另外例如for命令等，其后用一对圆括号闭合的所有语句也当作一行），在读&gt;取某行命令时，如果其中有变量，则变量值应该取 上一行的值。所以在读取命令<code>set a=5 &amp; echo &gt;%a%</code>时，dos将其预处理为<code>set a=5 &amp; echo &gt;4</code>，然后执行。而其中的<code>a=5</code>所做的数值变更，只能在下一命令行才能体现了。<br>
+<br>
+而为了能够及时感知环境变量的动态变化，批处理设计了<strong>变量延迟</strong>。简单来说，==在读取了一条完整的语句&gt;之后，不立即对该行的变量赋值，而会在某个单条语句执行之前再进行赋值==，也就是说“延迟”了对变量的赋值&gt;。</p>
+</blockquote>
+<p>那么如何开启变量延迟呢？变量延迟又需要注意什么呢？举个例子说明一下：<br>
+<br>
+<em>例2:</em></p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">setlocal</span> enabledelayedexpansion</span><br><span class="line"><span class="built_in">set</span> a=<span class="number">4</span></span><br><span class="line"><span class="built_in">set</span> a=<span class="number">5</span> &amp; <span class="built_in">echo</span> <span class="variable">!a!</span></span><br><span class="line"><span class="built_in">pause</span></span><br></pre></td></tr></table></figure>
+<p><em>结果：</em> <code>5</code><br>
+<br>
+<em>解说：</em></p>
+<blockquote>
+<p>启动了变量延迟，得到了正确答案。变量延迟的启动语句是<code>setlocal enabledelayedexpansion</code>，并且变量要用一对叹号“<code>!!</code>”括起来（注意要用英文的叹号），否则就没有变量延迟的效果。</p>
+<p>分析一下例2，首先<code>setlocal enabledelayedexpansion</code>开启变量延迟，然后<code>set &gt;a=4</code>先给变量<code>a</code>赋值为<code>4</code>，<code>set a=5 &amp; echo &gt;!a!</code>这句是给变量<code>a</code>赋值为<code>5</code>并输出（由于启动了变量延迟，所以批处理能够感知到动态变化，即不是先给该行变量赋值，而是在运行过程中给变量赋值，因此此时<code>a</code>的值就是<code>5</code>了）。</p>
+</blockquote>
+<p>再举一个例子巩固一下。<br>
+<br>
+<em>例3:</em></p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">setlocal</span> enabledelayedexpansion</span><br><span class="line"><span class="keyword">for</span> /l <span class="variable">%%i</span> <span class="keyword">in</span> (<span class="number">1</span>,<span class="number">1</span>,<span class="number">5</span>) <span class="keyword">do</span> (</span><br><span class="line"><span class="built_in">set</span> a=<span class="variable">%%i</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">!a!</span></span><br><span class="line">)</span><br><span class="line"><span class="built_in">pause</span></span><br></pre></td></tr></table></figure>
+<p><em>结果：</em></p>
+<pre><code>1
+2
+3
+4
+5
+</code></pre>
+<p><img class="emoji" draggable="false" alt="👉" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f449.png"/> <strong>解说：</strong></p>
+<blockquote>
+<p>本例开启了变量延迟并用“<code>!!</code>”将变量扩起来，因此得到我们预期的结果。如果不用变量延迟会出现什么结果呢？</p>
+<p>结果是这样的：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="built_in">ECHO</span> 处于关闭状态。</span><br><span class="line">&gt;<span class="built_in">ECHO</span> 处于关闭状态。</span><br><span class="line">&gt;<span class="built_in">ECHO</span> 处于关闭状态。</span><br><span class="line">&gt;<span class="built_in">ECHO</span> 处于关闭状态。</span><br><span class="line">&gt;<span class="built_in">ECHO</span> 处于关闭状态。</span><br></pre></td></tr></table></figure>
+<p>即没有感知到for语句中的动态变化。</p>
+</blockquote>
+<p>提示：在没有开启变量延迟的情况下，某条命令行中的变量改变，必须到下一条命令才能体现。这一点也可以加以利用，看例子。<br>
+<br>
+<em>例4：交换两个变量的值，且不用中间变量</em></p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line">::交换两个变量的值，但是不使用临时变量</span><br><span class="line"><span class="built_in">set</span> var1=abc</span><br><span class="line"><span class="built_in">set</span> var2=<span class="number">123</span></span><br><span class="line"><span class="built_in">echo</span> 交换前： var1=<span class="variable">%var1%</span> var2=<span class="variable">%var2%</span></span><br><span class="line"><span class="built_in">set</span> var1=<span class="variable">%var2%</span>&amp; <span class="built_in">set</span> var2=<span class="variable">%var1%</span></span><br><span class="line"><span class="built_in">echo</span> 交换后： var1=<span class="variable">%var1%</span> var2=<span class="variable">%var2%</span></span><br><span class="line"><span class="built_in">pause</span></span><br></pre></td></tr></table></figure>
+<p><em>运行显示：</em></p>
+<pre><code>交换前： var1=abc var2=123
+交换后： var1=123 var2=abc
+请按任意键继续. . .
+</code></pre>
+<p>在代码中，使用 <code>setlocal enabledelayedexpansion</code> 语句来启用变量延迟之后，有得有失：</p>
+<p>优点：</p>
+<ul>
+<li>(a)、可以在同一语句内部直接使用上一次改变后的变量；</li>
+<li>(b)、在<code>echo</code>特殊字符的时候，无须用引号括起来，比如变量的值含有<code>&lt;</code>、<code>&gt;</code>、<code>|</code>等字符的时候，直接使用 <code>echo !str!</code> 就可以了；</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>(a)、会把文本中所有的感叹号抛弃；</li>
+<li>(b)、增加代码的复杂度，有时容易出错。</li>
+</ul>
+<h3 id="ATTRIB-显示或更改文件属性"><a class="header-anchor" href="#ATTRIB-显示或更改文件属性">¶</a><code>ATTRIB</code> 显示或更改文件属性</h3>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ATTRIB</span> [+R|-R] [+A|-A] [+S|-S] [+H|-H] [[drive:] [<span class="built_in">path</span>] filename] [/S [/D]]</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">symbol</th>
+<th style="text-align:center">function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">+</td>
+<td style="text-align:center">设置属性</td>
+</tr>
+<tr>
+<td style="text-align:center">-</td>
+<td style="text-align:center">清除属性</td>
+</tr>
+<tr>
+<td style="text-align:center">R</td>
+<td style="text-align:center">只读文件属性</td>
+</tr>
+<tr>
+<td style="text-align:center">A</td>
+<td style="text-align:center">存档文件属性</td>
+</tr>
+<tr>
+<td style="text-align:center">S</td>
+<td style="text-align:center">系统文件属性</td>
+</tr>
+<tr>
+<td style="text-align:center">H</td>
+<td style="text-align:center">隐藏文件属性</td>
+</tr>
+</tbody>
+</table>
+<p><code>[drive:][path][filename]</code> 指定要处理的文件属性。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">symbol</th>
+<th style="text-align:center">function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">/S</td>
+<td style="text-align:center">处理当前文件夹及其子文件夹中的匹配文件。</td>
+</tr>
+<tr>
+<td style="text-align:center">/D</td>
+<td style="text-align:center">也处理文件夹。</td>
+</tr>
+</tbody>
+</table>
+<p><em>例：</em></p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">md</span> autorun</span><br><span class="line"><span class="built_in">attrib</span> +a +s +h autorun</span><br></pre></td></tr></table></figure>
+<p>上面的命令将建立文件夹 <code>autorun</code>，然后将其设为存档、系统、隐藏属性</p>
+<h3 id="findstr-在文件中搜索字符串（find增强版）"><a class="header-anchor" href="#findstr-在文件中搜索字符串（find增强版）">¶</a><code>findstr</code> 在文件中搜索字符串（find增强版）</h3>
+<p><code>find</code> 命令不能处理文件中超过1024个字符的数据行，此时可用<code>findstr</code> 命令。</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">FINDSTR</span> [/B] [/E] [/L] [/R] [/S] [/I] [/X] [/V] [/N] [/M] [/O] [/F:file]</span><br><span class="line">        [/C:string] [/G:file] [/D:<span class="built_in">dir</span> list] [/A:<span class="built_in">color</span> attributes] [/OFF[LINE]]</span><br><span class="line">        strings [[drive:][<span class="built_in">path</span>]filename[ ...]]</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">symbol</th>
+<th style="text-align:left">function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">/B</td>
+<td style="text-align:left">在一行的开始配对模式</td>
+</tr>
+<tr>
+<td style="text-align:center">/E</td>
+<td style="text-align:left">在一行的结尾配对模式</td>
+</tr>
+<tr>
+<td style="text-align:center">/L</td>
+<td style="text-align:left">按字使用搜索字符串</td>
+</tr>
+<tr>
+<td style="text-align:center">/R</td>
+<td style="text-align:left">将搜索字符串作为一般表达式使用</td>
+</tr>
+<tr>
+<td style="text-align:center">/S</td>
+<td style="text-align:left">在当前目录和所有子目录中搜索匹配文件</td>
+</tr>
+<tr>
+<td style="text-align:center">/I</td>
+<td style="text-align:left">指定搜索不分大小写</td>
+</tr>
+<tr>
+<td style="text-align:center">/X</td>
+<td style="text-align:left">打印完全匹配的行</td>
+</tr>
+<tr>
+<td style="text-align:center">/V</td>
+<td style="text-align:left">只打印不包含匹配的行</td>
+</tr>
+<tr>
+<td style="text-align:center">/N</td>
+<td style="text-align:left">在匹配的每行前打印行数</td>
+</tr>
+<tr>
+<td style="text-align:center">/M</td>
+<td style="text-align:left">如果文件含有匹配项，只打印其文件名</td>
+</tr>
+<tr>
+<td style="text-align:center">/O</td>
+<td style="text-align:left">在每个匹配行前打印字符偏移量</td>
+</tr>
+<tr>
+<td style="text-align:center">/P</td>
+<td style="text-align:left">忽略有不可打印字符的文件</td>
+</tr>
+<tr>
+<td style="text-align:center">/OFF[LINE]</td>
+<td style="text-align:left">不跳过带有脱机属性集的文件</td>
+</tr>
+<tr>
+<td style="text-align:center">/A:attr</td>
+<td style="text-align:left">指定有十六进位数字的颜色属性。请见 &quot;color /?</td>
+</tr>
+<tr>
+<td style="text-align:center">/F:file</td>
+<td style="text-align:left">从指定文件读文件列表 (/ 代表控制台)</td>
+</tr>
+<tr>
+<td style="text-align:center">/C:string</td>
+<td style="text-align:left">使用指定字符串作为文字搜索字符串</td>
+</tr>
+<tr>
+<td style="text-align:center">/G:file</td>
+<td style="text-align:left">从指定的文件获得搜索字符串。 (/ 代表控制台)</td>
+</tr>
+<tr>
+<td style="text-align:center">/D:dir</td>
+<td style="text-align:left">查找以分号为分隔符的目录列</td>
+</tr>
+<tr>
+<td style="text-align:center">strings</td>
+<td style="text-align:left">要查找的文字</td>
+</tr>
+<tr>
+<td style="text-align:center">[drive:][path]filename</td>
+<td style="text-align:left">指定要查找的文件</td>
+</tr>
+</tbody>
+</table>
+<p>除非参数有 <code>/C</code> 前缀，请使用空格隔开搜索字符串。<br>
+<br>
+例如:</p>
+<p><code>FINDSTR &quot;hello there&quot; x.y</code> 在文件 x.y 中寻找 <code>&quot;hello&quot;</code> 或<br>
+<code>&quot;there&quot;</code> 。 <br>
+<code>FINDSTR /C:&quot;hello there&quot; x.y</code> 文件 x.y 寻找<br>
+<code>&quot;hello there&quot;</code>。</p>
+<p>一般表达式的快速参考:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">expression</th>
+<th style="text-align:left">function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">.</td>
+<td style="text-align:left">通配符: 任何字符</td>
+</tr>
+<tr>
+<td style="text-align:center">*</td>
+<td style="text-align:left">重复: 以前字符或类别出现零或零以上次数</td>
+</tr>
+<tr>
+<td style="text-align:center">^</td>
+<td style="text-align:left">行位置: 行的开始</td>
+</tr>
+<tr>
+<td style="text-align:center">$</td>
+<td style="text-align:left">行位置: 行的终点</td>
+</tr>
+<tr>
+<td style="text-align:center">[class]</td>
+<td style="text-align:left">字符类别: 任何在字符集中的字符</td>
+</tr>
+<tr>
+<td style="text-align:center">[^class]</td>
+<td style="text-align:left">补字符类别: 任何不在字符集中的字符</td>
+</tr>
+<tr>
+<td style="text-align:center">[x-y]</td>
+<td style="text-align:left">范围: 在指定范围内的任何字符</td>
+</tr>
+<tr>
+<td style="text-align:center">\x</td>
+<td style="text-align:left">Escape: 元字符 x 的文字用法</td>
+</tr>
+<tr>
+<td style="text-align:center">&lt;xyz</td>
+<td style="text-align:left">字位置: 字的开始</td>
+</tr>
+<tr>
+<td style="text-align:center">xyz&gt;</td>
+<td style="text-align:left">字位置: 字的结束</td>
+</tr>
+</tbody>
+</table>
+<p>有关 <code>FINDSTR</code> 常见表达法的详细情况，请见联机命令参考。</p>
+<h3 id="date-t-和-time-t"><a class="header-anchor" href="#date-t-和-time-t">¶</a><code>date /t</code> 和 <code>time /t</code></h3>
+<p><code>date /t</code> 直接显示当前日期，可用来提取或显示日期.<br>
+<code>time /t</code> 直接显示当前时间，可用来提取或显示时间.</p>
+<h1>第二节 常用特殊符号</h1>
+<pre><code>1. @  命令行回显屏蔽符
+2. %  批处理变量引导符
+3. &gt;   输出重定向符
+4. &gt;&gt;  输出重定向符
+5. &lt;、&gt;&amp;、&lt;&amp; 重定向符
+6. |  命令管道符
+7. ^  转义字符
+8. &amp;  组合命令（顺序执行）
+9. &amp;&amp; 组合命令（前面指令成功，才执行后面指令）
+10. ||  组合命令（前面指令失败，才执行后面指令）
+11. &quot;&quot;  字符串界定符
+12. , 逗号
+13. ; 分号
+14. () 括号
+15. ! 感叹号
+16. 批处理中可能会见到的其它特殊标记符: （略）
+    CR(0D) 命令行结束符 
+    Escape(1B) ANSI转义字符引导符 
+    Space(20) 常用的参数界定符 
+    Tab(09) ; = 不常用的参数界定符 
+    + COPY命令文件连接符 
+    * ? 文件通配符 
+    / 参数开关引导符 
+    : 批处理标签引导符
+</code></pre>
+<h2 id="符号介绍"><a class="header-anchor" href="#符号介绍">¶</a>符号介绍</h2>
+<h3 id="命令行回显屏蔽符"><a class="header-anchor" href="#命令行回显屏蔽符">¶</a><code>@</code> 命令行回显屏蔽符</h3>
+<p>  这个字符在批处理中的意思是关闭当前行的回显。我们从前几课知道<br>
+<code>ECHO OFF</code> 可以关闭掉整个批处理命令的回显，但不能关掉<code>ECHO OFF</code> 这个命令，现在我们在<code>ECHO OFF</code>这个命令前加个<code>@</code>，就可以达到所有命令均不回显的要求</p>
+<h3 id="批处理变量引导符"><a class="header-anchor" href="#批处理变量引导符">¶</a><code>%</code> 批处理变量引导符</h3>
+<p>  这个百分号严格来说是算不上命令的，它只是批处理中的参数而已（多个%一起使用的情况除外，以后还将详细介绍）。<br>
+引用变量用<code>%var%</code>，调用程序外部参数用<code>%1</code>至<code>%9</code>等等。<code>%0  %1  %2  %3  %4  %5  %6  %7  %8  %9  %*</code> 为命令行传递给批处理的参数</p>
+<ul>
+<li><code>%0</code> 批处理文件本身，包括完整的路径和扩展名\</li>
+<li><code>%1</code> 第一个参数\</li>
+<li><code>%9</code> 第九个参数\</li>
+<li><code>%*</code> 从第一个参数开始的所有参数</li>
+</ul>
+<p>参数<code>%0</code>具有特殊的功能，可以调用批处理自身，以达到批处理本身循环的目的，也可以复制和删除文件自身等等。</p>
+<p><em>例：</em> 最简单的复制文件自身的方法</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">copy</span> %<span class="number">0</span> d:\wind.bat</span><br></pre></td></tr></table></figure>
+<p><strong>小技巧：添加行内注释</strong></p>
+<p><code>%注释内容%</code>（可以用作行内注释，不能出现重定向符号和管道符号）<br>
+为什么这样呢？此时“注释内容”其实被当作变量，其值是空的，故只起注释作用，不过这种用法容易出现语法错误，一般不用。</p>
+<h3 id="输出重定向符"><a class="header-anchor" href="#输出重定向符">¶</a><code>&gt;</code> 输出重定向符</h3>
+<p><strong>输出重定向命令</strong></p>
+<p>  这个字符的意思是传递并且覆盖，他所起的作用是将运行的结果传递到后面的范围（后边可以是文件，也可以是默认的系统控制台）<br>
+在NT系列命令行中，重定向的作用范围由整个命令行转变为单个命令语句，受到了命令分隔符&amp;,&amp;&amp;,||和语句块的制约限制。<br>
+比如：</p>
+<p>使用命令：<code>echo hello &gt;1.txt</code>将建立文件1.txt，内容为”hello “（注意行尾有一空格）<br>
+使用命令：<code>echo hello&gt;1.txt</code>将建立文件1.txt，内容为”hello“（注意行尾没有空格）</p>
+<h3 id="输出重定向符-v2"><a class="header-anchor" href="#输出重定向符-v2">¶</a><code>&gt;&gt;</code> 输出重定向符</h3>
+<p><strong>输出重定向命令</strong></p>
+<p>这个符号的作用和<code>&gt;</code>有点类似，但他们的区别是<code>&gt;&gt;</code>是传递并在文件的末尾追加，而<code>&gt;</code>是覆盖<br>
+用法同上<br>
+同样拿1.txt做例子<br>
+使用命令：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> hello &gt; <span class="number">1</span>.txt</span><br><span class="line"><span class="built_in">echo</span> world &gt;&gt;<span class="number">1</span>.txt</span><br></pre></td></tr></table></figure>
+<p>这时候1.txt 内容如下:</p>
+<pre><code>hello
+world
+</code></pre>
+<h3 id="、-、-重定向符"><a class="header-anchor" href="#、-、-重定向符">¶</a><code>&lt;、&gt;&amp;、&lt;&amp;</code> 重定向符</h3>
+<p>  这三个命令也是管道命令，但<code>&gt;&amp;</code>、<code>&lt;&amp;</code>一般不常用，你只需要知道一下就ok了，当然如果想仔细研究的话，可以自己查一下资料。(本人已查过，网上也查不到相关资料)</p>
+<p><code>&lt;</code>，输入重定向命令，从文件中读入命令输入，而不是从键盘中读入。</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">echo</span> <span class="number">2005</span>-<span class="number">05</span>-<span class="number">01</span>&gt;temp.txt</span><br><span class="line"><span class="built_in">set</span> /p today=&lt;temp.txt</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">%today%</span></span><br><span class="line"><span class="built_in">del</span> temp.txt</span><br><span class="line"><span class="built_in">pause</span></span><br></pre></td></tr></table></figure>
+<p>运行显示：</p>
+<pre><code>2005-05-01
+请按任意键继续. . .
+</code></pre>
+<p><code>&gt;&amp;</code>，将一个句柄的输出写入到另一个句柄的输入中。<br>
+<code>&lt;&amp;</code>，刚好和<code>&gt;&amp;</code>相反，从一个句柄读取输入并将其写入到另一个句柄输出中。<br>
+常用句柄：0、1、2，未定义句柄：3—9<br>
+<code>1&gt;nul</code> 表示禁止输出正确的信息<br>
+<code>2&gt;nul</code> 表示禁止输出错误信息。<br>
+其中的1与2都是代表某个数据流输入输出的地址（NT CMD 称之为句柄，MSDOS称之为设备）。<br>
+句柄0：标准输入stdin，键盘输入<br>
+句柄1：标准输出stdout，输出到命令提示符窗口（console，代码为CON）<br>
+句柄2：标准错误stderr，输出到命令提示符窗口（console，代码为CON）<br>
+其中的stdin可被&lt;重定向，stdout可被&gt;、&gt;&gt;重定向。<br>
+我们已经知道读取文本中的内容可以用for命令，但如果只需要读取第一行用for命令就有点麻烦。简单的办法如下:</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"> <span class="built_in">set</span> /p str=&lt;%<span class="number">0</span></span><br><span class="line"> <span class="built_in">echo</span> <span class="variable">%str%</span></span><br><span class="line"> <span class="built_in">pause</span></span><br></pre></td></tr></table></figure>
+<p>运行显示批处理文件自身的第一行：<code>@echo off</code></p>
+<h3 id="命令管道符"><a class="header-anchor" href="#命令管道符">¶</a><code>|</code> 命令管道符</h3>
+<p>格式：</p>
+<pre><code>第一条命令 | 第二条命令 [| 第三条命令...]
+</code></pre>
+<p>将第一条命令的结果作为第二条命令的参数来使用，记得在unix中这种方式很常见。</p>
+<p>例如：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dir</span> c:\|<span class="built_in">find</span> "txt"</span><br></pre></td></tr></table></figure>
+<p>以上命令是：查找<code>C：\</code>所有，并发现<code>TXT</code>字符串。<br>
+<code>FIND</code>的功能请用 <code>FIND /?</code> 自行查看<br>
+在不使<code>format</code>的自动格式化参数时，我是这样来自动格式化A盘的</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> y|<span class="built_in">format</span> a: /s /q /v:system</span><br></pre></td></tr></table></figure>
+<p>  用过<code>format</code>的都知道，在格盘时要输入<code>y</code>来确认是否格盘，这个命令前加上<code>echo y</code>并用<code>|</code>字符来将<code>echo y</code>的结果传给<code>format</code>命令<br>
+从而达到自动输入<code>y</code>的目的<br>
+（这条命令有危害性，测试时请慎重）</p>
+<h3 id="转义字符"><a class="header-anchor" href="#转义字符">¶</a><code>^</code> 转义字符</h3>
+<p>  <code>^</code> 是对特殊符号<code>&lt;</code>,<code>&gt;</code>,<code>&amp;</code>的前导字符，在命令中他将以上3个符号的特殊功能去掉，仅仅只把他们当成符号而不使用他们的特殊意义。<br>
+比如:</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> test ^&gt;<span class="number">1</span>.txt</span><br></pre></td></tr></table></figure>
+<p>结果则是：</p>
+<pre><code>test &gt; 1.txt
+</code></pre>
+<p>它没有追加在1.txt里，呵呵。只是显示了出来<br>
+另外，此转义字符还可以用作续行符号。<br>
+举个简单的例子：\</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">echo</span> 英雄^</span><br><span class="line">是^</span><br><span class="line">好^</span><br><span class="line">男人</span><br><span class="line"><span class="built_in">pause</span></span><br></pre></td></tr></table></figure>
+<p>不用多说，自己试一下就明白了。<br>
+  为什么转义字符放在行尾可以起到续行符的作用呢？原因很简单，因为每行末尾还有一个看不见的符号，即回车符，转义字符位于行尾时就让回车符失效了，从而起到了续行的作用。</p>
+<h3 id="组合命令（顺序执行）"><a class="header-anchor" href="#组合命令（顺序执行）">¶</a><code>&amp;</code> 组合命令（顺序执行）</h3>
+<p>语法：</p>
+<pre><code>第一条命令 &amp; 第二条命令 [&amp; 第三条命令...]
+</code></pre>
+<p>  <code>&amp;</code>、<code>&amp;&amp;</code>、<code>||</code>为组合命令，顾名思义，就是可以把多个命令组合起来当一个命令来执行。这在批处理脚本里是允许的，而且用的非常广泛。因为批处理认行不认命令数目。<br>
+  这个符号允许在一行中使用2个以上不同的命令，<strong>当第一个命令执行失败了，也不影响后边的命令执行。</strong><br>
+这里<code>&amp;</code>两边的命令是顺序执行的，从前往后执行。<br>
+比如：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dir</span> z:\ &amp; <span class="built_in">dir</span> y:\ &amp; <span class="built_in">dir</span> c:\</span><br></pre></td></tr></table></figure>
+<p>以上命令会连续显示z,y,c盘的内容，不理会该盘是否存在</p>
+<h3 id="组合命令（前面指令成功，才执行后面指令）"><a class="header-anchor" href="#组合命令（前面指令成功，才执行后面指令）">¶</a><code>&amp;&amp;</code> 组合命令（前面指令成功，才执行后面指令）</h3>
+<p>语法：</p>
+<pre><code>第一条命令 &amp;&amp; 第二条命令 [&amp;&amp; 第三条命令...]
+</code></pre>
+<p>  用这种方法可以同时执行多条命令，==当碰到执行出错的命令后将不执行后面的命令，== 如果一直没有出错则一直执行完所有命令.<br>
+这个命令和上边的类似，但区别是，第一个命令失败时，后边的命令也不会执行</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dir</span> z:\ &amp;&amp; <span class="built_in">dir</span> y:\ &amp;&amp; <span class="built_in">dir</span> c:\</span><br></pre></td></tr></table></figure>
+<h3 id="组合命令（前面指令失败，才执行后面指令）"><a class="header-anchor" href="#组合命令（前面指令失败，才执行后面指令）">¶</a><code>||</code> 组合命令（前面指令失败，才执行后面指令）</h3>
+<p>语法：</p>
+<pre><code>第一条命令 || 第二条命令 [|| 第三条命令...]
+</code></pre>
+<p>  用这种方法可以同时执行多条命令，==当一条命令失败后才执行第二条命令，当碰到执行正确的命令后将不执行后面的命令，== 如果没有出现正确的命令则一直执行完所有命令.</p>
+<p><em>提示</em>：<br>
+组合命令和重定向命令一起使用必须注意优先级:<br>
+<em><strong>管道命令的优先级高于重定向命令，重定向命令的优先级高于组合命令</strong></em></p>
+<p><em>问题</em>：<br>
+把C盘和D盘的文件和文件夹列出到a.txt文件中。看例：\</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dir</span> c:\ &amp;&amp; <span class="built_in">dir</span> d:\ &gt; a.txt</span><br></pre></td></tr></table></figure>
+<p>这样执行后a.txt里只有D盘的信息！为什么？因为组合命令的优先级没有重定向命令的优先级高！所以这句在执行时将本行分成这两部分：<code>dir c:\</code>和<code>dir d:\ &gt; a.txt</code>，而并不是如你想的这两部分：<code>dir c:\ &amp;&amp; dir d:\</code>和<code>&gt; a.txt</code>。</p>
+<p>要使用组合命令<code>&amp;&amp;</code>达到题目的要求，必须得这么写：\</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dir</span> c:\ &gt; a.txt &amp;&amp; <span class="built_in">dir</span> d:\ &gt;&gt; a.txt</span><br></pre></td></tr></table></figure>
+<p>这样，依据优先级高低，DOS将把这句话分成以下两部分：<code>dir c:\ &gt; a.txt</code>和<code>dir d:\ &gt;&gt; a.txt</code>。例十八中的几句的差别比较特殊，值得好好研究体会一下。<br>
+<br>
+当然这里还可以利用<code>&amp;</code>命令（自己想一下道理哦）：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dir</span> c:\ &gt; a.txt &amp; <span class="built_in">dir</span> d:\ &gt;&gt; a.txt</span><br></pre></td></tr></table></figure>
+<h3 id="字符串界定符"><a class="header-anchor" href="#字符串界定符">¶</a><code>&quot;&quot;</code> 字符串界定符</h3>
+<p>双引号允许在字符串中包含空格，进入一个特殊目录可以用如下方法</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> "program files"</span><br><span class="line"><span class="built_in">cd</span> progra~<span class="number">1</span></span><br><span class="line"><span class="built_in">cd</span> pro*</span><br></pre></td></tr></table></figure>
+<p>以上三种方法都可以进入program files这个目录</p>
+<h3 id="逗号"><a class="header-anchor" href="#逗号">¶</a><code>,</code> 逗号</h3>
+<p>逗号相当于空格，在某些情况下“,”可以用来当做空格使<br>
+比如</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dir</span>,c:\</span><br><span class="line">``` </span><br><span class="line">### `;` 分号</span><br><span class="line"></span><br><span class="line">分号，当命令相同时，可以将不同目标用`;`来隔离，但执行效果不变，如执行过程中发生错误，则只返回错误报告，但程序仍会执行。（有人说不会继续执行，其实测试一下就知道了）\</span><br><span class="line">比如：</span><br><span class="line">```<span class="built_in">cmd</span></span><br><span class="line"><span class="built_in">dir</span> c:\;d:\;e:\;z:\</span><br></pre></td></tr></table></figure>
+<p>以上命令相当于</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dir</span> c:\</span><br><span class="line"><span class="built_in">dir</span> d:\</span><br><span class="line"><span class="built_in">dir</span> e:\</span><br><span class="line"><span class="built_in">dir</span> f:\</span><br></pre></td></tr></table></figure>
+<p>如果其中z盘不存在，运行显示：<code>系统找不到指定的路径。</code>然后终止命令的执行。<br>
+例：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dir</span> c:\;d:\;e:\<span class="number">1</span>.txt</span><br></pre></td></tr></table></figure>
+<p>以上命令相当于</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dir c:\</span><br><span class="line">dir d:\</span><br><span class="line">dir e:\1.txt</span><br></pre></td></tr></table></figure>
+<p>其中文件 <code>e:\1.txt</code> 不存在，但e盘存在，有错误提示，但命令仍会执行。<br>
+<strong>如果目标路径不存在，则终止执行；如果路径存在，仅文件不存在，则继续执行。<br>
+就说这些了!</strong></p>
+<h3 id="括号"><a class="header-anchor" href="#括号">¶</a><code>()</code> 括号</h3>
+<p>  小括号在批处理编程中有特殊的作用，左右括号必须成对使用，括号中可以包括多行命令，这些命令将被看成一个整体，视为一条命令行。<br>
+括号在<code>for</code>语句和<code>if</code>语句中常见，用来嵌套使用循环或条件语句，其实括号<code>()</code>也可以单独使用，请看例子。<br>
+例：<br>
+命令：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="number">1</span> &amp; <span class="built_in">echo</span> <span class="number">2</span> &amp; <span class="built_in">echo</span> <span class="number">3</span></span><br></pre></td></tr></table></figure>
+<p>可以写成：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(</span><br><span class="line"><span class="built_in">echo</span> <span class="number">1</span></span><br><span class="line"><span class="built_in">echo</span> <span class="number">2</span></span><br><span class="line"><span class="built_in">echo</span> <span class="number">3</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>上面两种写法效果一样，这两种写法都被视为是一条命令行。<br>
+<strong>注意：这种多条命令被视为一条命令行时，如果其中有变量，就涉及到变量延迟的问题。</strong></p>
+<h3 id="感叹号"><a class="header-anchor" href="#感叹号">¶</a><code>!</code> 感叹号</h3>
+<p>没啥说的，在变量延迟问题中，用来表示变量，即<code>%var%</code>应该表示为<code>!var!</code>，请看前面的<code>setlocal</code>命令介绍。</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.JPG" alt="Wang PT 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.JPG" alt="Wang PT 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E6%89%B9%E5%A4%84%E7%90%86/" rel="tag"><i class="fa fa-tag"></i> 批处理</a>
+              <a href="/tags/DOS/" rel="tag"><i class="fa fa-tag"></i> DOS</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/04/19/%E5%9C%A8%E6%94%AF%E6%8C%81Intel%E7%9A%84PC%E4%B8%8A%E5%AE%89%E8%A3%85macOS-Mojave/" rel="prev" title="在支持Intel的PC上安装macOS Mojave">
+      <i class="fa fa-chevron-left"></i> 在支持Intel的PC上安装macOS Mojave
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/04/22/DOS%E7%BC%96%E7%A8%8B2-%E5%BE%AA%E7%8E%AF/" rel="next" title="DOS编程2-循环">
+      DOS编程2-循环 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">1.</span> <span class="nav-text">第一节 常用批处理内部命令简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍命令"><span class="nav-number">1.1.</span> <span class="nav-text">介绍命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#REM-和"><span class="nav-number">1.1.1.</span> <span class="nav-text">REM 和 ::</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ECHO-和"><span class="nav-number">1.1.2.</span> <span class="nav-text">ECHO 和 @</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PAUSE-暂停"><span class="nav-number">1.1.3.</span> <span class="nav-text">PAUSE 暂停</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#errorlevel-程序返回码"><span class="nav-number">1.1.4.</span> <span class="nav-text">errorlevel 程序返回码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#title-设置cmd窗口的标题"><span class="nav-number">1.1.5.</span> <span class="nav-text">title 设置cmd窗口的标题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#COLOR-设置cmd窗口前景和背景颜色"><span class="nav-number">1.1.6.</span> <span class="nav-text">COLOR 设置cmd窗口前景和背景颜色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mode-配置系统设备"><span class="nav-number">1.1.7.</span> <span class="nav-text">mode 配置系统设备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GOTO-和"><span class="nav-number">1.1.8.</span> <span class="nav-text">GOTO 和 :</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FIND-在文件中搜索字符串"><span class="nav-number">1.1.9.</span> <span class="nav-text">FIND 在文件中搜索字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#start-调用外部程序并任其在新窗口自行运行"><span class="nav-number">1.1.10.</span> <span class="nav-text">start 调用外部程序并任其在新窗口自行运行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#assoc-和-ftype"><span class="nav-number">1.1.11.</span> <span class="nav-text">assoc 和 ftype</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pushd-和-popd"><span class="nav-number">1.1.12.</span> <span class="nav-text">pushd 和 popd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CALL-调用批处理程序或命令并等待其执行完毕"><span class="nav-number">1.1.13.</span> <span class="nav-text">CALL 调用批处理程序或命令并等待其执行完毕</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SHIFT"><span class="nav-number">1.1.14.</span> <span class="nav-text">SHIFT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IF"><span class="nav-number">1.1.15.</span> <span class="nav-text">IF</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#setlocal-与-变量延迟"><span class="nav-number">1.1.16.</span> <span class="nav-text">setlocal 与 变量延迟</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ATTRIB-显示或更改文件属性"><span class="nav-number">1.1.17.</span> <span class="nav-text">ATTRIB 显示或更改文件属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#findstr-在文件中搜索字符串（find增强版）"><span class="nav-number">1.1.18.</span> <span class="nav-text">findstr 在文件中搜索字符串（find增强版）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#date-t-和-time-t"><span class="nav-number">1.1.19.</span> <span class="nav-text">date &#x2F;t 和 time &#x2F;t</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">2.</span> <span class="nav-text">第二节 常用特殊符号</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#符号介绍"><span class="nav-number">2.1.</span> <span class="nav-text">符号介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#命令行回显屏蔽符"><span class="nav-number">2.1.1.</span> <span class="nav-text">@ 命令行回显屏蔽符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#批处理变量引导符"><span class="nav-number">2.1.2.</span> <span class="nav-text">% 批处理变量引导符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#输出重定向符"><span class="nav-number">2.1.3.</span> <span class="nav-text">&gt; 输出重定向符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#输出重定向符-v2"><span class="nav-number">2.1.4.</span> <span class="nav-text">&gt;&gt; 输出重定向符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#、-、-重定向符"><span class="nav-number">2.1.5.</span> <span class="nav-text">&lt;、&gt;&amp;、&lt;&amp; 重定向符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命令管道符"><span class="nav-number">2.1.6.</span> <span class="nav-text">| 命令管道符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#转义字符"><span class="nav-number">2.1.7.</span> <span class="nav-text">^ 转义字符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组合命令（顺序执行）"><span class="nav-number">2.1.8.</span> <span class="nav-text">&amp; 组合命令（顺序执行）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组合命令（前面指令成功，才执行后面指令）"><span class="nav-number">2.1.9.</span> <span class="nav-text">&amp;&amp; 组合命令（前面指令成功，才执行后面指令）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组合命令（前面指令失败，才执行后面指令）"><span class="nav-number">2.1.10.</span> <span class="nav-text">|| 组合命令（前面指令失败，才执行后面指令）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串界定符"><span class="nav-number">2.1.11.</span> <span class="nav-text">&quot;&quot; 字符串界定符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#逗号"><span class="nav-number">2.1.12.</span> <span class="nav-text">, 逗号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#括号"><span class="nav-number">2.1.13.</span> <span class="nav-text">() 括号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#感叹号"><span class="nav-number">2.1.14.</span> <span class="nav-text">! 感叹号</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Wang PT"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Wang PT</p>
+  <div class="site-description" itemprop="description">A Rookie Working for Earthquake Science</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yourname" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-github-alt fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yourname@gmail.com" title="E-Mail → mailto:yourname@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/yourname" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://zhihu.com/people/your-user-name" title="zhihu → http:&#x2F;&#x2F;zhihu.com&#x2F;people&#x2F;your-user-name" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://aganr.com/about/" title="wechat → https:&#x2F;&#x2F;aganr.com&#x2F;about&#x2F;" rel="noopener" target="_blank"><i class="fab fa-weixin fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://aganr.com/about/" title="qq → https:&#x2F;&#x2F;aganr.com&#x2F;about&#x2F;" rel="noopener" target="_blank"><i class="fab fa-qq fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Related Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://www.gsdzj.gov.cn/" title="http:&#x2F;&#x2F;www.gsdzj.gov.cn&#x2F;" rel="noopener" target="_blank">GSEA</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.cea.gov.cn/" title="https:&#x2F;&#x2F;www.cea.gov.cn&#x2F;" rel="noopener" target="_blank">CEA</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.usgs.gov/" title="https:&#x2F;&#x2F;www.usgs.gov&#x2F;" rel="noopener" target="_blank">USGS</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://www.csi.ac.cn/" title="http:&#x2F;&#x2F;www.csi.ac.cn&#x2F;" rel="noopener" target="_blank">CEIN</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://gmt-china.org/" title="https:&#x2F;&#x2F;gmt-china.org&#x2F;" rel="noopener" target="_blank">GMT-China</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.globalcmt.org/CMTsearch.html" title="https:&#x2F;&#x2F;www.globalcmt.org&#x2F;CMTsearch.html" rel="noopener" target="_blank">Global CMT</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://seisman.info/" title="https:&#x2F;&#x2F;seisman.info&#x2F;" rel="noopener" target="_blank">SeisMan Blog</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hexo.io/" title="https:&#x2F;&#x2F;hexo.io&#x2F;" rel="noopener" target="_blank">Hexo</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.csdn.net/" title="https:&#x2F;&#x2F;www.csdn.net&#x2F;" rel="noopener" target="_blank">CSDN</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.matplotlib.org.cn/" title="https:&#x2F;&#x2F;www.matplotlib.org.cn&#x2F;" rel="noopener" target="_blank">Matplotlib-CN</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.pypandas.cn/" title="https:&#x2F;&#x2F;www.pypandas.cn&#x2F;" rel="noopener" target="_blank">Pandas-CN</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fas fa-arrow-alt-circle-right"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wang PT</span>
+</div>
+
+<span class="post-meta-item-icon">
+  <span id="busuanzi_container_site_pv">
+	  <i class="fa fa-eye"></i>
+	</span>
+	访问量:<span id="busuanzi_value_site_pv"></span> 次数
+</span>
+
+<span class="post-meta-divider">|</span>
+	<span id="busuanzi_container_site_uv">
+  	<i class="fas fa-users"></i>
+	访问数:<span id="busuanzi_value_site_uv"></span> 人次
+</span>
+
+<span class="post-meta-divider">|</span>
+	<span id="busuanzi_container_page_pv">
+    <i class="fas fa-book-open"></i>
+	阅读数:<span id="busuanzi_value_page_pv"></span> 次
+</span>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"lGnGKKDnV1HwUIE9JkDf5wWy-gzGzoHsz","app_key":"w0rKKvnjIJH639RrjhX73QL7","server_url":"https://lgngkkdn.lc-cn-n1-shared.com","security":true};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://wangpt.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://wpttt.github.io/2020/04/22/DOS%E7%BC%96%E7%A8%8B1-%E6%89%B9%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80/";
+    this.page.identifier = "2020/04/22/DOS编程1-批处理基础/";
+    this.page.title = "DOS编程1-批处理基础";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://wangpt.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>
