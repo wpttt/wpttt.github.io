@@ -22,29 +22,31 @@
     var CONFIG = {"hostname":"wpttt.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null,"activeClass":"disqus"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="¶ printf用法">
+  <meta name="description" content="PyGMT作为实现GMT绘图的Python包，是地球科学中广泛应用的命令行程序。它提供了处理空间数据（网格化、过滤、遮蔽、FFT 等）和绘制高质量平面图和地图的功能。本文介绍PyGMT在Linux或macOS下的配置与安装。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="windows下awk指定文本输出格式">
-<meta property="og:url" content="http://wpttt.github.io/2020/04/17/windows%E4%B8%8Bawk%E6%8C%87%E5%AE%9A%E6%96%87%E6%9C%AC%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F/index.html">
+<meta property="og:title" content="PyGMT安装配置">
+<meta property="og:url" content="http://wpttt.github.io/2020/04/24/PyGMT%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/index.html">
 <meta property="og:site_name" content="GSEASRX">
-<meta property="og:description" content="¶ printf用法">
+<meta property="og:description" content="PyGMT作为实现GMT绘图的Python包，是地球科学中广泛应用的命令行程序。它提供了处理空间数据（网格化、过滤、遮蔽、FFT 等）和绘制高质量平面图和地图的功能。本文介绍PyGMT在Linux或macOS下的配置与安装。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://twemoji.maxcdn.com/v/12.1.5/72x72/31-20e3.png">
-<meta property="og:image" content="https://twemoji.maxcdn.com/v/12.1.5/72x72/32-20e3.png">
-<meta property="og:image" content="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png">
-<meta property="og:image" content="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png">
-<meta property="og:image" content="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png">
-<meta property="og:image" content="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png">
-<meta property="og:image" content="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png">
-<meta property="og:image" content="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png">
-<meta property="article:published_time" content="2020-04-17T15:00:11.000Z">
-<meta property="article:modified_time" content="2020-04-23T05:43:36.966Z">
+<meta property="og:image" content="https://twemoji.maxcdn.com/v/12.1.5/72x72/26a0.png">
+<meta property="og:image" content="https://twemoji.maxcdn.com/v/12.1.5/72x72/26a0.png">
+<meta property="og:image" content="https://wpttt.github.io/images/PyGMT/test1.png">
+<meta property="og:image" content="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f44d.png">
+<meta property="og:image" content="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f44d.png">
+<meta property="og:image" content="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f44d.png">
+<meta property="og:image" content="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f60e.png">
+<meta property="og:image" content="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f60e.png">
+<meta property="og:image" content="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f60e.png">
+<meta property="article:published_time" content="2020-04-24T14:47:50.000Z">
+<meta property="article:modified_time" content="2020-04-24T16:39:22.671Z">
 <meta property="article:author" content="Wang PT">
-<meta property="article:tag" content="awk">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="GMT">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://twemoji.maxcdn.com/v/12.1.5/72x72/31-20e3.png">
+<meta name="twitter:image" content="https://twemoji.maxcdn.com/v/12.1.5/72x72/26a0.png">
 
-<link rel="canonical" href="http://wpttt.github.io/2020/04/17/windows%E4%B8%8Bawk%E6%8C%87%E5%AE%9A%E6%96%87%E6%9C%AC%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F/">
+<link rel="canonical" href="http://wpttt.github.io/2020/04/24/PyGMT%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/">
 
 
 <script id="page-configurations">
@@ -57,7 +59,7 @@
   };
 </script>
 
-  <title>windows下awk指定文本输出格式 | GSEASRX</title>
+  <title>PyGMT安装配置 | GSEASRX</title>
   
 
 
@@ -206,7 +208,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://wpttt.github.io/2020/04/17/windows%E4%B8%8Bawk%E6%8C%87%E5%AE%9A%E6%96%87%E6%9C%AC%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F/">
+    <link itemprop="mainEntityOfPage" href="http://wpttt.github.io/2020/04/24/PyGMT%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -219,7 +221,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          windows下awk指定文本输出格式
+          PyGMT安装配置
         </h1>
 
         <div class="post-meta">
@@ -229,14 +231,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-04-17 23:00:11" itemprop="dateCreated datePublished" datetime="2020-04-17T23:00:11+08:00">2020-04-17</time>
+              <time title="创建时间：2020-04-24 22:47:50" itemprop="dateCreated datePublished" datetime="2020-04-24T22:47:50+08:00">2020-04-24</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-23 13:43:36" itemprop="dateModified" datetime="2020-04-23T13:43:36+08:00">2020-04-23</time>
+                <time title="修改时间：2020-04-25 00:39:22" itemprop="dateModified" datetime="2020-04-25T00:39:22+08:00">2020-04-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -244,12 +246,12 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%90%8E%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">后端</span></a>
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
                 </span>
             </span>
 
           
-            <span id="/2020/04/17/windows%E4%B8%8Bawk%E6%8C%87%E5%AE%9A%E6%96%87%E6%9C%AC%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F/" class="post-meta-item leancloud_visitors" data-flag-title="windows下awk指定文本输出格式" title="阅读次数">
+            <span id="/2020/04/24/PyGMT%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/" class="post-meta-item leancloud_visitors" data-flag-title="PyGMT安装配置" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -264,8 +266,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2020/04/17/windows%E4%B8%8Bawk%E6%8C%87%E5%AE%9A%E6%96%87%E6%9C%AC%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/04/17/windows下awk指定文本输出格式/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2020/04/24/PyGMT%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/04/24/PyGMT安装配置/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -280,53 +282,91 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="1️⃣-printf用法"><a class="header-anchor" href="#1️⃣-printf用法">¶</a><img class="emoji" draggable="false" alt="1️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/31-20e3.png"/> printf用法</h3>
+        <p>PyGMT作为实现<a href="https://github.com/GenericMappingTools/gmt" target="_blank" rel="noopener">GMT</a>绘图的Python包，是地球科学中广泛应用的命令行程序。它提供了处理空间数据（网格化、过滤、遮蔽、FFT 等）和绘制高质量平面图和地图的功能。本文介绍PyGMT在Linux或macOS下的配置与安装。</p>
 <a id="more"></a>
-<p>补齐只能补<code>0</code>或空格字符</p>
-<p>cmd中写法为：</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo <span class="number">1.22</span> | gawk <span class="string">"&#123;printf "</span><span class="string">""</span>%<span class="number">7.3</span>f<span class="string">""</span><span class="string">" <span class="variable">$1</span>&#125;"</span></span><br></pre></td></tr></table></figure>
-<p>bat批处理脚本中写法为：</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo <span class="number">1.22</span> | gawk <span class="string">"&#123;printf "</span><span class="string">""</span>%%<span class="number">7.3</span>f<span class="string">""</span><span class="string">", <span class="variable">$1</span>&#125;"</span></span><br></pre></td></tr></table></figure>
-<p>输出结果为</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.220</span>  <span class="comment"># 数字前面有两个空字符</span></span><br></pre></td></tr></table></figure>
-<h3 id="2️⃣-常用数据类型"><a class="header-anchor" href="#2️⃣-常用数据类型">¶</a><img class="emoji" draggable="false" alt="2️⃣" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/32-20e3.png"/> 常用数据类型</h3>
-<table>
-<thead>
-<tr>
-<th>字符</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>c</td>
-<td>字符</td>
-</tr>
-<tr>
-<td>s</td>
-<td>字符串</td>
-</tr>
-<tr>
-<td>d</td>
-<td>整数</td>
-</tr>
-<tr>
-<td>f</td>
-<td>浮点数</td>
-</tr>
-<tr>
-<td>ld</td>
-<td>长整数</td>
-</tr>
-</tbody>
-</table>
-<p><img class="emoji" draggable="false" alt="😂" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png"/><img class="emoji" draggable="false" alt="😂" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png"/><img class="emoji" draggable="false" alt="😂" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png"/>其他的百度 <img class="emoji" draggable="false" alt="😂" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png"/><img class="emoji" draggable="false" alt="😂" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png"/><img class="emoji" draggable="false" alt="😂" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f602.png"/></p>
-<p><code>%07s</code>表示保留7位字符，并右对齐，用0补齐</p>
-<p><code>%-7s</code>表示保留7位字符，并左对齐，用空字符补齐</p>
-<p><code>%07d</code>表示保留7位整数，用0补齐</p>
-<p><code>%7.3f</code>表示总长度7位字符，并保留三位小数，不足7为用空格补齐，并右对齐，</p>
-<p><code>%-7.3f</code>表示总长度7位字符，并保留三位小数，不足7为用空格补齐，并左对齐，</p>
-<p><code>%07.3f</code>时不足7为用0补齐，并右对齐</p>
+<p>PyGMT与Bokeh、Matplotlib等常规的Python库不同，后者更加注重交互性，并允许使用不同的后端。GMT则使用PostScript(.ps)格式为出版物、海报等生成高质量（静态）矢量图形，它的存储效率很高，而且速度非常快。用户可以将.ps图形转换为其他格式，例如PDF，PNG和JPG等多种格式，以在Web上和其他地方使用。实际上，PyGMT用户通常不会与原始PostScript文件建立任何联系，而只会获得更方便的格式，例如PDF和PNG等。</p>
+<p>该项目于2017年由位于马诺阿的夏威夷大学的<a href="https://www.leouieda.com/" target="_blank" rel="noopener">Leonardo Uieda</a>和<a href="http://www.soest.hawaii.edu/wessel/" target="_blank" rel="noopener">Paul Wessel</a>（GMT的共同创始人兼主要开发者）启动。其开发由 <a href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=1558403" target="_blank" rel="noopener">NSF grant OCE-1558403</a>资助。</p>
+<blockquote>
+<p><img class="emoji" draggable="false" alt="⚠️" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/26a0.png"/> <strong>注意：</strong><br>
+该软件包目前仍处于设计和开发的早期阶段，官方接受用户在 <a href="https://github.com/GenericMappingTools/pygmt/issues" target="_blank" rel="noopener">Github</a>上的提交反馈意见，或者在<a href="https://forum.generic-mapping-tools.org/" target="_blank" rel="noopener">论坛</a>上发帖讨论。</p>
+</blockquote>
+<h1>Python版本</h1>
+<p>目前PyGMT要求3.6或者更高版本Python。</p>
+<p>官方建议使用Anaconda的Python发行版，anaconda的优点在于能够保证conda包管理器的可用性，同时确保系统可以满足PyGMT的所有依赖关系。anaconda不要求计算机的管理员权限，同时也不会影响系统中任何已经安装的python版本。</p>
+<h1>GMT版本</h1>
+<p>PyGMT要求GMT的版本至少为6.0，GMT6.0是最新的发布版本，可以在<a href="https://www.generic-mapping-tools.org/" target="_blank" rel="noopener">这里</a>找到。</p>
+<p>随着PyGMT的不断开发，GMT本身也做出了很多相应的改变（主要是新出现的<a href="https://gmt.soest.hawaii.edu/projects/gmt/wiki/Modernization" target="_blank" rel="noopener">现代模式</a>），因此PyGMT要求GMT版本至少为6.0或以上。</p>
+<p>用户通过<code>conda-forge</code>获取为Linux、Mac和Windows编译的GMT的conda软件包，高级用户也可以从<a href="https://github.com/GenericMappingTools/gmt/blob/master/BUILDING.md" target="_blank" rel="noopener">源码构建GMT</a>。</p>
+<h1>依赖</h1>
+<p>PyGMT要求安装以下库：</p>
+<ul>
+<li><a href="http://www.numpy.org/" target="_blank" rel="noopener">numpy</a></li>
+<li><a href="https://pandas.pydata.org/" target="_blank" rel="noopener">pandas</a></li>
+<li><a href="http://xarray.pydata.org/" target="_blank" rel="noopener">xarray</a></li>
+<li><a href="https://pypi.org/project/packaging/" target="_blank" rel="noopener">packaging</a></li>
+</ul>
+<p>以下是可选（但建议）依赖项：</p>
+<ul>
+<li><a href="https://ipython.org/" target="_blank" rel="noopener">IPython</a> 用于Jupyter notebooks中图形的显示.</li>
+</ul>
+<h1>安装GMT及其他依赖项</h1>
+<p>在安装PyGMT之前，必须要安装GMT本身以及其他依赖项。最简单的方法就是使用conda包管理器，建议在隔离的conda虚拟环境中进行，以免其依赖项与其他python的依赖项版本互相干扰或矛盾。</p>
+<ol>
+<li>
+<p>配置conda，以实现从<a href="https://conda-forge.org/" target="_blank" rel="noopener">conda-forge channel</a>获取软件包：</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda config --prepend channels conda-forge</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>创建一个新的conda虚拟环境，并安装Python和所有依赖项，假定新的conda环境命名为“pygmt”：</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda create --name pygmt python=3.6 pip numpy pandas xarray packaging gmt=6.0.0</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>运行以下代码，激活新建的conda环境：</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda activate pygmt</span><br></pre></td></tr></table></figure>
+<p>如遇到conda虚拟环境管理的问题，请自行<a href="www.baidu.com">百度</a>。</p>
+</li>
+</ol>
+<p>至此，所有命令都会在新建的conda环境中运行，不会影响到python的默认安装。</p>
+<blockquote>
+<p><img class="emoji" draggable="false" alt="⚠️" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/26a0.png"/> <strong>注意：</strong><br>
+目前只在Linux和macOS上进行了测试，而未在Windows上运行测试，因此在windows下安装配置可能会出错。你也可以在<a href="https://github.com/GenericMappingTools/pygmt/issues" target="_blank" rel="noopener">Github上创建问题</a>反馈错误。</p>
+</blockquote>
+<h1>安装PyGMT</h1>
+<p>整了这么久，终于到了安装主角（PyGMT）的环节。</p>
+<p>到这一步，我们已经安装好了GMT，并激活了的conda环境，接下来就可以使用<code>pip</code>从Github安装最新的PyGMT源文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install https://github.com/GenericMappingTools/pygmt/archive/master.zip</span><br></pre></td></tr></table></figure>
+<p>或者，也可以用<code>git</code>将PyGMT的仓库克隆到本地，然后使用<code>pip</code>进行安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/GenericMappingTools/pygmt.git</span><br><span class="line"><span class="built_in">cd</span> pygmt</span><br><span class="line">pip install .</span><br></pre></td></tr></table></figure>
+<p>这将允许您使用pygmt中的Python库。</p>
+<h1>测试安装</h1>
+<p>PyGMT配备完整的测试套件，可以在安装后运行测试，不过还需要一些额外的依赖项（当然，运行前请务必激活你的的 conda env）：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pygmt</span><br><span class="line">pygmt.test()</span><br></pre></td></tr></table></figure>
+<p>测试大概需要几十秒时间（慢的话可能几分钟），完成后可能会提示有部分软件包测试失败，虽然官方手册里没有说怎么办，但是我想这些失败或者缺失的包应该自己动手安装吧。</p>
+<h1>查找 GMT 共享库</h1>
+<p>如果安装了多个版本的GMT，则可能致使PyGMT将找不到正确版本的GMT共享库。</p>
+<p>可以通过设置环境变量<code>GMT_LIBRARY_PATH</code>来告诉PyGMT去哪里能够准确地找到<code>libgmt</code>，因此这个变量值应该设置为Linux、MacOS以及Windows分别对应的<code>libgmt.so</code>、<code>libgmt.dylib</code>或者<code>gmt.dll</code>等文件的路径。在终端运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> GMT_LIBRARY_PATH=<span class="variable">$HOME</span>/anaconda3/envs/pygmt/lib</span><br></pre></td></tr></table></figure>
+<p>安装完成！</p>
+<hr>
+<h1>第一个官方例子</h1>
+<p>在Jupyter notebook下运行一下命令进行绘图，但记得加上<code>%matplotlib inline</code>命令来显示图像。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pygmt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个绘图实例 </span></span><br><span class="line">fig = pygmt.Figure()</span><br><span class="line"><span class="comment"># 绘制basemap</span></span><br><span class="line">fig.basemap(region=[<span class="number">-90</span>, <span class="number">-70</span>, <span class="number">0</span>, <span class="number">20</span>], projection=<span class="string">"M8i"</span>, frame=<span class="literal">True</span>)</span><br><span class="line"><span class="comment"># 绘制海岸线</span></span><br><span class="line">fig.coast(shorelines=<span class="literal">True</span>)</span><br><span class="line"><span class="comment"># 显示图形</span></span><br><span class="line">fig.show()</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<p><img src="https://wpttt.github.io/images/PyGMT/test1.png" alt="test1"></p>
+<p>在PyGMT绘图命令中，各个选项的参数可以通过数值或字符串及其列表来提供，例如上面代码中：</p>
+<ul>
+<li><code>frame</code>相当于gmt中的<code>-B</code>标准选项，在PyGMT中其参数可以通过一个省略<code>-B</code>的字符串列表来提供；</li>
+<li><code>region</code>相当于<code>-R</code>，其横纵坐标上下限，为一个整形数值列表；</li>
+<li><code>projection</code>投影方式为字符串<code>&quot;M8i&quot;</code></li>
+</ul>
+<p>是不是很简单。</p>
+<p>并且在GMT6中大部分绘图模块已经删除了ps前缀，其新的模块名称在一定程度上与PyGMT绘图模块名保持了一致，因此如果你对GMT6足够熟悉，只需要知道你要用的模块名便可以在 Jupyter notebook 中通过运行<code>fig.模块名?</code>来查看相应模块的帮助文档。</p>
+<p>Python绘制地图的能力飙升！<img class="emoji" draggable="false" alt="👍" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f44d.png"/><img class="emoji" draggable="false" alt="👍" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f44d.png"/><img class="emoji" draggable="false" alt="👍" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f44d.png"/></p>
+<p>对于一个gmt重度用户来说，python地学数据可视化的学习成本骤降，从此，妈妈再也不用担心我不会用python画地图了！<img class="emoji" draggable="false" alt="😎" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f60e.png"/><img class="emoji" draggable="false" alt="😎" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f60e.png"/><img class="emoji" draggable="false" alt="😎" src="https://twemoji.maxcdn.com/v/12.1.5/72x72/1f60e.png"/></p>
+<p>运行下面代码，来保存图片为png格式，当然也支持其他位图及矢量图格式。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fig.savefig(<span class="string">"test1.png"</span>)</span><br></pre></td></tr></table></figure>
+<h1>参考资料：</h1>
+<p><a href="https://www.pygmt.org/dev/index.html" target="_blank" rel="noopener">PyGMT官方文档</a></p>
 
     </div>
 
@@ -357,7 +397,8 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/awk/" rel="tag"><i class="fa fa-tag"></i> awk</a>
+              <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+              <a href="/tags/GMT/" rel="tag"><i class="fa fa-tag"></i> GMT</a>
           </div>
 
         
@@ -366,13 +407,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/04/17/mac%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7Homebrew/" rel="prev" title="mac包管理工具Homebrew">
-      <i class="fa fa-chevron-left"></i> mac包管理工具Homebrew
+    <a href="/2020/04/23/DOS%E7%BC%96%E7%A8%8B7-%E9%AB%98%E7%BA%A7%E6%8A%80%E5%B7%A7/" rel="prev" title="DOS编程7-高级技巧">
+      <i class="fa fa-chevron-left"></i> DOS编程7-高级技巧
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/04/18/notepad-%E9%85%8D%E7%BD%AE%E4%B8%80%E9%94%AE%E8%BF%90%E8%A1%8Cbat/" rel="next" title="notepad++配置一键运行bat">
-      notepad++配置一键运行bat <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -438,7 +476,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1️⃣-printf用法"><span class="nav-number">1.</span> <span class="nav-text"> printf用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2️⃣-常用数据类型"><span class="nav-number">2.</span> <span class="nav-text"> 常用数据类型</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">1.</span> <span class="nav-text">Python版本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">2.</span> <span class="nav-text">GMT版本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">3.</span> <span class="nav-text">依赖</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">4.</span> <span class="nav-text">安装GMT及其他依赖项</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">5.</span> <span class="nav-text">安装PyGMT</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">6.</span> <span class="nav-text">测试安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">7.</span> <span class="nav-text">查找 GMT 共享库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">8.</span> <span class="nav-text">第一个官方例子</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">9.</span> <span class="nav-text">参考资料：</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -736,9 +774,9 @@
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "http://wpttt.github.io/2020/04/17/windows%E4%B8%8Bawk%E6%8C%87%E5%AE%9A%E6%96%87%E6%9C%AC%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F/";
-    this.page.identifier = "2020/04/17/windows下awk指定文本输出格式/";
-    this.page.title = "windows下awk指定文本输出格式";
+    this.page.url = "http://wpttt.github.io/2020/04/24/PyGMT%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/";
+    this.page.identifier = "2020/04/24/PyGMT安装配置/";
+    this.page.title = "PyGMT安装配置";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {
